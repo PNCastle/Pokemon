@@ -5,17 +5,22 @@ public class Map {
 	final static int MAP_WIDTH = 30;
 	final static int MAP_HEIGHT = 22;
 	
-	final static char WALKABLE = 'W';
-	final static char BLOCKED = 'X';
+	final static char SHORT_GRASS = 'g';
+	final static char TREE = 'T';
+	final static char TRAIL = 't';
+	final static char TALL_GRASS = 'G';
 	
+	//instance variables
 	private char[][] currentMap;
 	
+	//ctor
 	public Map() {
 		//currentMap = new char[30][22];
 		//if statement for which  map
 		currentMap = buildMapOne();
 	}
 	
+	//to string method
 	@Override
 	public String toString() {
 		StringBuilder mapToString = new StringBuilder();
@@ -29,27 +34,43 @@ public class Map {
 		return mapToString.toString();
 	}
 
+	//method to build first map
 	private char[][] buildMapOne() {
 		char[][] tempMap = new char[MAP_HEIGHT][MAP_WIDTH];
-		
+		//set all tiles to walkable
 		for(int i = 0; i < MAP_HEIGHT; i++) {	
 			for (int j = 0; j < MAP_WIDTH; j++) {
-				tempMap[i][j] = WALKABLE;
+				tempMap[i][j] = SHORT_GRASS;
 			}
 		}
-		
-		
-		// set edges
+		// build barrier
 		for (int i = 0; i < MAP_WIDTH; i++) {
-			tempMap[0][i] = BLOCKED;
-			tempMap[MAP_HEIGHT-1][i] = BLOCKED;
+			tempMap[0][i] = TREE;
+			tempMap[MAP_HEIGHT-1][i] = TREE;
 			if (i < MAP_HEIGHT) {
-				tempMap[i][0] = BLOCKED;
-				tempMap[i][MAP_WIDTH-1] = BLOCKED;
+				tempMap[i][0] = TREE;
+				tempMap[i][MAP_WIDTH-1] = TREE;
 			}
 		}
+		//build trail
+		for(int i = 1; i < MAP_HEIGHT - 1; i++){
+			tempMap[i][14] = TRAIL;
+			tempMap[i][15] = TRAIL;
+		}
+		for(int j = 1; j < MAP_WIDTH - 1; j++){
+			tempMap[11][j] = TRAIL;
+			tempMap[10][j] = TRAIL;
+		}
 		
-		
+		//build tall grass
+		for(int i = 0; i < 5; i++){
+			for(int j = 0; j < 9; j++){
+				tempMap[3+i][3+j] = TALL_GRASS;
+				tempMap[3+i][18+j] = TALL_GRASS;
+				tempMap[14+i][3+j] = TALL_GRASS;
+				tempMap[14+i][18+j] = TALL_GRASS;
+			}
+		}
 		
 		return tempMap;
 	}
