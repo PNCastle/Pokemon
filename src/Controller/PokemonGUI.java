@@ -25,7 +25,7 @@ public class PokemonGUI extends JFrame {
 		this.setSize(WIDTH, HEIGHT);
 		this.setTitle("Pokemon Safari Zone");
 		this.setLocation(0, 0);
-		mapView = new MapView();
+		mapView = new MapView(WIDTH, HEIGHT);
 		setViewTo(mapView);
 		setUpMenus();
 		
