@@ -1,5 +1,8 @@
 package Model;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 public class Map {
 	
 	final static int MAP_WIDTH = 30;
@@ -11,12 +14,26 @@ public class Map {
 	final static char TALL_GRASS = 'G';
 	
 	//instance variables
+	private int tileSize;
+	private int x;
+	private int y;
 	private char[][] currentMap;
 	
 	//ctor
-	public Map() {
+	public Map(String fileName, int tielSize) {
 		//currentMap = new char[30][22];
 		//if statement for which  map
+		this.tileSize = tileSize;
+		
+		try {
+			
+			BufferedReader br = new BufferedReader(new FileReader(fileName));
+		
+		}
+		
+		catch(Exception e) {	
+		}
+		
 		currentMap = buildMapOne();
 	}
 	
