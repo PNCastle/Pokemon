@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import Model.Map;
+
 public class MapPanel extends JPanel implements Runnable, KeyListener {
 
 	//instance variables
@@ -23,6 +25,8 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	
 	private int FPS = 30;
 	private int targetTime = 1000/ FPS;
+	
+	private Map theMap;
 	
 	//ctor
 	public MapPanel(){
@@ -72,6 +76,8 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		running = true;
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D) image.getGraphics();
+		
+		theMap = new Map("mapOne.txt",50);
 	}
 	
 	private void update(){
