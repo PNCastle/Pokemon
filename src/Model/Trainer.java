@@ -28,8 +28,8 @@ public class Trainer {
 		
 		this.map = map;
 		
-		this.width = 20;
-		this.height = 20;
+		this.width = 50;
+		this.height = 50;
 		
 		moveSpeed = .5;
 		maxSpeed = 4;
