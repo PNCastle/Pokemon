@@ -25,7 +25,7 @@ public class Trainer {
 	private Map map;
 	
 	public Trainer(Map map) {
-		
+
 		this.map = map;
 		
 		this.width = 50;

@@ -34,7 +34,7 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	public MapPanel(){
 		//super();
 		this.setLayout(null);
-		this.setBackground(Color.black);
+		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		this.setSize(this.getPreferredSize());
 		this.setVisible(true);

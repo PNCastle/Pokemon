@@ -17,8 +17,8 @@ public class Map {
 	
 	//instance variables
 	private int tileSize;
-	private int x;
-	private int y;
+	private int x = 50;
+	private int y = 50;
 	private int[][] currentMap;
 	private int mapWidth; 	//tile#
 	private int mapHeight; 	//tile#
