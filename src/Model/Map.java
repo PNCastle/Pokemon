@@ -149,12 +149,16 @@ public class Map {
 		return this.y;
 	}
 	
-	public int getColTile(int x){
+	public int getColTileIndex(int x){
 		return x / tileSize;
 	}
 	
-	public int getRowTile(int y){
+	public int getRowTileIndex(int y){
 		return y / tileSize;
+	}
+	
+	public int getTile(int x, int y){
+		return currentMap[y][x];
 	}
 
 }

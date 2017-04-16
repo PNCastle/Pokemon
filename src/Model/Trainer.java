@@ -22,6 +22,11 @@ public class Trainer {
 	private double maxSpeed;
 	private double stopSpeed;
 
+	private boolean top, bottom,
+					midLeft, midRight, 
+					topLeft, topRight, 
+					bottomLeft, bottomRight;
+	
 	private Map map;
 
 	public Trainer(Map map) {
@@ -110,17 +115,39 @@ public class Trainer {
 			}
 		}
 
-		int currCol = map.getColTile((int) x);
-		int currRow = map.getRowTile((int) y);
+		int currCol = map.getColTileIndex((int) x);
+		int currRow = map.getRowTileIndex((int) y);
 
 		double to_x = x + dx;
 		double to_y = y + dy;
 
 		// collision check here
+		double temp_x = x;
+		double temp_y = y;
+		calculateNeighbors(to_x, to_y);
+		
 
-		x = to_x;
-		y = to_y;
-
+	}
+	
+	private void calculateNeighbors(double x, double y){
+		int rowIndex = map.getRowTileIndex((int) y);
+		int colIndex = map.getColTileIndex((int) x);
+		int leftIndex = map.getColTileIndex((int) (x - width/2));
+		int rightIndex = map.getColTileIndex((int) (x + width/2) - 1);
+		int topIndex = map.getColTileIndex((int) (y - height/2));
+		int bottomIndex = map.getColTileIndex((int) (y + height/2) - 1);
+		
+		left = (map.getTile(rowIndex, leftIndex) == 0);
+		right = (map.getTile(rowIndex, rightIndex) == 0);
+		
+		top = (map.getTile(topIndex, colIndex) == 0);
+		bottom = (map.getTile(bottomIndex, colIndex) == 0);
+		
+		topLeft = (map.getTile(topIndex, leftIndex) == 0);
+		topRight = (map.getTile(topIndex, rightIndex) == 0);
+		
+		bottomLeft = (map.getTile(bottomIndex, leftIndex) == 0);
+		bottomRight = (map.getTile(bottomIndex, rightIndex) == 0);
 	}
 
 	public void draw(Graphics2D g) {
