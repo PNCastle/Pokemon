@@ -71,7 +71,6 @@ public class Map {
 				tempMap[14+i][18+j] = TALL_GRASS;
 			}
 		}
-		
 		return tempMap;
 	}
 
