@@ -11,12 +11,13 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import Model.Map;
+import Model.Trainer;
 
 public class MapPanel extends JPanel implements Runnable, KeyListener {
 
 	//instance variables
 	static final int WIDTH = 750; //assuming tile size is 50*50
-	static final int HEIGH = 550;
+	static final int HEIGHT = 550;
 	private Thread thread;
 	private boolean running;
 	
@@ -27,6 +28,7 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	private int targetTime = 1000/ FPS;
 	
 	private Map theMap;
+	private Trainer theTrainer;
 	
 	//ctor
 	public MapPanel(){
@@ -34,6 +36,7 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		this.setLayout(null);
 		this.setBackground(Color.black);
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		this.setSize(this.getPreferredSize());
 		this.setVisible(true);
 		this.setFocusable(true);
 		this.requestFocus();
@@ -77,15 +80,20 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D) image.getGraphics();
 		
+		
 		theMap = new Map("mapOne.txt",50);
+		theTrainer = new Trainer(theMap);
+		//load tiles for map here
 	}
 	
 	private void update(){
-		
+		theMap.update();
+		theTrainer.update();
 	}
 	
 	private void render(){
-		
+		theMap.draw(g);
+		theTrainer.draw(g);
 	}
 	
 	private void draw(){
