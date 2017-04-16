@@ -31,6 +31,8 @@ public class Trainer {
 		this.width = 50;
 		this.height = 50;
 
+		this.x = width/2;
+		this.y = height/2;
 		this.dx = 0;
 		this.dy = 0;
 		moveSpeed = .5;
