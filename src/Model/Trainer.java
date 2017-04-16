@@ -36,8 +36,8 @@ public class Trainer {
 		this.width = 50;
 		this.height = 50;
 
-		this.x = width/2;
-		this.y = height/2;
+		this.x = 300;
+		this.y = 300;
 		this.dx = 0;
 		this.dy = 0;
 		moveSpeed = .5;
@@ -115,6 +115,8 @@ public class Trainer {
 			}
 		}
 
+		//GOOD UP TO THIS POINT NOW ITS BROKEN :(
+		
 		int currCol = map.getColTileIndex((int) x);
 		int currRow = map.getRowTileIndex((int) y);
 
@@ -124,8 +126,51 @@ public class Trainer {
 		// collision check here
 		double temp_x = x;
 		double temp_y = y;
-		calculateNeighbors(to_x, to_y);
+		calculateNeighbors(x, to_y);
+		if(dy < 0){
+			if(topLeft || top || topRight){
+				dy = 0;
+				temp_y = currRow * map.getTileSize() + height/2;
+			}
+			else{
+				temp_y += dy;
+			}
+		}
+		if(dy > 0){
+			if(bottomLeft || bottom || bottomRight){
+				dy = 0;
+				temp_y = (currRow + 1) * map.getTileSize() - height/2;
+			}
+			else{
+				temp_y += dy;
+			}
+		}
+		calculateNeighbors(to_x, y);
+		if(dx < 0){
+			if (topLeft || left || bottomLeft){
+				dx = 0;
+				temp_x = currCol*map.getTileSize() + width/2;
+			}
+			else{
+				temp_x += dx;
+			}
+		}
+		if(dx > 0){
+			if(topRight || right || bottomRight){
+				dx = 0;
+				temp_x = (currCol + 1)*map.getTileSize() - width/2;
+			}
+			else{
+				temp_x += dx;
+			}
+		}
 		
+		x = temp_x;
+		y = temp_y;
+		
+		//hardcoded dimensions of MapPanel
+		map.setX(750/2 - x);
+		map.setY(550/2 - y);
 
 	}
 	
