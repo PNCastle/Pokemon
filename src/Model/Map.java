@@ -17,8 +17,8 @@ public class Map {
 	
 	//instance variables
 	private int tileSize;
-	private int x = 50;
-	private int y = 50;
+	private int x;
+	private int y;
 	private int[][] currentMap;
 	private int mapWidth; 	//tile#
 	private int mapHeight; 	//tile#
@@ -147,6 +147,14 @@ public class Map {
 
 	public int getY() {
 		return this.y;
+	}
+	
+	public int getColTile(int x){
+		return x / tileSize;
+	}
+	
+	public int getRowTile(int y){
+		return y / tileSize;
 	}
 
 }

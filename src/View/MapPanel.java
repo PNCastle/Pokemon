@@ -113,21 +113,43 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	
 	
 	//////////// KEY LISTENER CODE ///////////////////////////////
+	
 	//ignore
 	@Override
-	public void keyTyped(KeyEvent e) {	
+	public void keyTyped(KeyEvent key) {	
+	}
+	@Override
+	public void keyPressed(KeyEvent key) {
+		int code = key.getKeyCode();
+		if(code == KeyEvent.VK_A){
+			theTrainer.setLeft(true);
+		}
+		if(code == KeyEvent.VK_D){
+			theTrainer.setRight(true);
+		}
+		if(code == KeyEvent.VK_W){
+			theTrainer.setUp(true);
+		}
+		if(code == KeyEvent.VK_S){
+			theTrainer.setDown(true);
+		}
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void keyReleased(KeyEvent key) {
+		int code = key.getKeyCode();
+		if(code == KeyEvent.VK_A){
+			theTrainer.setLeft(false);
+		}
+		if(code == KeyEvent.VK_D){
+			theTrainer.setRight(false);
+		}
+		if(code == KeyEvent.VK_W){
+			theTrainer.setUp(false);
+		}
+		if(code == KeyEvent.VK_S){
+			theTrainer.setDown(false);
+		}
 	}
 
 }
