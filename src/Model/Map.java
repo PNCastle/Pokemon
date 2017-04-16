@@ -45,12 +45,8 @@ public class Map {
 				String[] tokens = line.split(delimiters);
 				for (int col = 0; col < mapWidth; col++) {
 					currentMap[row][col] = Integer.parseInt(tokens[col]);
-				}
-				
-				
+				}		
 			}
-			
-			
 		}
 		
 		catch(Exception e) {	
@@ -86,11 +82,9 @@ public class Map {
 				if(rc == 3) {
 					g.setColor(Color.GREEN);
 				}
-				g.fillRect(x + col * tileSize,  y + row * tileSize,  tileSize,  tileSize);
-				
+				g.fillRect(x + col * tileSize,  y + row * tileSize,  tileSize,  tileSize);		
 			}
 		}
-		
 	}
 	
 	//to string method
