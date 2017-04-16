@@ -9,8 +9,8 @@ public class MapTest {
 
 	@Test
 	public void test() {
-		Map testMap = new Map();
-		System.out.println(testMap.toString());
+//		Map testMap = new Map();
+//		System.out.println(testMap.toString());
 	}
 
 }
