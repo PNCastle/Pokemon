@@ -1,7 +1,11 @@
 package Controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
@@ -29,8 +33,7 @@ public class PokemonGUI extends JFrame {
 		this.setTitle("Pokemon Safari Zone");
 		this.setLocation(0, 0);
 		mapView = new MapView(WIDTH, HEIGHT);
-		this.add(mapView);
-		//setViewTo(mapView); //set default view to map view
+		setViewTo(mapView); //set default view to map view
 		setUpMenus();
 		
 	}
@@ -55,7 +58,13 @@ public class PokemonGUI extends JFrame {
 		pokedex.add(viewPokedex);
 		pokedex.add(hidePokedex);
 		
+		//set up menu bar
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		menuBar.add(menu);
 		
+		//add listeners
+		MenuItemListener menuListener = new MenuItemListener();
 		
 	}
 
@@ -69,5 +78,41 @@ public class PokemonGUI extends JFrame {
 		add(currentView);
 		currentView.repaint();
 		validate();
+	}
+	
+	
+	////// MENU ITEM LISTENER ////////////////
+	private class MenuItemListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String text = ((JMenuItem) e.getSource()).getText();
+			
+			if(text.equals("New Game")){
+				//DO SOMETHING, MAYBE CALL mapPanel.init() ?
+			}
+			
+			if(text.equals("Save Game")){
+				//DO SOMETHING, persistatnce stuff
+			}
+			
+			if(text.equals("View Trainer")){
+				//SET Trainer.visible to TRUE
+			}
+			
+			if(text.equals("Hide Trainer")){
+				//set TrainerPanel.visible to False
+			}
+			
+			if(text.equals("View Pokedex")){
+				//set PokdexPanel.visible to true
+			}
+			
+			if(text.equals("Hide Pokedex")){
+				//set PokedexPanel.visible to false
+			}
+			
+		}
+		
 	}
 }
