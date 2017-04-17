@@ -2,8 +2,8 @@ package Model;
 
 public abstract class UncommonPokemon extends Pokemon {
 
-	public UncommonPokemon(int hp) {
-		super(hp, 0.75);
+	public UncommonPokemon(int hp, int catchRate) {
+		super(hp, catchRate, 0.75);
 	}
 	
 }

@@ -2,9 +2,16 @@ package Model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+
+import items.*;
+import pokemon.*;
 
 public class Trainer {
 
+	/*
+	 * Movement variables here
+	 */
 	private double x;
 	private double y;
 	private double dx;
@@ -25,7 +32,28 @@ public class Trainer {
 	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight;
 
 	private Map map;
+	
+	/*
+	 * End movement variables
+	 */
+	
+	/*
+	 * Hierarchy variables here
+	 */
 
+	private int stepsTaken;
+	private boolean gameOver;
+	
+	private ArrayList<Pokemon> pokeDex;
+	private ArrayList<CommonPokemon> commonCollection;
+	private ArrayList<UncommonPokemon> uncommonCollection;
+	private ArrayList<RarePokemon> rareCollection;
+	private ArrayList<Item> items;
+	
+	/*
+	 * End hierarchy variables
+	 */
+	
 	public Trainer(Map map) {
 
 		this.map = map;
@@ -40,8 +68,43 @@ public class Trainer {
 		moveSpeed = .5;
 		maxSpeed = 2.5;
 		stopSpeed = .25;
+		
+		stepsTaken = 0;
+		gameOver = false;
+		
+		initCollections();
+
 	}
 
+	public void initCollections() {
+		pokeDex = new ArrayList<Pokemon>();
+		commonCollection = new ArrayList<CommonPokemon>();
+		uncommonCollection = new ArrayList<UncommonPokemon>();
+		rareCollection = new ArrayList<RarePokemon>();
+		items = new ArrayList<Item>();
+		
+		items.add(new SafariBall());
+		items.add(new Rock());
+		items.add(new Bait());
+		
+		//Testing purposes?
+		pokeDex.add(new Pikachu(4));
+		
+		// Placeholder Pokemon spawner for now
+		commonCollection.add(new Abra(0));
+		commonCollection.add(new Drowzee(1));
+		commonCollection.add(new Grimer(2));
+		commonCollection.add(new Pidgey(3));
+		commonCollection.add(new Pikachu(4));
+		commonCollection.add(new Staryu(5));
+		
+		uncommonCollection.add(new Graveler(6));
+		uncommonCollection.add(new Haunter(7));
+		uncommonCollection.add(new Rapidash(8));
+		
+		rareCollection.add(new Dragonair(9));
+	}
+	
 	public void setLeft(boolean b) {
 		this.left = b;
 	}
@@ -165,7 +228,6 @@ public class Trainer {
 
 		}
 
-		
 		x = temp_x;
 		y = temp_y;
 
@@ -174,6 +236,17 @@ public class Trainer {
 		map.setX(750 / 2 - x);
 		map.setY(550 / 2 - y);
 
+		stepsTaken++;
+		checkWinConditions();
+	}
+	
+	private void checkWinConditions() {
+		if (stepsTaken == 500){
+			gameOver = true;
+		}
+		else if (pokeDex.size() == 10){
+			gameOver = true;
+		}
 	}
 
 	private void calculateNeighbors(double y, double x) {
