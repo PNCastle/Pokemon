@@ -121,16 +121,16 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent key) {
 		int code = key.getKeyCode();
-		if(code == KeyEvent.VK_A){
+		if(code == KeyEvent.VK_LEFT){
 			theTrainer.setLeft(true);
 		}
-		if(code == KeyEvent.VK_D){
+		if(code == KeyEvent.VK_RIGHT){
 			theTrainer.setRight(true);
 		}
-		if(code == KeyEvent.VK_W){
+		if(code == KeyEvent.VK_UP){
 			theTrainer.setUp(true);
 		}
-		if(code == KeyEvent.VK_S){
+		if(code == KeyEvent.VK_DOWN){
 			theTrainer.setDown(true);
 		}
 	}
@@ -138,16 +138,16 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent key) {
 		int code = key.getKeyCode();
-		if(code == KeyEvent.VK_A){
+		if(code == KeyEvent.VK_LEFT){
 			theTrainer.setLeft(false);
 		}
-		if(code == KeyEvent.VK_D){
+		if(code == KeyEvent.VK_RIGHT){
 			theTrainer.setRight(false);
 		}
-		if(code == KeyEvent.VK_W){
+		if(code == KeyEvent.VK_UP){
 			theTrainer.setUp(false);
 		}
-		if(code == KeyEvent.VK_S){
+		if(code == KeyEvent.VK_DOWN){
 			theTrainer.setDown(false);
 		}
 	}
