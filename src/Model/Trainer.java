@@ -22,11 +22,8 @@ public class Trainer {
 	private double maxSpeed;
 	private double stopSpeed;
 
-	private boolean top, bottom,
-					midLeft, midRight, 
-					topLeft, topRight, 
-					bottomLeft, bottomRight;
-	
+	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight;
+
 	private Map map;
 
 	public Trainer(Map map) {
@@ -41,7 +38,7 @@ public class Trainer {
 		this.dx = 0;
 		this.dy = 0;
 		moveSpeed = .5;
-		maxSpeed = 4;
+		maxSpeed = 3;
 		stopSpeed = .3;
 
 	}
@@ -85,7 +82,10 @@ public class Trainer {
 			if (dy > maxSpeed) {
 				dy = maxSpeed;
 			}
-		} else {
+		}
+
+		else {
+
 			// stopping
 			if (dx != 0) { // stopping in x direction
 				if (dx > 0) {
@@ -115,8 +115,8 @@ public class Trainer {
 			}
 		}
 
-		//GOOD UP TO THIS POINT NOW ITS BROKEN :(
-		
+		// GOOD UP TO THIS POINT NOW ITS BROKEN
+
 		int currCol = map.getColTileIndex((int) x);
 		int currRow = map.getRowTileIndex((int) y);
 
@@ -127,70 +127,66 @@ public class Trainer {
 		double temp_x = x;
 		double temp_y = y;
 		calculateNeighbors(to_x, to_y);
-		if(dy < 0){
-			if(topLeft || top || topRight){
+		if (dy < 0) {
+			if (topLeft || top || topRight) {
 				dy = 0;
-				temp_y = currRow * map.getTileSize() + height/2;
-			}
-			else{
+				temp_y = currRow * map.getTileSize() + height / 2;
+			} else {
 				temp_y += dy;
 			}
 		}
-		if(dy > 0){
-			if(bottomLeft || bottom || bottomRight){
+		if (dy > 0) {
+			if (bottomLeft || bottom || bottomRight) {
 				dy = 0;
-				temp_y = (currRow + 1) * map.getTileSize() - height/2;
-			}
-			else{
+				temp_y = (currRow + 1) * map.getTileSize() - height / 2;
+			} else {
 				temp_y += dy;
 			}
 		}
-		//calculateNeighbors(to_x, y);
-		if(dx < 0){
-			if (topLeft || left || bottomLeft){
+		// calculateNeighbors(to_x, y);
+		if (dx < 0) {
+			if (topLeft || left || bottomLeft) {
 				dx = 0;
-				temp_x = currCol*map.getTileSize() + width/2;
-			}
-			else{
-				temp_x += dx;
+				temp_x = currCol * map.getTileSize() + width / 2;
+			} else {
+				temp_x += dx * (1.36);
 			}
 		}
-		if(dx > 0){
-			if(topRight || right || bottomRight){
+		if (dx > 0) {
+			if (topRight || right || bottomRight) {
 				dx = 0;
-				temp_x = (currCol + 1)*map.getTileSize() - width/2;
-			}
-			else{
-				temp_x += dx;
+				temp_x = (currCol + 1) * map.getTileSize() - width / 2;
+			} else {
+				temp_x += dx * (1.36);
 			}
 		}
-		
+
 		x = temp_x;
 		y = temp_y;
-		
-		//hardcoded dimensions of MapPanel
-		map.setX(750/2 - x);
-		map.setY(550/2 - y);
+
+		// hardcoded dimensions of MapPanel
+		map.setX(750 / 2 - x);
+		map.setY(550 / 2 - y);
 
 	}
-	
-	private void calculateNeighbors(double y, double x){
+
+	private void calculateNeighbors(double y, double x) {
 		int rowIndex = map.getRowTileIndex((int) y);
 		int colIndex = map.getColTileIndex((int) x);
-		int leftIndex = map.getColTileIndex((int) (x - width/2));
-		int rightIndex = map.getColTileIndex((int) (x + width/2) - 1);
-		int topIndex = map.getColTileIndex((int) (y - height/2));
-		int bottomIndex = map.getColTileIndex((int) (y + height/2) - 1);
-		
+		int leftIndex = map.getColTileIndex((int) (x - width / 2));
+		int rightIndex = map.getColTileIndex((int) (x + width / 2) - 1);
+		int topIndex = map.getColTileIndex((int) (y - height / 2));
+		int bottomIndex = map.getColTileIndex((int) (y + height / 2) - 1);
+
 		left = (map.getTile(rowIndex, leftIndex) == 0);
 		right = (map.getTile(rowIndex, rightIndex) == 0);
-		
+
 		top = (map.getTile(topIndex, colIndex) == 0);
 		bottom = (map.getTile(bottomIndex, colIndex) == 0);
-		
+
 		topLeft = (map.getTile(topIndex, leftIndex) == 0);
 		topRight = (map.getTile(topIndex, rightIndex) == 0);
-		
+
 		bottomLeft = (map.getTile(bottomIndex, leftIndex) == 0);
 		bottomRight = (map.getTile(bottomIndex, rightIndex) == 0);
 	}
