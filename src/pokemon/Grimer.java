@@ -2,14 +2,14 @@ package pokemon;
 
 import Model.CommonPokemon;
 
-public class Pikachu extends CommonPokemon {
-	private String name = "Pikachu";
+public class Grimer extends CommonPokemon {
+	private String name = "Grimer";
 	private int pokemonID;
 	
-	public Pikachu(int pokemonID) {
-		super(35, 190);
+	public Grimer(int pokemonID) {
+		super(80, 190);
 		this.pokemonID = pokemonID;
-	}
+	}	
 	
 	public String getName() {
 		return name;

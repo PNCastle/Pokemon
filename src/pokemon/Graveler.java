@@ -1,16 +1,16 @@
 package pokemon;
 
-import Model.CommonPokemon;
+import Model.UncommonPokemon;
 
-public class Pikachu extends CommonPokemon {
-	private String name = "Pikachu";
+public class Graveler extends UncommonPokemon {
+	private String name = "Graveler";
 	private int pokemonID;
-	
-	public Pikachu(int pokemonID) {
-		super(35, 190);
+
+	public Graveler(int pokemonID) {
+		super(55, 120);
 		this.pokemonID = pokemonID;
 	}
-	
+
 	public String getName() {
 		return name;
 	}

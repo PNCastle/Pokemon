@@ -2,12 +2,12 @@ package pokemon;
 
 import Model.CommonPokemon;
 
-public class Pikachu extends CommonPokemon {
-	private String name = "Pikachu";
+public class Staryu extends CommonPokemon{
+	private String name = "Staryu";
 	private int pokemonID;
 	
-	public Pikachu(int pokemonID) {
-		super(35, 190);
+	public Staryu (int pokemonID) {
+		super(30, 225);
 		this.pokemonID = pokemonID;
 	}
 	
