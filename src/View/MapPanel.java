@@ -81,7 +81,7 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		g = (Graphics2D) image.getGraphics();
 		
 		
-		theMap = new Map("mapOne.txt", 50);
+		theMap = new Map("mapTwo.txt", 50);
 		theTrainer = new Trainer(theMap);
 		//load tiles for map here
 	}
