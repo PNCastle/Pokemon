@@ -40,9 +40,9 @@ public class Trainer {
 		this.y = 300;
 		this.dx = 0;
 		this.dy = 0;
-		moveSpeed = .5;
-		maxSpeed = 4;
-		stopSpeed = .3;
+		moveSpeed = 2;
+		maxSpeed = 3;
+		stopSpeed = .1;
 
 	}
 
@@ -133,7 +133,7 @@ public class Trainer {
 				temp_y = currRow * map.getTileSize() + height/2;
 			}
 			else{
-				temp_y += dy;
+				temp_y += dy/1.36;
 			}
 		}
 		if(dy > 0){
@@ -142,7 +142,7 @@ public class Trainer {
 				temp_y = (currRow + 1) * map.getTileSize() - height/2;
 			}
 			else{
-				temp_y += dy;
+				temp_y += dy/1.36;
 			}
 		}
 		//calculateNeighbors(to_x, y);
@@ -152,7 +152,7 @@ public class Trainer {
 				temp_x = currCol*map.getTileSize() + width/2;
 			}
 			else{
-				temp_x += dx;
+				temp_x += dx*1.36;
 			}
 		}
 		if(dx > 0){
@@ -161,7 +161,7 @@ public class Trainer {
 				temp_x = (currCol + 1)*map.getTileSize() - width/2;
 			}
 			else{
-				temp_x += dx;
+				temp_x += dx*1.36;
 			}
 		}
 		
