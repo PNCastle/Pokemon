@@ -9,6 +9,9 @@ import pokemon.*;
 
 public class Trainer {
 
+	/*
+	 * Movement variables here
+	 */
 	private double x;
 	private double y;
 	private double dx;
@@ -29,6 +32,14 @@ public class Trainer {
 	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight;
 
 	private Map map;
+	
+	/*
+	 * End movement variables
+	 */
+	
+	/*
+	 * Hierarchy variables here
+	 */
 
 	private int stepsTaken;
 	private boolean gameOver;
@@ -38,6 +49,10 @@ public class Trainer {
 	private ArrayList<UncommonPokemon> uncommonCollection;
 	private ArrayList<RarePokemon> rareCollection;
 	private ArrayList<Item> items;
+	
+	/*
+	 * End hierarchy variables
+	 */
 	
 	public Trainer(Map map) {
 
