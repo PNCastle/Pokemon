@@ -170,6 +170,7 @@ public class Trainer {
 		y = temp_y;
 
 		// hardcoded dimensions of MapPanel
+		//this keeps player centered at all times
 		map.setX(750 / 2 - x);
 		map.setY(550 / 2 - y);
 
