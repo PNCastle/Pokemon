@@ -2,6 +2,7 @@ package Model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 public class Trainer {
 
@@ -28,8 +29,12 @@ public class Trainer {
 					bottomLeft, bottomRight;
 	
 	private Map map;
+	
+	private ArrayList<Pokemon> pokedex;
+	private ArrayList<Item> items;
+	private String name;
 
-	public Trainer(Map map) {
+	public Trainer(Map map, String name) {
 
 		this.map = map;
 
