@@ -37,12 +37,9 @@ public class Trainer {
 		this.y = 300;
 		this.dx = 0;
 		this.dy = 0;
-		moveSpeed = .5;
-		maxSpeed = 3;
-		stopSpeed = .3;
-		moveSpeed = 2;
-		maxSpeed = 3;
-		stopSpeed = .1;
+		moveSpeed = 2.5;
+		maxSpeed = 2.5;
+		stopSpeed = .25;
 	}
 
 	public void setLeft(boolean b) {
@@ -154,7 +151,7 @@ public class Trainer {
 				temp_x = currCol * map.getTileSize() + width / 2;
 			} 
 			else {
-				temp_x += dx * (1.36);
+				temp_x += dx * (1.25);
 			}
 		}
 		if (dx > 0) {
@@ -163,7 +160,7 @@ public class Trainer {
 				temp_x = (currCol + 1) * map.getTileSize() - width / 2;
 			} 
 			else {
-				temp_x += dx * (1.36);
+				temp_x += dx * (1.25);
 			}
 
 		}
