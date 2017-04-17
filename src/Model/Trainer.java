@@ -37,9 +37,15 @@ public class Trainer {
 		this.y = 300;
 		this.dx = 0;
 		this.dy = 0;
+<<<<<<< HEAD
 		moveSpeed = .5;
 		maxSpeed = 3;
 		stopSpeed = .3;
+=======
+		moveSpeed = 2;
+		maxSpeed = 3;
+		stopSpeed = .1;
+>>>>>>> 30fe98ca2f19492ac85cd12e84ed79cd837e3f2f
 
 	}
 
@@ -130,34 +136,62 @@ public class Trainer {
 		if (dy < 0) {
 			if (topLeft || top || topRight) {
 				dy = 0;
+<<<<<<< HEAD
 				temp_y = currRow * map.getTileSize() + height / 2;
 			} else {
 				temp_y += dy;
+=======
+				temp_y = currRow * map.getTileSize() + height/2;
+			}
+			else{
+				temp_y += dy/1.36;
+>>>>>>> 30fe98ca2f19492ac85cd12e84ed79cd837e3f2f
 			}
 		}
 		if (dy > 0) {
 			if (bottomLeft || bottom || bottomRight) {
 				dy = 0;
+<<<<<<< HEAD
 				temp_y = (currRow + 1) * map.getTileSize() - height / 2;
 			} else {
 				temp_y += dy;
+=======
+				temp_y = (currRow + 1) * map.getTileSize() - height/2;
+			}
+			else{
+				temp_y += dy/1.36;
+>>>>>>> 30fe98ca2f19492ac85cd12e84ed79cd837e3f2f
 			}
 		}
 		// calculateNeighbors(to_x, y);
 		if (dx < 0) {
 			if (topLeft || left || bottomLeft) {
 				dx = 0;
+<<<<<<< HEAD
 				temp_x = currCol * map.getTileSize() + width / 2;
 			} else {
 				temp_x += dx * (1.36);
+=======
+				temp_x = currCol*map.getTileSize() + width/2;
+			}
+			else{
+				temp_x += dx*1.36;
+>>>>>>> 30fe98ca2f19492ac85cd12e84ed79cd837e3f2f
 			}
 		}
 		if (dx > 0) {
 			if (topRight || right || bottomRight) {
 				dx = 0;
+<<<<<<< HEAD
 				temp_x = (currCol + 1) * map.getTileSize() - width / 2;
 			} else {
 				temp_x += dx * (1.36);
+=======
+				temp_x = (currCol + 1)*map.getTileSize() - width/2;
+			}
+			else{
+				temp_x += dx*1.36;
+>>>>>>> 30fe98ca2f19492ac85cd12e84ed79cd837e3f2f
 			}
 		}
 
