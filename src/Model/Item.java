@@ -2,11 +2,12 @@ package Model;
 
 public abstract class Item {
 	private boolean isThrowable;
-	private int hpModifier;
+	private int hpModifier, catchModifier;
 	
-	public Item(boolean isThrowable, int hpModifier) {
+	public Item(boolean isThrowable, int hpModifier, int catchModifier) {
 		this.isThrowable = isThrowable;
 		this.hpModifier = hpModifier;
+		this.catchModifier = catchModifier;
 	}
 	
 	public boolean isThrowable() {
@@ -17,4 +18,9 @@ public abstract class Item {
 		return hpModifier;
 	}
 	
+	public int getCatchModifier() {
+		return catchModifier;
+	}
+	
+	public abstract String toString();
 }

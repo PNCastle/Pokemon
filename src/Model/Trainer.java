@@ -34,7 +34,7 @@ public class Trainer {
 	private ArrayList<Item> items;
 	private String name;
 
-	public Trainer(Map map, String name) {
+	public Trainer(Map map) {
 
 		this.map = map;
 
@@ -49,8 +49,14 @@ public class Trainer {
 		maxSpeed = 4;
 		stopSpeed = .1;
 
+		initCollections();
+		
 	}
 
+	public void initCollections() {
+		pokedex = new ArrayList<Pokemon>();
+	}
+	
 	public void setLeft(boolean b) {
 		this.left = b;
 	}
