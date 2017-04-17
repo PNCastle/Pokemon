@@ -50,6 +50,7 @@ public class Trainer {
 		this.y = 300;
 		this.dx = 0;
 		this.dy = 0;
+
 		moveSpeed = 2.5;
 		maxSpeed = 2.5;
 		stopSpeed = .25;
@@ -58,6 +59,7 @@ public class Trainer {
 		gameOver = false;
 		
 		initCollections();
+
 	}
 
 	public void initCollections() {

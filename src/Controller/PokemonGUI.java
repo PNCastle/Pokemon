@@ -9,7 +9,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-import View.BattleView;
+//import View.BattleView;
 import View.MapView;
 
 public class PokemonGUI extends JFrame {
@@ -18,7 +18,7 @@ public class PokemonGUI extends JFrame {
 	private static final int HEIGHT = 1000;
 	private static final int WIDTH = 1000;
 	private MapView mapView;
-	private BattleView battleView;
+	//private BattleView battleView;
 	private JPanel currentView;
 	
 	public static void main(String args[]){
