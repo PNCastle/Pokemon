@@ -71,11 +71,12 @@ public class Map {
 			
 			BufferedImage subImage;
 			boolean b = false;
-			for(int col = 0; 0 < numTilesAcross; col++) {
+			for(int col = 0; col <= numTilesAcross; col++) {
 				subImage = tileSet.getSubimage(col*tileSize, 0, tileSize, tileSize);
 				if (col == 3) {
 					b = true;
-				} else
+				}
+				else
 					b = false;
 				tiles[col] = new Tile(subImage, b);
 				//subImage = tileSet.getSubimage(col*tileSize+col, 0, tileSize, tileSize);
