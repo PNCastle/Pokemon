@@ -128,15 +128,32 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		int code = key.getKeyCode();
 		if(code == KeyEvent.VK_LEFT){
 			theTrainer.setLeft(true);
+			//set other directions to false
+			theTrainer.setDown(false);
+			theTrainer.setUp(false);
+			theTrainer.setRight(false);
 		}
 		if(code == KeyEvent.VK_RIGHT){
 			theTrainer.setRight(true);
+			//set other directions to false
+			theTrainer.setLeft(false);
+			theTrainer.setUp(false);
+			theTrainer.setDown(false);
+			
 		}
 		if(code == KeyEvent.VK_UP){
 			theTrainer.setUp(true);
+			//set other directions to false
+			theTrainer.setDown(false);
+			theTrainer.setLeft(false);
+			theTrainer.setRight(false);
 		}
 		if(code == KeyEvent.VK_DOWN){
 			theTrainer.setDown(true);
+			//set other directions to false
+			theTrainer.setUp(false);
+			theTrainer.setLeft(false);
+			theTrainer.setRight(false);
 		}
 	}
 

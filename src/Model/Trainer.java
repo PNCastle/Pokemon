@@ -65,9 +65,9 @@ public class Trainer {
 		this.y = 500;
 		this.dx = 0;
 		this.dy = 0;
-		moveSpeed = .5;
-		maxSpeed = 2.5;
-		stopSpeed = .25;
+		moveSpeed = 1;
+		maxSpeed = 4;
+		stopSpeed = .5;
 		
 		stepsTaken = 0;
 		gameOver = false;
