@@ -42,7 +42,7 @@ public class Trainer {
 		this.dy = 0;
 		moveSpeed = .5;
 		maxSpeed = 4;
-		stopSpeed = .1;
+		stopSpeed = .3;
 
 	}
 
@@ -126,7 +126,7 @@ public class Trainer {
 		// collision check here
 		double temp_x = x;
 		double temp_y = y;
-		calculateNeighbors(x, to_y);
+		calculateNeighbors(to_x, to_y);
 		if(dy < 0){
 			if(topLeft || top || topRight){
 				dy = 0;
@@ -145,7 +145,7 @@ public class Trainer {
 				temp_y += dy;
 			}
 		}
-		calculateNeighbors(to_x, y);
+		//calculateNeighbors(to_x, y);
 		if(dx < 0){
 			if (topLeft || left || bottomLeft){
 				dx = 0;
@@ -174,7 +174,7 @@ public class Trainer {
 
 	}
 	
-	private void calculateNeighbors(double x, double y){
+	private void calculateNeighbors(double y, double x){
 		int rowIndex = map.getRowTileIndex((int) y);
 		int colIndex = map.getColTileIndex((int) x);
 		int leftIndex = map.getColTileIndex((int) (x - width/2));
