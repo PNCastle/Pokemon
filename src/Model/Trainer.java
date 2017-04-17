@@ -37,8 +37,8 @@ public class Trainer {
 		this.y = 300;
 		this.dx = 0;
 		this.dy = 0;
-		moveSpeed = .5;
-		maxSpeed = 2.5;
+		moveSpeed = 3.5;
+		maxSpeed = 3.5;
 		stopSpeed = .25;
 	}
 
@@ -183,17 +183,17 @@ public class Trainer {
 		int topIndex = map.getColTileIndex((int) (y - height / 2));
 		int bottomIndex = map.getColTileIndex((int) (y + height / 2) - 1);
 
-		left = (map.getTile(rowIndex, leftIndex) == 0);
-		right = (map.getTile(rowIndex, rightIndex) == 0);
+		left = (map.isBlocked(rowIndex, leftIndex)); //== 0);
+		right = (map.isBlocked(rowIndex, rightIndex)); //== 0);
 
-		top = (map.getTile(topIndex, colIndex) == 0);
-		bottom = (map.getTile(bottomIndex, colIndex) == 0);
+		top = (map.isBlocked(topIndex, colIndex)); //== 0);
+		bottom = (map.isBlocked(bottomIndex, colIndex)); //== 0);
 
-		topLeft = (map.getTile(topIndex, leftIndex) == 0);
-		topRight = (map.getTile(topIndex, rightIndex) == 0);
+		topLeft = (map.isBlocked(topIndex, leftIndex)); //== 0);
+		topRight = (map.isBlocked(topIndex, rightIndex)); //== 0);
 
-		bottomLeft = (map.getTile(bottomIndex, leftIndex) == 0);
-		bottomRight = (map.getTile(bottomIndex, rightIndex) == 0);
+		bottomLeft = (map.isBlocked(bottomIndex, leftIndex)); //== 0);
+		bottomRight = (map.isBlocked(bottomIndex, rightIndex)); //== 0);
 	}
 
 	public void draw(Graphics2D g) {

@@ -83,6 +83,7 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		
 		theMap = new Map("mapTwo.txt", 50);
 		theTrainer = new Trainer(theMap);
+		theMap.loadTiles("resizedTiles.png");
 		//load tiles for map here
 	}
 	
@@ -92,6 +93,10 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	}
 	
 	private void render(){
+		
+		//g.setColor(Color.BLACK);
+		//g.fillRect(0, 0, WIDTH, HEIGHT);
+		
 		theMap.draw(g);
 		theTrainer.draw(g);
 	}

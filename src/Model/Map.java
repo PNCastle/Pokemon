@@ -2,8 +2,12 @@ package Model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+
+import javax.imageio.ImageIO;
 
 public class Map {
 	
@@ -23,6 +27,9 @@ public class Map {
 	private int mapWidth; 	//tile#
 	private int mapHeight; 	//tile#
 	
+	private BufferedImage tileSet;
+	private Tile[] tiles;
+	
 	//ctor
 	public Map(String fileName, int tileSize) {
 		//currentMap = new char[30][22];
@@ -38,7 +45,7 @@ public class Map {
 			
 			currentMap = new int[mapHeight][mapWidth];
 			
-			String delimiters = " ";
+			String delimiters = "\\s+";
 			
 			for(int row = 0; row < mapHeight; row++) {
 				String line = br.readLine();
@@ -51,8 +58,33 @@ public class Map {
 		
 		catch(Exception e) {	
 		}
-		
+		//loadTiles("resizedTiles.png");
 		//currentMap = buildMapOne();
+	}
+	
+	public void loadTiles(String s) {
+		
+		try {
+			tileSet = ImageIO.read(new File(s));
+			int numTilesAcross = 3;//(tileSet.getWidth() +1/ (tileSize +1));
+			tiles = new Tile[4];
+			
+			BufferedImage subImage;
+			boolean b = false;
+			for(int col = 0; 0 < numTilesAcross; col++) {
+				subImage = tileSet.getSubimage(col*tileSize, 0, tileSize, tileSize);
+				if (col == 3) {
+					b = true;
+				} else
+					b = false;
+				tiles[col] = new Tile(subImage, b);
+				//subImage = tileSet.getSubimage(col*tileSize+col, 0, tileSize, tileSize);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void update() {
@@ -70,7 +102,14 @@ public class Map {
 				
 				int rc = currentMap[row][col];
 				
-				if(rc == 0) {
+				//int r = rc / 3;
+				//int c = rc % 3;
+				
+				g.drawImage(tiles[rc].getImage(), x+col*tileSize,
+							y+row*tileSize, null);
+				
+				
+			/*	if(rc == 0) {
 					g.setColor(Color.BLACK);
 				}
 				if(rc == 1) {
@@ -83,6 +122,8 @@ public class Map {
 					g.setColor(Color.GREEN);
 				}
 				g.fillRect(x + col * tileSize,  y + row * tileSize,  tileSize,  tileSize);		
+			
+			*/
 			}
 		}
 	}
@@ -139,6 +180,13 @@ public class Map {
 			}
 		}
 		return tempMap;
+	}
+
+	public boolean isBlocked(int col, int row) {
+		int rc = currentMap[row][col];
+		//int r = rc / tiles[0].length;
+		//int c = rc % tiles[0].length;
+		return tiles[rc].isBlocked();
 	}
 	
 	public int getTileSize(){
