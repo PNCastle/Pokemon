@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import items.*;
+import pokemon.*;
+
 public class Trainer {
 
 	private double x;
@@ -23,17 +26,16 @@ public class Trainer {
 	private double maxSpeed;
 	private double stopSpeed;
 
-	private boolean top, bottom,
-					midLeft, midRight, 
-					topLeft, topRight, 
-					bottomLeft, bottomRight;
-	
-	private Map map;
-	
-	private ArrayList<Pokemon> pokedex;
-	private ArrayList<Item> items;
-	private String name;
+	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight;
 
+	private Map map;
+
+	private ArrayList<Pokemon> pokeDex;
+	private ArrayList<CommonPokemon> commonCollection;
+	private ArrayList<UncommonPokemon> uncommonCollection;
+	private ArrayList<RarePokemon> rareCollection;
+	private ArrayList<Item> items;
+	
 	public Trainer(Map map) {
 
 		this.map = map;
@@ -45,16 +47,26 @@ public class Trainer {
 		this.y = 300;
 		this.dx = 0;
 		this.dy = 0;
-		moveSpeed = .5;
-		maxSpeed = 4;
-		stopSpeed = .1;
-
-		initCollections();
+		moveSpeed = 2.5;
+		maxSpeed = 2.5;
+		stopSpeed = .25;
 		
+		initCollections();
 	}
 
 	public void initCollections() {
-		pokedex = new ArrayList<Pokemon>();
+		pokeDex = new ArrayList<Pokemon>();
+		commonCollection = new ArrayList<CommonPokemon>();
+		uncommonCollection = new ArrayList<UncommonPokemon>();
+		rareCollection = new ArrayList<RarePokemon>();
+		items = new ArrayList<Item>();
+		
+		items.add(new SafariBall());
+		items.add(new Rock());
+		items.add(new Bait());
+		
+		//Testing purposes?
+		pokeDex.add(new Pikachu(1));
 	}
 	
 	public void setLeft(boolean b) {
@@ -96,7 +108,10 @@ public class Trainer {
 			if (dy > maxSpeed) {
 				dy = maxSpeed;
 			}
-		} else {
+		}
+
+		else {
+
 			// stopping
 			if (dx != 0) { // stopping in x direction
 				if (dx > 0) {
@@ -126,8 +141,8 @@ public class Trainer {
 			}
 		}
 
-		//GOOD UP TO THIS POINT NOW ITS BROKEN :(
-		
+		// GOOD UP TO THIS POINT NOW ITS BROKEN
+
 		int currCol = map.getColTileIndex((int) x);
 		int currRow = map.getRowTileIndex((int) y);
 
@@ -137,71 +152,72 @@ public class Trainer {
 		// collision check here
 		double temp_x = x;
 		double temp_y = y;
-		calculateNeighbors(x, to_y);
-		if(dy < 0){
-			if(topLeft || top || topRight){
+		calculateNeighbors(to_x, to_y);
+		if (dy < 0) {
+			if (topLeft || top || topRight) {
 				dy = 0;
-				temp_y = currRow * map.getTileSize() + height/2;
-			}
-			else{
+				temp_y = currRow * map.getTileSize() + height / 2;
+			} 
+			else {
 				temp_y += dy;
 			}
 		}
-		if(dy > 0){
-			if(bottomLeft || bottom || bottomRight){
+		if (dy > 0) {
+			if (bottomLeft || bottom || bottomRight) {
 				dy = 0;
-				temp_y = (currRow + 1) * map.getTileSize() - height/2;
-			}
-			else{
+				temp_y = (currRow + 1) * map.getTileSize() - height / 2;
+			} 
+			else {
 				temp_y += dy;
 			}
 		}
-		calculateNeighbors(to_x, y);
-		if(dx < 0){
-			if (topLeft || left || bottomLeft){
+		// calculateNeighbors(to_x, y);
+		if (dx < 0) {
+			if (topLeft || left || bottomLeft) {
 				dx = 0;
-				temp_x = currCol*map.getTileSize() + width/2;
-			}
-			else{
-				temp_x += dx;
+				temp_x = currCol * map.getTileSize() + width / 2;
+			} 
+			else {
+				temp_x += dx * (1.25);
 			}
 		}
-		if(dx > 0){
-			if(topRight || right || bottomRight){
+		if (dx > 0) {
+			if (topRight || right || bottomRight) {
 				dx = 0;
-				temp_x = (currCol + 1)*map.getTileSize() - width/2;
+				temp_x = (currCol + 1) * map.getTileSize() - width / 2;
+			} 
+			else {
+				temp_x += dx * (1.25);
 			}
-			else{
-				temp_x += dx;
-			}
+
 		}
-		
+
 		x = temp_x;
 		y = temp_y;
-		
-		//hardcoded dimensions of MapPanel
-		map.setX(750/2 - x);
-		map.setY(550/2 - y);
+
+		// hardcoded dimensions of MapPanel
+		map.setX(750 / 2 - x);
+		map.setY(550 / 2 - y);
 
 	}
-	
-	private void calculateNeighbors(double x, double y){
+
+	private void calculateNeighbors(double y, double x) {
 		int rowIndex = map.getRowTileIndex((int) y);
 		int colIndex = map.getColTileIndex((int) x);
-		int leftIndex = map.getColTileIndex((int) (x - width/2));
-		int rightIndex = map.getColTileIndex((int) (x + width/2) - 1);
-		int topIndex = map.getColTileIndex((int) (y - height/2));
-		int bottomIndex = map.getColTileIndex((int) (y + height/2) - 1);
-		
+		int leftIndex = map.getColTileIndex((int) (x - width / 2));
+		int rightIndex = map.getColTileIndex((int) (x + width / 2) - 1);
+		int topIndex = map.getColTileIndex((int) (y - height / 2));
+		int bottomIndex = map.getColTileIndex((int) (y + height / 2) - 1);
+
 		left = (map.getTile(rowIndex, leftIndex) == 0);
 		right = (map.getTile(rowIndex, rightIndex) == 0);
-		
+
 		top = (map.getTile(topIndex, colIndex) == 0);
 		bottom = (map.getTile(bottomIndex, colIndex) == 0);
-		
+
 		topLeft = (map.getTile(topIndex, leftIndex) == 0);
 		topRight = (map.getTile(topIndex, rightIndex) == 0);
-		
+
 		bottomLeft = (map.getTile(bottomIndex, leftIndex) == 0);
 		bottomRight = (map.getTile(bottomIndex, rightIndex) == 0);
 	}

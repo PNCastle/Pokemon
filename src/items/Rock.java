@@ -8,7 +8,7 @@ public class Rock extends Item {
 	
 	// Placeholder values, to determine later
 	public Rock() {
-		super(true, -2, 5);
+		super(true, -1, -2, 5);
 	}
 
 	@Override

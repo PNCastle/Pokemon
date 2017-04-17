@@ -8,7 +8,7 @@ public class Bait extends Item {
 	
 	// Placeholder values, to determine later
 	public Bait() {
-		super(true, 3, -4);
+		super(true, -1, 3, -4);
 	}
 	
 	@Override
