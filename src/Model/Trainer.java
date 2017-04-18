@@ -31,9 +31,9 @@ public class Trainer {
 	private boolean up;
 	private boolean down;
 
-	private double moveSpeed;
-	private double maxSpeed;
-	private double stopSpeed;
+	private double acceleration;
+	private double maxVelocity;
+	private double friction;
 
 	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight;
 
@@ -82,9 +82,9 @@ public class Trainer {
 		this.y = 110/2 * height;
 		this.dx = 0;
 		this.dy = 0;
-		moveSpeed = 1;
-		maxSpeed = 4;
-		stopSpeed = .5;
+		acceleration = 1;
+		maxVelocity = 4.5;
+		friction = .5;
 
 		currRow = map.getRowTileIndex((int) y);
 		currCol = map.getColTileIndex((int) x);
@@ -192,46 +192,46 @@ public class Trainer {
 		// determine next position
 
 		if (left) { // moving left
-			dx -= moveSpeed;
+			dx -= acceleration;
 			facingLeft = true;
 			facingDown = facingUp = facingRight = false;
-			if (dx < -maxSpeed) {
-				dx = -maxSpeed;
+			if (dx < -maxVelocity) {
+				dx = -maxVelocity;
 			}
 		} else if (right) { // moving right
-			dx += moveSpeed;
+			dx += acceleration;
 			facingRight = true;
 			facingDown = facingLeft = facingUp = false;
-			if (dx > maxSpeed) {
-				dx = maxSpeed;
+			if (dx > maxVelocity) {
+				dx = maxVelocity;
 			}
 		} else if (up) { // moving up
-			dy -= moveSpeed;
+			dy -= acceleration;
 			facingUp = true;
 			facingDown = facingLeft = facingRight = false;
-			if (dy < -maxSpeed) {
-				dy = -maxSpeed;
+			if (dy < -maxVelocity) {
+				dy = -maxVelocity;
 			}
 		} else if (down) { // moving down
-			dy += moveSpeed;
+			dy += acceleration;
 			facingDown = true;
 			facingUp = facingLeft = facingRight = false;
-			if (dy > maxSpeed) {
-				dy = maxSpeed;
+			if (dy > maxVelocity) {
+				dy = maxVelocity;
 			}
 		}
 
 		// stopping
 		if (dx != 0) { // stopping in x direction
 			if (dx > 0) {
-				dx -= stopSpeed;
+				dx -= friction;
 				if (dx < 0) {
 					dx = 0;
 					facingRight = true;
 					facingDown = facingLeft = facingUp = false;
 				}
 			} else {
-				dx += stopSpeed;
+				dx += friction;
 				if (dx > 0) {
 					dx = 0;
 					facingLeft = true;
@@ -241,14 +241,14 @@ public class Trainer {
 		}
 		if (dy != 0) { // stopping in y direction
 			if (dy > 0) {
-				dy -= stopSpeed;
+				dy -= friction;
 				if (dy < 0) {
 					dy = 0;
 					facingUp = true;
 					facingDown = facingLeft = facingRight = false;
 				}
 			} else {
-				dy += stopSpeed;
+				dy += friction;
 				if (dy > 0) {
 					dy = 0;
 					facingDown = true;
