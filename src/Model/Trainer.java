@@ -71,6 +71,8 @@ public class Trainer {
 		maxSpeed = 4;
 		stopSpeed = .5;
 
+		currRow = map.getRowTileIndex((int) y);
+		currCol = map.getColTileIndex((int) x);
 		stepsTaken = 0;
 		gameOver = false;
 
