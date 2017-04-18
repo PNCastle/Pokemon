@@ -5,13 +5,14 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import javax.imageio.ImageIO;
 
 import items.*;
 import pokemon.*;
 
-public class Trainer {
+public class Trainer extends Observable {
 
 	/*
 	 * Movement variables here
@@ -88,7 +89,7 @@ public class Trainer {
 		this.dx = 0;
 		this.dy = 0;
 		acceleration = 1;
-		maxVelocity = 4.5;
+		maxVelocity = 10;
 		friction = .5;
 
 		currRow = map.getRowTileIndex((int) y);
@@ -261,11 +262,14 @@ public class Trainer {
 		currRow = map.getRowTileIndex((int) y);
 		if (prevRow != currRow) {
 			stepsTaken++;
-			System.out.println("Steps taken " + this.getStepCount());
+			setChanged();
+			notifyObservers();
+			System.out.println("Steps taken " + stepsTaken);
 		}
 		if (prevCol != currCol) {
 			stepsTaken++;
-			System.out.println("Steps taken " + this.getStepCount());
+			setChanged();
+			notifyObservers();
 		}
 
 		// collision check here

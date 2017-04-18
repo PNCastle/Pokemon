@@ -9,6 +9,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import Model.Trainer;
 //import View.BattleView;
 import View.MapView;
 
@@ -20,6 +21,7 @@ public class PokemonGUI extends JFrame {
 	private MapView mapView;
 	//private BattleView battleView;
 	private JPanel currentView;
+	private Trainer theTrainer;
 	
 	public static void main(String args[]){
 		PokemonGUI g = new PokemonGUI();
@@ -33,6 +35,8 @@ public class PokemonGUI extends JFrame {
 		this.setTitle("Pokemon Safari Zone");
 		this.setLocation(0, 0);
 		mapView = new MapView(WIDTH, HEIGHT);
+		theTrainer = mapView.getTrainer();
+		theTrainer.addObserver(mapView);
 		setViewTo(mapView); //set default view to map view
 		setUpMenus();
 		

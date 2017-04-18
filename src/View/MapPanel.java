@@ -31,18 +31,10 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	
 	private Map theMap;
 	private Trainer theTrainer;
-	private JLabel stepCount;
 	
 	//ctor
 	public MapPanel(){
 		//super();
-		stepCount = new JLabel("");
-		stepCount.setBackground(Color.black);
-		stepCount.setForeground(Color.RED);
-		stepCount.setLocation(600, 50);
-		stepCount.setSize(100, 50);
-		stepCount.setVisible(true);
-		this.add(stepCount);
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -50,6 +42,8 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		this.setVisible(true);
 		this.setFocusable(true);
 		this.requestFocus();
+		theMap = new Map("mapTwo.txt", 50);
+		theTrainer = new Trainer(theMap);
 		
 	}
 	
@@ -91,8 +85,8 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		g = (Graphics2D) image.getGraphics();
 		
 		
-		theMap = new Map("mapTwo.txt", 50);
-		theTrainer = new Trainer(theMap);
+		//theMap = new Map("mapTwo.txt", 50);
+		//theTrainer = new Trainer(theMap);
 		theMap.loadTiles("resizedTiles.png");
 		//load tiles for map here
 	}
@@ -104,23 +98,9 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	
 	private void render(){
 		
-		//g.setColor(Color.BLACK);
-		//g.fillRect(0, 0, WIDTH, HEIGHT);
-		
 		theMap.draw(g);
 		theTrainer.draw(g);
-		
-		//this black box is where step count goes but for some reason drawString messes everything up
-		g.setColor(Color.BLACK);
-		g.fillRect(600, 0, 150, 25);
-		
-		
-		//g.setColor(Color.RED);
-		//g.setFont(new Font("Courier", Font.PLAIN, 10));
-		//g.drawString("Number of steps taken: " + theTrainer.getStepCount(), 601, 26);
 
-		//stepCount.setText("Steps taken: " + theTrainer.getStepCount());
-		//stepCount.setVisible(true);
 	}
 	
 	private void draw(){
@@ -194,6 +174,10 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		if(code == KeyEvent.VK_DOWN){
 			theTrainer.setDown(false);
 		}
+	}
+
+	public Trainer getTrainer() {
+		return theTrainer;
 	}
 
 }
