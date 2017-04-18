@@ -264,7 +264,6 @@ public class Trainer extends Observable {
 			stepsTaken++;
 			setChanged();
 			notifyObservers();
-			System.out.println("Steps taken " + stepsTaken);
 		}
 		if (prevCol != currCol) {
 			stepsTaken++;
