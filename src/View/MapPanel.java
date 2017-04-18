@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Model.Map;
@@ -24,15 +25,23 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	private BufferedImage image;
 	private Graphics2D g;
 	
-	private int FPS = 30;
+	private int FPS = 15;
 	private int targetTime = 1000/ FPS;
 	
 	private Map theMap;
 	private Trainer theTrainer;
+	private JLabel stepCount;
 	
 	//ctor
 	public MapPanel(){
 		//super();
+		stepCount = new JLabel("");
+		stepCount.setBackground(Color.BLACK);
+		stepCount.setForeground(Color.RED);
+		stepCount.setLocation(600, 50);
+		stepCount.setSize(100, 50);
+		stepCount.setVisible(true);
+		this.add(stepCount);
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));

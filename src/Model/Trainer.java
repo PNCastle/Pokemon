@@ -16,6 +16,8 @@ public class Trainer {
 	private double y;
 	private double dx;
 	private double dy;
+	
+	private int prevRow, currRow, prevCol, currCol;
 
 	private int width;
 	private int height;
@@ -174,15 +176,24 @@ public class Trainer {
 			}
 		}
 
-		// GOOD UP TO THIS POINT NOW ITS BROKEN
+		// update steps taken
+		prevRow = currRow;
+		prevCol = currCol;
+		currCol = map.getColTileIndex((int) x);
+		currRow = map.getRowTileIndex((int) y);
+		if(prevRow != currRow){
+			stepsTaken++;
+			System.out.println("Steps taken " + this.getStepCount());
+		}
+		if(prevCol != currCol){
+			stepsTaken++;
+			System.out.println("Steps taken " + this.getStepCount());
+		}
 
-		int currCol = map.getColTileIndex((int) x);
-		int currRow = map.getRowTileIndex((int) y);
-
+		// collision check here
 		double to_x = x + dx;
 		double to_y = y + dy;
 
-		// collision check here
 		double temp_x = x;
 		double temp_y = y;
 		calculateNeighbors(to_x, to_y);
@@ -229,7 +240,7 @@ public class Trainer {
 		map.setX(750 / 2 - x);
 		map.setY(550 / 2 - y);
 
-		stepsTaken++;
+		//stepsTaken++;
 		checkWinConditions();
 	}
 
@@ -266,8 +277,19 @@ public class Trainer {
 		int tileX = map.getX();
 		int tileY = map.getY();
 
+		//g.setColor(Color.BLACK);
+		//g.fillRect(tileX + 600, tileY + 50, 100, 50);
+		//g.drawString("Number of steps taken: " + this.getStepCount(), tileX + 600, tileY + 52);
+		
 		g.setColor(Color.RED);
 		g.fillRect((int) (tileX + x - width / 2), (int) (tileY + y - height / 2), width, height);
+		
+
+
+	}
+
+	public int getStepCount() {
+		return this.stepsTaken;
 	}
 
 }
