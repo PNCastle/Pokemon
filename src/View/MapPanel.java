@@ -2,6 +2,7 @@ package View;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -36,7 +37,7 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	public MapPanel(){
 		//super();
 		stepCount = new JLabel("");
-		stepCount.setBackground(Color.BLACK);
+		stepCount.setBackground(Color.black);
 		stepCount.setForeground(Color.RED);
 		stepCount.setLocation(600, 50);
 		stepCount.setSize(100, 50);
@@ -108,6 +109,16 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		
 		theMap.draw(g);
 		theTrainer.draw(g);
+		
+		//this black box is where step count goes but for some reason drawString messes everything up
+		g.setColor(Color.BLACK);
+		g.fillRect(600, 0, 150, 25);
+		g.setColor(Color.YELLOW);
+		//g.setFont(new Font("Courier", Font.PLAIN, 10));
+		//g.drawString("Number of steps taken: " + theTrainer.getStepCount(), 601, 26);
+
+		//stepCount.setText("Steps taken: " + theTrainer.getStepCount());
+		//stepCount.setVisible(true);
 	}
 	
 	private void draw(){

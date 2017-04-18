@@ -31,9 +31,9 @@ public class Trainer {
 	private boolean up;
 	private boolean down;
 
-	private double moveSpeed;
-	private double maxSpeed;
-	private double stopSpeed;
+	private double acceleration;
+	private double maxVelocity;
+	private double friction;
 
 	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight;
 
@@ -82,9 +82,9 @@ public class Trainer {
 		this.y = 110/2 * height;
 		this.dx = 0;
 		this.dy = 0;
-		moveSpeed = 1;
-		maxSpeed = 4;
-		stopSpeed = .5;
+		acceleration = 1;
+		maxVelocity = 4.5;
+		friction = .5;
 
 		currRow = map.getRowTileIndex((int) y);
 		currCol = map.getColTileIndex((int) x);
@@ -192,6 +192,7 @@ public class Trainer {
 		// determine next position
 
 		if (left) { // moving left
+<<<<<<< HEAD
 			dx -= moveSpeed;
 			facingLeft = true;
 			facingDown = facingUp = facingRight = false;
@@ -218,20 +219,40 @@ public class Trainer {
 			facingUp = facingLeft = facingRight = false;
 			if (dy > maxSpeed) {
 				dy = maxSpeed;
+=======
+			dx -= acceleration;
+			if (dx < -maxVelocity) {
+				dx = -maxVelocity;
+			}
+		} else if (right) { // moving right
+			dx += acceleration;
+			if (dx > maxVelocity) {
+				dx = maxVelocity;
+			}
+		} else if (up) { // moving up
+			dy -= acceleration;
+			if (dy < -maxVelocity) {
+				dy = -maxVelocity;
+			}
+		} else if (down) { // moving down
+			dy += acceleration;
+			if (dy > maxVelocity) {
+				dy = maxVelocity;
+>>>>>>> 1b85d46e83b74642f0186ab46ac7d9f2a214a1d7
 			}
 		}
 
 		// stopping
 		if (dx != 0) { // stopping in x direction
 			if (dx > 0) {
-				dx -= stopSpeed;
+				dx -= friction;
 				if (dx < 0) {
 					dx = 0;
 					facingRight = true;
 					facingDown = facingLeft = facingUp = false;
 				}
 			} else {
-				dx += stopSpeed;
+				dx += friction;
 				if (dx > 0) {
 					dx = 0;
 					facingLeft = true;
@@ -241,14 +262,14 @@ public class Trainer {
 		}
 		if (dy != 0) { // stopping in y direction
 			if (dy > 0) {
-				dy -= stopSpeed;
+				dy -= friction;
 				if (dy < 0) {
 					dy = 0;
 					facingUp = true;
 					facingDown = facingLeft = facingRight = false;
 				}
 			} else {
-				dy += stopSpeed;
+				dy += friction;
 				if (dy > 0) {
 					dy = 0;
 					facingDown = true;
@@ -391,6 +412,7 @@ public class Trainer {
 		int tileX = map.getX();
 		int tileY = map.getY();
 
+<<<<<<< HEAD
 		//g.setColor(Color.BLACK);
 		//g.fillRect(tileX + 600, tileY + 50, 100, 50);
 		//g.drawString("Number of steps taken: " + this.getStepCount(), tileX + 600, tileY + 52);
@@ -408,6 +430,10 @@ public class Trainer {
 		
 
 
+=======
+		g.setColor(Color.RED);
+		g.fillRect((int) (tileX + x - width / 2), (int) (tileY + y - height / 2), width, height);
+>>>>>>> 1b85d46e83b74642f0186ab46ac7d9f2a214a1d7
 	}
 
 	public int getStepCount() {
