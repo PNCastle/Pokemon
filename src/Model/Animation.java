@@ -14,7 +14,7 @@ public class Animation {
 	
 	public void setFrames(BufferedImage[] images) {
 		frames = images;
-		if (currentFrame >= frames.length-1) currentFrame = 0;
+		if (currentFrame >= frames.length) currentFrame = 0;
 	}
 	
 	public void setDelay(long d) {
@@ -23,10 +23,17 @@ public class Animation {
 	
 	public void update() {
 		
+		if (delay == -1)
+			return;
+		
 		long elapsed = (System.nanoTime() - startTime) / 1000000;
 		if(elapsed > delay) {
 			currentFrame++;
 			startTime = System.nanoTime();
+		}
+		if(frames.length == 1) {
+			currentFrame = 0;
+			return;
 		}
 		if(currentFrame == frames.length-1) {
 			currentFrame = 0;
@@ -36,5 +43,5 @@ public class Animation {
 	public BufferedImage getImage() {
 		return frames[currentFrame];
 	}
-	
+
 }
