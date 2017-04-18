@@ -32,28 +32,28 @@ public class Trainer {
 	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight;
 
 	private Map map;
-	
+
 	/*
 	 * End movement variables
 	 */
-	
+
 	/*
 	 * Hierarchy variables here
 	 */
 
 	private int stepsTaken;
 	private boolean gameOver;
-	
+
 	private ArrayList<Pokemon> pokeDex;
 	private ArrayList<CommonPokemon> commonCollection;
 	private ArrayList<UncommonPokemon> uncommonCollection;
 	private ArrayList<RarePokemon> rareCollection;
 	private ArrayList<Item> items;
-	
+
 	/*
 	 * End hierarchy variables
 	 */
-	
+
 	public Trainer(Map map) {
 
 		this.map = map;
@@ -68,10 +68,10 @@ public class Trainer {
 		moveSpeed = 1;
 		maxSpeed = 4;
 		stopSpeed = .5;
-		
+
 		stepsTaken = 0;
 		gameOver = false;
-		
+
 		initCollections();
 
 	}
@@ -82,14 +82,14 @@ public class Trainer {
 		uncommonCollection = new ArrayList<UncommonPokemon>();
 		rareCollection = new ArrayList<RarePokemon>();
 		items = new ArrayList<Item>();
-		
+
 		items.add(new SafariBall());
 		items.add(new Rock());
 		items.add(new Bait());
-		
-		//Testing purposes?
+
+		// Testing purposes?
 		pokeDex.add(new Pikachu(4));
-		
+
 		// Placeholder Pokemon spawner for now
 		commonCollection.add(new Abra(0));
 		commonCollection.add(new Drowzee(1));
@@ -97,14 +97,14 @@ public class Trainer {
 		commonCollection.add(new Pidgey(3));
 		commonCollection.add(new Pikachu(4));
 		commonCollection.add(new Staryu(5));
-		
+
 		uncommonCollection.add(new Graveler(6));
 		uncommonCollection.add(new Haunter(7));
 		uncommonCollection.add(new Rapidash(8));
-		
+
 		rareCollection.add(new Dragonair(9));
 	}
-	
+
 	public void setLeft(boolean b) {
 		this.left = b;
 	}
@@ -146,33 +146,30 @@ public class Trainer {
 			}
 		}
 
-		else {
-
-			// stopping
-			if (dx != 0) { // stopping in x direction
+		// stopping
+		if (dx != 0) { // stopping in x direction
+			if (dx > 0) {
+				dx -= stopSpeed;
+				if (dx < 0) {
+					dx = 0;
+				}
+			} else {
+				dx += stopSpeed;
 				if (dx > 0) {
-					dx -= stopSpeed;
-					if (dx < 0) {
-						dx = 0;
-					}
-				} else {
-					dx += stopSpeed;
-					if (dx > 0) {
-						dx = 0;
-					}
+					dx = 0;
 				}
 			}
-			if (dy != 0) { // stopping in y direction
+		}
+		if (dy != 0) { // stopping in y direction
+			if (dy > 0) {
+				dy -= stopSpeed;
+				if (dy < 0) {
+					dy = 0;
+				}
+			} else {
+				dy += stopSpeed;
 				if (dy > 0) {
-					dy -= stopSpeed;
-					if (dy < 0) {
-						dy = 0;
-					}
-				} else {
-					dy += stopSpeed;
-					if (dy > 0) {
-						dy = 0;
-					}
+					dy = 0;
 				}
 			}
 		}
@@ -193,8 +190,7 @@ public class Trainer {
 			if (topLeft || top || topRight) {
 				dy = 0;
 				temp_y = currRow * map.getTileSize() + height / 2;
-			} 
-			else {
+			} else {
 				temp_y += dy;
 			}
 		}
@@ -202,8 +198,7 @@ public class Trainer {
 			if (bottomLeft || bottom || bottomRight) {
 				dy = 0;
 				temp_y = (currRow + 1) * map.getTileSize() - height / 2;
-			} 
-			else {
+			} else {
 				temp_y += dy;
 			}
 		}
@@ -212,8 +207,7 @@ public class Trainer {
 			if (topLeft || left || bottomLeft) {
 				dx = 0;
 				temp_x = currCol * map.getTileSize() + width / 2;
-			} 
-			else {
+			} else {
 				temp_x += dx * (1.36);
 			}
 		}
@@ -221,8 +215,7 @@ public class Trainer {
 			if (topRight || right || bottomRight) {
 				dx = 0;
 				temp_x = (currCol + 1) * map.getTileSize() - width / 2;
-			} 
-			else {
+			} else {
 				temp_x += dx * (1.36);
 			}
 
@@ -232,19 +225,18 @@ public class Trainer {
 		y = temp_y;
 
 		// hardcoded dimensions of MapPanel
-		//this keeps player centered at all times
+		// this keeps player centered at all times
 		map.setX(750 / 2 - x);
 		map.setY(550 / 2 - y);
 
 		stepsTaken++;
 		checkWinConditions();
 	}
-	
+
 	private void checkWinConditions() {
-		if (stepsTaken == 500){
+		if (stepsTaken == 500) {
 			gameOver = true;
-		}
-		else if (pokeDex.size() == 10){
+		} else if (pokeDex.size() == 10) {
 			gameOver = true;
 		}
 	}
@@ -257,17 +249,17 @@ public class Trainer {
 		int topIndex = map.getColTileIndex((int) (y - height / 2));
 		int bottomIndex = map.getColTileIndex((int) (y + height / 2) - 1);
 
-		left = (map.isBlocked(rowIndex, leftIndex)); //== 0);
-		right = (map.isBlocked(rowIndex, rightIndex)); //== 0);
+		left = (map.isBlocked(rowIndex, leftIndex)); // == 0);
+		right = (map.isBlocked(rowIndex, rightIndex)); // == 0);
 
-		top = (map.isBlocked(topIndex, colIndex)); //== 0);
-		bottom = (map.isBlocked(bottomIndex, colIndex)); //== 0);
+		top = (map.isBlocked(topIndex, colIndex)); // == 0);
+		bottom = (map.isBlocked(bottomIndex, colIndex)); // == 0);
 
-		topLeft = (map.isBlocked(topIndex, leftIndex)); //== 0);
-		topRight = (map.isBlocked(topIndex, rightIndex)); //== 0);
+		topLeft = (map.isBlocked(topIndex, leftIndex)); // == 0);
+		topRight = (map.isBlocked(topIndex, rightIndex)); // == 0);
 
-		bottomLeft = (map.isBlocked(bottomIndex, leftIndex)); //== 0);
-		bottomRight = (map.isBlocked(bottomIndex, rightIndex)); //== 0);
+		bottomLeft = (map.isBlocked(bottomIndex, leftIndex)); // == 0);
+		bottomRight = (map.isBlocked(bottomIndex, rightIndex)); // == 0);
 	}
 
 	public void draw(Graphics2D g) {
