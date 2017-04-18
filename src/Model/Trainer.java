@@ -27,9 +27,9 @@ public class Trainer {
 	private boolean up;
 	private boolean down;
 
-	private double moveSpeed;
-	private double maxSpeed;
-	private double stopSpeed;
+	private double acceleration;
+	private double maxVelocity;
+	private double friction;
 
 	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight;
 
@@ -67,9 +67,9 @@ public class Trainer {
 		this.y = 500;
 		this.dx = 0;
 		this.dy = 0;
-		moveSpeed = 1;
-		maxSpeed = 4;
-		stopSpeed = .5;
+		acceleration = 1;
+		maxVelocity = 4.5;
+		friction = .5;
 
 		currRow = map.getRowTileIndex((int) y);
 		currCol = map.getColTileIndex((int) x);
@@ -129,36 +129,36 @@ public class Trainer {
 		// determine next position
 
 		if (left) { // moving left
-			dx -= moveSpeed;
-			if (dx < -maxSpeed) {
-				dx = -maxSpeed;
+			dx -= acceleration;
+			if (dx < -maxVelocity) {
+				dx = -maxVelocity;
 			}
 		} else if (right) { // moving right
-			dx += moveSpeed;
-			if (dx > maxSpeed) {
-				dx = maxSpeed;
+			dx += acceleration;
+			if (dx > maxVelocity) {
+				dx = maxVelocity;
 			}
 		} else if (up) { // moving up
-			dy -= moveSpeed;
-			if (dy < -maxSpeed) {
-				dy = -maxSpeed;
+			dy -= acceleration;
+			if (dy < -maxVelocity) {
+				dy = -maxVelocity;
 			}
 		} else if (down) { // moving down
-			dy += moveSpeed;
-			if (dy > maxSpeed) {
-				dy = maxSpeed;
+			dy += acceleration;
+			if (dy > maxVelocity) {
+				dy = maxVelocity;
 			}
 		}
 
 		// stopping
 		if (dx != 0) { // stopping in x direction
 			if (dx > 0) {
-				dx -= stopSpeed;
+				dx -= friction;
 				if (dx < 0) {
 					dx = 0;
 				}
 			} else {
-				dx += stopSpeed;
+				dx += friction;
 				if (dx > 0) {
 					dx = 0;
 				}
@@ -166,12 +166,12 @@ public class Trainer {
 		}
 		if (dy != 0) { // stopping in y direction
 			if (dy > 0) {
-				dy -= stopSpeed;
+				dy -= friction;
 				if (dy < 0) {
 					dy = 0;
 				}
 			} else {
-				dy += stopSpeed;
+				dy += friction;
 				if (dy > 0) {
 					dy = 0;
 				}
@@ -279,15 +279,8 @@ public class Trainer {
 		int tileX = map.getX();
 		int tileY = map.getY();
 
-		//g.setColor(Color.BLACK);
-		//g.fillRect(tileX + 600, tileY + 50, 100, 50);
-		//g.drawString("Number of steps taken: " + this.getStepCount(), tileX + 600, tileY + 52);
-		
 		g.setColor(Color.RED);
 		g.fillRect((int) (tileX + x - width / 2), (int) (tileY + y - height / 2), width, height);
-		
-
-
 	}
 
 	public int getStepCount() {
