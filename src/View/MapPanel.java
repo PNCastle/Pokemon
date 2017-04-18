@@ -113,7 +113,9 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		//this black box is where step count goes but for some reason drawString messes everything up
 		g.setColor(Color.BLACK);
 		g.fillRect(600, 0, 150, 25);
-		g.setColor(Color.YELLOW);
+		
+		
+		//g.setColor(Color.RED);
 		//g.setFont(new Font("Courier", Font.PLAIN, 10));
 		//g.drawString("Number of steps taken: " + theTrainer.getStepCount(), 601, 26);
 
