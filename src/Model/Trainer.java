@@ -339,21 +339,21 @@ public class Trainer {
 				animation.setDelay(-1);
 			}
 		} else if (facingLeft) {
-	//		if (left) {
+			if (!left) {
 				animation.setFrames(walkingLeft);
 				animation.setDelay(100);
-	//		} else {
-	//			animation.setFrames(standingLeft);
-	//			animation.setDelay(-1);
-	//		}
+			} else {
+				animation.setFrames(standingLeft);
+				animation.setDelay(-1);
+			}
 		} else if (facingRight) {
-	//		if (right) {
+			if (!right) {
 				animation.setFrames(walkingRight);
 				animation.setDelay(100);
-		/*	} else {
+			} else {
 				animation.setFrames(standingRight);
 				animation.setDelay(-1);
-			}*/
+			}
 		}
 
 		animation.update();

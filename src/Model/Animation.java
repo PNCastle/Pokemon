@@ -35,7 +35,7 @@ public class Animation {
 			currentFrame = 0;
 			return;
 		}
-		if(currentFrame == frames.length-1) {
+		if(currentFrame == frames.length) {
 			currentFrame = 0;
 		}
 	}
