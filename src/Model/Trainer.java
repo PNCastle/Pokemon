@@ -2,7 +2,11 @@ package Model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import items.*;
 import pokemon.*;
@@ -35,6 +39,17 @@ public class Trainer {
 
 	private Map map;
 
+	private Animation animation;
+	private BufferedImage[] walkingLeft;
+	private BufferedImage[] walkingRight;
+	private BufferedImage[] walkingUp;
+	private BufferedImage[] walkingDown;
+	
+	boolean facingLeft;
+	boolean facingRight;
+	boolean facingUp;
+	boolean facingDown;
+	
 	/*
 	 * End movement variables
 	 */
@@ -77,7 +92,55 @@ public class Trainer {
 		gameOver = false;
 
 		initCollections();
+		
+		try {
+			walkingLeft = new BufferedImage[3];
+			walkingRight = new BufferedImage[3];
+			walkingDown = new BufferedImage[3];
+			walkingUp = new BufferedImage[3];
+			
+			//walkingLeft[0] = ImageIO.read(new File("trainerOneTrans.png"));
+			//walkingRight[0] = ImageIO.read(new File("trainerOneTrans.png"));
+			//walkingUp[0] = ImageIO.read(new File("trainerOneTrans.png"));
+			//walkingDown[0] = ImageIO.read(new File("trainerOneTrans.png"));
+			
+			BufferedImage image = ImageIO.read(new File("trainerOneTrans.png"));
+			
+			for (int i = 0; i < 3; i++) {
+				walkingLeft[i] = image.getSubimage(
+						i*(width)+148,
+						48,
+						width,
+						height );
+						
+				walkingRight[i] = image.getSubimage(
+						i*(width),
+						48,
+						width,
+						height );
+				
+				walkingDown[i] = image.getSubimage(
+						i*(width),
+						0,
+						width,
+						height );
+				
+				walkingUp[i] = image.getSubimage(
+						i*(width)+148,
+						0,
+						width,
+						height );
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 
+		animation = new Animation();
+		animation.setFrames(walkingDown);
+
+		
 	}
 
 	public void initCollections() {
@@ -130,21 +193,29 @@ public class Trainer {
 
 		if (left) { // moving left
 			dx -= moveSpeed;
+			facingLeft = true;
+			facingDown = facingUp = facingRight = false;
 			if (dx < -maxSpeed) {
 				dx = -maxSpeed;
 			}
 		} else if (right) { // moving right
 			dx += moveSpeed;
+			facingRight = true;
+			facingDown = facingLeft = facingUp = false;
 			if (dx > maxSpeed) {
 				dx = maxSpeed;
 			}
 		} else if (up) { // moving up
 			dy -= moveSpeed;
+			facingUp = true;
+			facingDown = facingLeft = facingRight = false;
 			if (dy < -maxSpeed) {
 				dy = -maxSpeed;
 			}
 		} else if (down) { // moving down
 			dy += moveSpeed;
+			facingDown = true;
+			facingUp = facingLeft = facingRight = false;
 			if (dy > maxSpeed) {
 				dy = maxSpeed;
 			}
@@ -156,11 +227,15 @@ public class Trainer {
 				dx -= stopSpeed;
 				if (dx < 0) {
 					dx = 0;
+					facingRight = true;
+					facingDown = facingLeft = facingUp = false;
 				}
 			} else {
 				dx += stopSpeed;
 				if (dx > 0) {
 					dx = 0;
+					facingLeft = true;
+					facingDown = facingUp = facingRight = false;
 				}
 			}
 		}
@@ -169,11 +244,15 @@ public class Trainer {
 				dy -= stopSpeed;
 				if (dy < 0) {
 					dy = 0;
+					facingUp = true;
+					facingDown = facingLeft = facingRight = false;
 				}
 			} else {
 				dy += stopSpeed;
 				if (dy > 0) {
 					dy = 0;
+					facingDown = true;
+					facingUp = facingLeft = facingRight = false;
 				}
 			}
 		}
@@ -231,9 +310,21 @@ public class Trainer {
 			} else {
 				temp_x += dx * (1.36);
 			}
-
 		}
 
+		if (x < to_x) {
+			facingRight = true;
+		}
+		if (x > to_x) {
+			facingLeft = true;
+		}
+		if (y < to_y) {
+			facingDown = true;
+		}
+		if (y > to_y) {
+			facingUp = true;
+		}
+		
 		x = temp_x;
 		y = temp_y;
 
@@ -241,7 +332,28 @@ public class Trainer {
 		// this keeps player centered at all times
 		map.setX(750 / 2 - x);
 		map.setY(550 / 2 - y);
-
+		
+		//sprite stuff
+		if(facingDown) {
+			animation.setFrames(walkingDown);
+			animation.setDelay(100);
+		}
+		else if(facingUp) {
+			animation.setFrames(walkingUp);
+			animation.setDelay(100);
+		}
+		else if(facingLeft) {
+			animation.setFrames(walkingLeft);
+			animation.setDelay(100);
+		}
+		else if (facingRight) {
+			animation.setFrames(walkingRight);
+			animation.setDelay(100);
+		}
+		animation.update();
+		
+		
+	
 		//stepsTaken++;
 		checkWinConditions();
 	}
@@ -283,8 +395,16 @@ public class Trainer {
 		//g.fillRect(tileX + 600, tileY + 50, 100, 50);
 		//g.drawString("Number of steps taken: " + this.getStepCount(), tileX + 600, tileY + 52);
 		
-		g.setColor(Color.RED);
-		g.fillRect((int) (tileX + x - width / 2), (int) (tileY + y - height / 2), width, height);
+	//	g.setColor(Color.RED);
+	//	g.fillRect((int) (tileX + x - width / 2), (int) (tileY + y - height / 2), width, height);
+		
+		if(true) {
+			g.drawImage(
+					animation.getImage(), 
+					(int) (tileX + x - width/2), 
+					(int) (tileY + y - height/2), 
+					null);
+			}
 		
 
 
