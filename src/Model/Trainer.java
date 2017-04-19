@@ -60,6 +60,21 @@ public class Trainer extends Observable {
 	 * End movement variables
 	 */
 
+	public Object[] toSerialize() {
+	    Object[] toSerialize = new Object[9];
+	    toSerialize[0] = x;
+	    toSerialize[1] = y;
+	    toSerialize[2] = dx;
+	    toSerialize[3] = dy;
+	    toSerialize[4] = stepsTaken;
+	    toSerialize[5] = facingLeft;
+	    toSerialize[6] = facingRight;
+	    toSerialize[7] = facingUp;
+	    toSerialize[8] = facingDown;
+	    
+	    return toSerialize;
+	}
+	
 	/*
 	 * Hierarchy variables here
 	 */
@@ -137,6 +152,71 @@ public class Trainer extends Observable {
 		animation = new Animation();
 		animation.setFrames(standingDown);
 
+	}
+	
+	public Trainer(Map map, Object[] toLoad){
+		this.map = map;
+
+		this.width = 50;
+		this.height = 50;
+
+		this.x = (double) toLoad[0];
+		this.y = (double) toLoad[1];
+		this.dx = (double) toLoad[2];
+		this.dy = (double) toLoad[3];
+		acceleration = 1;
+		maxVelocity = 10;
+		friction = .5;
+
+		currRow = map.getRowTileIndex((int) y);
+		currCol = map.getColTileIndex((int) x);
+		stepsTaken = (int) toLoad[4];
+		gameOver = false;
+
+		facingLeft = (boolean) toLoad[5];
+		facingRight = (boolean) toLoad[6];
+		facingUp = (boolean) toLoad[7];
+		facingDown = (boolean) toLoad[8];
+		
+		initCollections();
+
+		try {
+			walkingLeft = new BufferedImage[3];
+			walkingRight = new BufferedImage[3];
+			walkingDown = new BufferedImage[3];
+			walkingUp = new BufferedImage[3];
+
+			// walkingLeft[0] = ImageIO.read(new File("trainerOneTrans.png"));
+			// walkingRight[0] = ImageIO.read(new File("trainerOneTrans.png"));
+			// walkingUp[0] = ImageIO.read(new File("trainerOneTrans.png"));
+			// walkingDown[0] = ImageIO.read(new File("trainerOneTrans.png"));
+
+			BufferedImage image = ImageIO.read(new File("trainerOneTrans.png"));
+
+			standingLeft = new BufferedImage[1];
+			standingRight = new BufferedImage[1];
+			standingDown = new BufferedImage[1];
+			standingUp = new BufferedImage[1];
+			standingLeft[0] = image.getSubimage(148, 48, width, height);
+			standingRight[0] = image.getSubimage(0, 48, width, height);
+			standingDown[0] = image.getSubimage(0, 0, width, height);
+			standingUp[0] = image.getSubimage(148, 0, width, height);
+
+			for (int i = 0; i < 3; i++) {
+				walkingLeft[i] = image.getSubimage(i * (width) + 148, 48, width, height);
+
+				walkingRight[i] = image.getSubimage(i * (width), 48, width, height);
+
+				walkingDown[i] = image.getSubimage(i * (width), 0, width, height);
+
+				walkingUp[i] = image.getSubimage(i * (width) + 148, 0, width, height);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		animation = new Animation();
+		animation.setFrames(standingDown);
 	}
 
 	public void initCollections() {

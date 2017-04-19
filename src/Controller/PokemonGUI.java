@@ -2,6 +2,13 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Queue;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -41,6 +48,20 @@ public class PokemonGUI extends JFrame {
 		setUpMenus();
 		
 	}
+	
+	public PokemonGUI(Object[] toLoad){
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setLayout(null);
+		this.setSize(WIDTH, HEIGHT);
+		this.setTitle("Pokemon Safari Zone");
+		this.setLocation(0, 0);
+		mapView = new MapView(WIDTH, HEIGHT, toLoad);
+		theTrainer = mapView.getTrainer();
+		theTrainer.addObserver(mapView);
+		setViewTo(mapView); //set default view to map view
+		setUpMenus();
+		
+	}
 
 	//set up menus
 	private void setUpMenus() {
@@ -49,6 +70,8 @@ public class PokemonGUI extends JFrame {
 		menu.add(newGame);
 		JMenuItem saveGame = new JMenuItem("Save Game");
 		menu.add(saveGame);
+		JMenuItem loadGame = new JMenuItem("Load Game");
+		menu.add(loadGame);
 		JMenuItem trainer = new JMenu("Trainer");
 		menu.add(trainer);
 		JMenuItem pokedex = new JMenu("Pokedex");
@@ -69,7 +92,16 @@ public class PokemonGUI extends JFrame {
 		
 		//add listeners
 		MenuItemListener menuListener = new MenuItemListener();
-		
+		menu.addActionListener(menuListener);
+		newGame.addActionListener(menuListener);
+		saveGame.addActionListener(menuListener);
+		loadGame.addActionListener(menuListener);
+		trainer.addActionListener(menuListener);
+		pokedex.addActionListener(menuListener);
+		viewTrainer.addActionListener(menuListener);
+		hideTrainer.addActionListener(menuListener);
+		viewPokedex.addActionListener(menuListener);
+		hidePokedex.addActionListener(menuListener);
 	}
 
 	
@@ -97,7 +129,43 @@ public class PokemonGUI extends JFrame {
 			}
 			
 			if(text.equals("Save Game")){
-				//DO SOMETHING, persistatnce stuff
+				try {
+					FileOutputStream fos = new FileOutputStream("persistence");
+					try {
+						ObjectOutputStream oos = new ObjectOutputStream(fos);
+						oos.writeObject(mapView.getTrainer().toSerialize());
+						oos.close();
+					} catch (IOException e1) {
+						System.err.println("Can't write to file");
+						e1.printStackTrace();
+					}
+				} catch (FileNotFoundException e1) {
+					System.err.println("Can't write to file");
+					e1.printStackTrace();
+				}
+			}
+			
+			if (text.equals("Load Game")){
+				try {
+					FileInputStream fis = new FileInputStream("persistence");
+					try {
+						ObjectInputStream ois = new ObjectInputStream(fis);
+						try {
+							Object[] toLoad = (Object[]) ois.readObject();
+							PokemonGUI g = new PokemonGUI(toLoad);
+							g.setVisible(true);
+							setVisible(false);
+							dispose();
+						} catch (ClassNotFoundException cnfe) {
+							System.err.println("Could not read persistence file");
+						}
+						ois.close();
+					} catch (IOException ioe) {
+						System.err.println("Could not read persistence file");
+					}
+				} catch (FileNotFoundException e1) {
+					System.err.println("Could not read persistence file");
+				}
 			}
 			
 			if(text.equals("View Trainer")){
