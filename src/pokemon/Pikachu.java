@@ -3,11 +3,11 @@ package pokemon;
 import Model.CommonPokemon;
 
 public class Pikachu extends CommonPokemon {
-	private String name = "Pikachu";
+	private static String name = "Pikachu";
 	private int pokemonID;
 	
 	public Pikachu(int pokemonID) {
-		super(35, 190);
+		super(name, 35, 190);
 		this.pokemonID = pokemonID;
 	}
 	

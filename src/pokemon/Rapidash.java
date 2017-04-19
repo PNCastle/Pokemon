@@ -3,11 +3,11 @@ package pokemon;
 import Model.UncommonPokemon;
 
 public class Rapidash extends UncommonPokemon {
-	private String name = "Rapidash";
+	private static String name = "Rapidash";
 	private int pokemonID;
 
 	public Rapidash (int pokemonID) {
-		super(65, 60);
+		super(name, 65, 60);
 		this.pokemonID = pokemonID;
 	}
 	

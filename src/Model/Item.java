@@ -4,8 +4,7 @@ public abstract class Item {
 	private boolean isThrowable;
 	private int amount, hpModifier, catchModifier;
 	
-	public Item(boolean isThrowable, int amount, int hpModifier, 
-			int catchModifier) {
+	public Item(boolean isThrowable, int amount, int hpModifier, int catchModifier) {
 		this.amount = amount;
 		this.isThrowable = isThrowable;
 		this.hpModifier = hpModifier;

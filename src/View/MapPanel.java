@@ -47,6 +47,20 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		
 	}
 	
+	public MapPanel(Object[] toLoad){
+		//super();
+		this.setLayout(null);
+		this.setBackground(Color.white);
+		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		this.setSize(this.getPreferredSize());
+		this.setVisible(true);
+		this.setFocusable(true);
+		this.requestFocus();
+		theMap = new Map("mapTwo.txt", 50);
+		theTrainer = new Trainer(theMap, toLoad);
+		
+	}
+	
 	public void addNotify(){
 		super.addNotify();
 		if(thread == null){
@@ -105,8 +119,10 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	
 	private void draw(){
 		Graphics g2 = getGraphics();
-		g2.drawImage(image, 0, 0, null);
-		g2.dispose();
+		if (g2 != null){
+			g2.drawImage(image, 0, 0, null);
+			g2.dispose();
+		}
 	}
 	
 	

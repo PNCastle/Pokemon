@@ -3,11 +3,11 @@ package pokemon;
 import Model.RarePokemon;
 
 public class Dragonair extends RarePokemon{
-	private String name = "Dragonair";
+	private static String name = "Dragonair";
 	private int pokemonID;
 
 	public Dragonair(int pokemonID) {
-		super(61, 45);
+		super(name, 61, 45);
 		this.pokemonID = pokemonID;
 	}
 

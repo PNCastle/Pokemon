@@ -3,10 +3,12 @@ package Model;
 public abstract class Pokemon {
 	private int catchProbability, catchRate, hp, runProbability;
 	private double encounterRate;
+	private String name;
 	
 	private int eatingCounter, angryCounter;
 	
-	public Pokemon(int hp, int catchRate, double encounterRate) {
+	public Pokemon(String name, int hp, int catchRate, double encounterRate) {
+		this.name = name;
 		this.hp = hp;
 		this.catchRate = catchRate;
 		this.encounterRate = encounterRate;
@@ -14,6 +16,10 @@ public abstract class Pokemon {
 		calcCatchProbability();
 	}
 	
+	public String getName() {
+		return name;
+	}
+
 	public int getHP() {
 		return hp;
 	}
