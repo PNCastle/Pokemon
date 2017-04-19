@@ -326,7 +326,7 @@ public class Trainer extends Observable {
 
 		// sprite stuff
 		if (facingDown) {
-			if (down) {
+			if (dy > 0) {
 				animation.setFrames(walkingDown);
 				animation.setDelay(100);
 			} else {
@@ -334,7 +334,7 @@ public class Trainer extends Observable {
 				animation.setDelay(-1);
 			}
 		} else if (facingUp) {
-			if (up) {
+			if (dy < 0) {
 				animation.setFrames(walkingUp);
 				animation.setDelay(100);
 			} else {
