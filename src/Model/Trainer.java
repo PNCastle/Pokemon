@@ -104,8 +104,8 @@ public class Trainer extends Observable {
 		this.dx = 0;
 		this.dy = 0;
 		acceleration = 1;
-		maxVelocity = 10;
-		friction = .5;
+		maxVelocity = 7;
+		friction = .55;
 
 		currRow = map.getRowTileIndex((int) y);
 		currCol = map.getColTileIndex((int) x);
@@ -376,7 +376,7 @@ public class Trainer extends Observable {
 		}
 		// calculateNeighbors(to_x, y);
 		if (dx < 0) {
-			if (topLeft || left || bottomLeft) {
+			if (left) {
 				dx = 0;
 				temp_x = currCol * map.getTileSize() + width / 2;
 			} else {
@@ -384,7 +384,7 @@ public class Trainer extends Observable {
 			}
 		}
 		if (dx > 0) {
-			if (topRight || right || bottomRight) {
+			if (right) {
 				dx = 0;
 				temp_x = (currCol + 1) * map.getTileSize() - width / 2;
 			} else {
@@ -406,7 +406,7 @@ public class Trainer extends Observable {
 
 		// sprite stuff
 		if (facingDown) {
-			if (down) {
+			if (dy > 0) {
 				animation.setFrames(walkingDown);
 				animation.setDelay(100);
 			} else {
@@ -414,7 +414,7 @@ public class Trainer extends Observable {
 				animation.setDelay(-1);
 			}
 		} else if (facingUp) {
-			if (up) {
+			if (dy < 0) {
 				animation.setFrames(walkingUp);
 				animation.setDelay(100);
 			} else {
@@ -422,7 +422,7 @@ public class Trainer extends Observable {
 				animation.setDelay(-1);
 			}
 		} else if (facingLeft) {
-			if (!left) {
+			if (dx < 0) {
 				animation.setFrames(walkingLeft);
 				animation.setDelay(100);
 			} else {
@@ -430,7 +430,7 @@ public class Trainer extends Observable {
 				animation.setDelay(-1);
 			}
 		} else if (facingRight) {
-			if (!right) {
+			if (dx > 0) {
 				animation.setFrames(walkingRight);
 				animation.setDelay(100);
 			} else {
