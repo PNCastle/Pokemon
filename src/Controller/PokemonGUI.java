@@ -2,18 +2,21 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.LinkedList;
 import java.util.Queue;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Model.Trainer;
@@ -41,7 +44,41 @@ public class PokemonGUI extends JFrame {
 		this.setSize(WIDTH, HEIGHT);
 		this.setTitle("Pokemon Safari Zone");
 		this.setLocation(0, 0);
-		mapView = new MapView(WIDTH, HEIGHT);
+		
+		File file = new File("persistence");
+
+		if (file.exists()){
+			int ret = JOptionPane.showOptionDialog(null, "Start with previous game?\n"
+					+ "No means start with a new game.\nIf no, previous game can be loaded from menu.", 
+					"Select an Option", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+
+			if (ret == JOptionPane.YES_OPTION){
+				try {
+					FileInputStream fis = new FileInputStream(file);
+					try {
+						ObjectInputStream ois = new ObjectInputStream(fis);
+						try {
+							Object[] toLoad = (Object[]) ois.readObject();
+							mapView = new MapView(WIDTH, HEIGHT, toLoad);
+						} catch (ClassNotFoundException e) {
+							System.err.println("Could not read persistence file");
+						}
+						ois.close();
+					} catch (IOException e) {
+						System.err.println("Could not read persistence file");
+					}
+				} catch (FileNotFoundException e1) {
+					System.err.println("Could not read persistence file");
+				}
+			}
+			else {
+				mapView = new MapView(WIDTH, HEIGHT);
+			}
+		}
+		else {
+			mapView = new MapView(WIDTH, HEIGHT);
+		}
+		
 		theTrainer = mapView.getTrainer();
 		theTrainer.addObserver(mapView);
 		setViewTo(mapView); //set default view to map view
@@ -125,7 +162,10 @@ public class PokemonGUI extends JFrame {
 			String text = ((JMenuItem) e.getSource()).getText();
 			
 			if(text.equals("New Game")){
-				//DO SOMETHING, MAYBE CALL mapPanel.init() ?
+				PokemonGUI g = new PokemonGUI();
+				g.setVisible(true);
+				setVisible(false);
+				dispose();
 			}
 			
 			if(text.equals("Save Game")){
