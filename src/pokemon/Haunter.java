@@ -3,11 +3,11 @@ package pokemon;
 import Model.UncommonPokemon;
 
 public class Haunter extends UncommonPokemon {
-	private String name = "Haunter";
+	private static String name = "Haunter";
 	private int pokemonID;
 	
 	public Haunter (int pokemonID) {
-		super (45, 90);
+		super(name, 45, 90);
 		this.pokemonID = pokemonID;
 	}
 

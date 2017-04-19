@@ -3,11 +3,11 @@ package pokemon;
 import Model.CommonPokemon;
 
 public class Staryu extends CommonPokemon{
-	private String name = "Staryu";
+	private static String name = "Staryu";
 	private int pokemonID;
 	
 	public Staryu (int pokemonID) {
-		super(30, 225);
+		super(name, 30, 225);
 		this.pokemonID = pokemonID;
 	}
 	

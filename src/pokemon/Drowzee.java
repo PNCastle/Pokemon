@@ -3,11 +3,11 @@ package pokemon;
 import Model.CommonPokemon;
 
 public class Drowzee extends CommonPokemon {
-	private String name = "Drowzee";
+	private static String name = "Drowzee";
 	private int pokemonID;
 	
 	public Drowzee (int pokemonID) {
-		super(60, 190);
+		super(name, 60, 190);
 		this.pokemonID = pokemonID;
 	}
 	
