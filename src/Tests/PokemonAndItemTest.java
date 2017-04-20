@@ -1,3 +1,10 @@
+/* 
+ * Authors: Angel Burr, Paul Castleberry, Issac Kim, Sohyun Kim
+ * File: PokemonAndItemTest.java
+ * Purpose: A series of tests to completely test the Pokemon and Items inheritance
+ * hierarchies
+ */
+
 package Tests;
 
 import static org.junit.Assert.*;
@@ -68,6 +75,26 @@ public class PokemonAndItemTest {
 		
 		testAbra.useItem(rock);
 		assertEquals(23, testAbra.getHP());
+		
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		testAbra.useItem(rock);
+		assertEquals(1, testAbra.getHP());
+		
 		
 		System.out.println(testAbra.toString());
 		System.out.println("Catch Probability: " + testAbra.getCatchProbability());

@@ -1,3 +1,10 @@
+/* 
+ * Authors: Angel Burr, Paul Castleberry, Issac Kim, Sohyun Kim
+ * File: Item.java
+ * Purpose: An inheritance hierarchy for all Items used in the Safari Zone, which
+ * includes in-battle objects (like rocks) and out of battle objects (like potions)
+ */
+
 package Model;
 
 public abstract class Item {
@@ -11,14 +18,17 @@ public abstract class Item {
 		this.catchModifier = catchModifier;
 	}
 	
+	// Determines if item can be thrown (like potions can't, but rocks can)
 	public boolean isThrowable() {
 		return isThrowable;
 	}
 	
+	// Gets how the item affects HP
 	public int hpModifier() {
 		return hpModifier;
 	}
 	
+	// Uses one of the item (-1 indicates unlimited usage, for rocks and bait)
 	public boolean useOne() {
 		if (amount == 0){
 			return false;
