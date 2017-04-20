@@ -19,7 +19,8 @@ public class Animation {
 	
 	public void setFrames(BufferedImage[] images) {
 		frames = images;
-		if (currentFrame >= frames.length) currentFrame = 0;
+		if (currentFrame >= frames.length) 
+			currentFrame = 0;
 	}
 	
 	public void setDelay(long d) {
