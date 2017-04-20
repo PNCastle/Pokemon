@@ -1,3 +1,7 @@
+//Authors: Angel Burr
+//File: MapView.java
+//Purpose: One of two views necessary for pokemon safari zone application
+//		   This view displays the animated trainer and map, before any pokemon have been detected			
 package View;
 
 import java.awt.Color;
@@ -9,6 +13,8 @@ import javax.swing.JPanel;
 
 import Model.Trainer;
 
+//this class models map view of the pokemon safari zone game
+//this class observes the trainer class
 public class MapView extends JPanel implements Observer {
 
 	
@@ -19,6 +25,7 @@ public class MapView extends JPanel implements Observer {
 	//private PokedexPanel pokedexPanel;
 	
 	//ctor
+	//initializes stepCount and mapPanel
 	public MapView(int width, int height){
 		stepCount = new JLabel("Steps Taken: " + 0);
 		stepCount.setSize(200, 50);
@@ -36,6 +43,7 @@ public class MapView extends JPanel implements Observer {
 		this.add(stepCount);
 	}
 	
+	//additional ctor used to allow persistent behavior
 	public MapView(int width, int height, Object[] toLoad){
 		stepCount = new JLabel("Steps Taken: " + toLoad[4]);
 		stepCount.setSize(200, 50);
@@ -53,11 +61,14 @@ public class MapView extends JPanel implements Observer {
 		this.add(stepCount);
 	}
 
+	//update method
+	//for now this method only updates stepCount label when the traines has moved across a new tile
 	@Override
 	public void update(Observable o, Object arg) {
 		stepCount.setText("Steps Taken: " + mapPanel.getTrainer().getStepCount());
 	}
 
+	//getter method for trainer
 	public Trainer getTrainer() {
 		return mapPanel.getTrainer();
 	}

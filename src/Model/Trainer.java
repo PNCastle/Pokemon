@@ -1,3 +1,7 @@
+//Authors: Angel Burr, Paul Castleberry, Issac Kim, Sohyun Kim
+//File: Trainer.java
+//Purpose: central object of pokemon safari zone. models a player of the game who stores a reference of the map.
+
 package Model;
 
 import java.awt.Color;
@@ -12,34 +16,47 @@ import javax.imageio.ImageIO;
 import items.*;
 import pokemon.*;
 
+
+//this class extends observable
 public class Trainer extends Observable {
 
 	/*
 	 * Movement variables here
 	 */
-	private double x;
-	private double y;
-	private double dx;
-	private double dy;
+	private double x; 	//current x location
+	private double y;	//current y location
+	private double dx;	//change in x
+	private double dy;	//change in y
 
+	//keeps track of trainer's current and previous cell location on the tile map
+	//this is useful for step counting
 	private int prevRow, currRow, prevCol, currCol;
 
+	//trainer's size
 	private int width;
 	private int height;
 
+	//if true we are moving that direction
+	//by design only one can be true at any single time
 	private boolean left;
 	private boolean right;
 	private boolean up;
 	private boolean down;
 
+	//variables used to calculate trainer's position
+	//the trainers has a constant acceleration and maximum speed.
+	//friction is used to bring the trainer to a halt.
 	private double acceleration;
 	private double maxVelocity;
 	private double friction;
 
+	//these booleans are used in collsion detection
 	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight, center;
 
+	//trainer stores a reference to the map
 	private Map map;
 
+	//the following variables are used for animating the trainer
 	private Animation animation;
 	private BufferedImage[] walkingLeft;
 	private BufferedImage[] walkingRight;
@@ -79,9 +96,10 @@ public class Trainer extends Observable {
 	 * Hierarchy variables here
 	 */
 
-	private int stepsTaken;
-	private boolean gameOver;
+	private int stepsTaken; 	//number of steps the trainer has taken
+	private boolean gameOver;	//true when game is over
 
+	//the trainer stores a 
 	private ArrayList<Pokemon> pokeDex;
 	private ArrayList<CommonPokemon> commonCollection;
 	private ArrayList<UncommonPokemon> uncommonCollection;
@@ -120,11 +138,6 @@ public class Trainer extends Observable {
 			walkingDown = new BufferedImage[3];
 			walkingUp = new BufferedImage[3];
 
-			// walkingLeft[0] = ImageIO.read(new File("trainerOneTrans.png"));
-			// walkingRight[0] = ImageIO.read(new File("trainerOneTrans.png"));
-			// walkingUp[0] = ImageIO.read(new File("trainerOneTrans.png"));
-			// walkingDown[0] = ImageIO.read(new File("trainerOneTrans.png"));
-
 			BufferedImage image = ImageIO.read(new File("trainerOneTrans.png"));
 
 			standingLeft = new BufferedImage[1];
@@ -154,6 +167,7 @@ public class Trainer extends Observable {
 
 	}
 	
+	//additional constructor used an existing state of the model is loaded
 	public Trainer(Map map, Object[] toLoad){
 		this.map = map;
 
@@ -186,11 +200,6 @@ public class Trainer extends Observable {
 			walkingDown = new BufferedImage[3];
 			walkingUp = new BufferedImage[3];
 
-			// walkingLeft[0] = ImageIO.read(new File("trainerOneTrans.png"));
-			// walkingRight[0] = ImageIO.read(new File("trainerOneTrans.png"));
-			// walkingUp[0] = ImageIO.read(new File("trainerOneTrans.png"));
-			// walkingDown[0] = ImageIO.read(new File("trainerOneTrans.png"));
-
 			BufferedImage image = ImageIO.read(new File("trainerOneTrans.png"));
 
 			standingLeft = new BufferedImage[1];
@@ -219,6 +228,7 @@ public class Trainer extends Observable {
 		animation.setFrames(standingDown);
 	}
 
+	//initializes all lists currently stored in the trainer
 	public void initCollections() {
 		pokeDex = new ArrayList<Pokemon>();
 		commonCollection = new ArrayList<CommonPokemon>();
@@ -248,25 +258,20 @@ public class Trainer extends Observable {
 		rareCollection.add(new Dragonair(9));
 	}
 
-	public void setLeft(boolean b) {
-		this.left = b;
-	}
+	//The following setters allow the key listener on mapPanel,
+	// to tell the player to move
+	public void setLeft(boolean b) 	{ this.left = b;}
+	public void setRight(boolean b) { this.right = b;}
+	public void setUp(boolean b) 	{ this.up = b;}
+	public void setDown(boolean b) 	{ this.down = b;}
 
-	public void setRight(boolean b) {
-		this.right = b;
-	}
-
-	public void setUp(boolean b) {
-		this.up = b;
-	}
-
-	public void setDown(boolean b) {
-		this.down = b;
-	}
-
+	//this method is called in mapPanel update method
+	//this method calculates the speed of the trainer and sets dx and dy accordingly, based on the direction the trainer is moving
+	//this method method then checks whether the trainer is going to collide with an non-walkable object (such as a tree)
+	//if the trainer is going to collide the trainers position is adjusted accordingly and the trainer stops movement in that direction
+	//as a side task, this method also updates stepsTaken as the trainer moves from tile to tile.
 	public void update() {
-		// determine next position
-		// animation.setFrames(standingDown);
+		// determine dx and dy based on the acceleration, current speed, and direction of the trainer
 		if (left) { // moving left
 			dx -= acceleration;
 			facingLeft = true;
@@ -297,45 +302,38 @@ public class Trainer extends Observable {
 			}
 		}
 
-		// stopping
-		if (dx != 0) { // stopping in x direction
+		// apply friction in any direction the player is moving
+		
+		// stopping in x direction
+		if (dx != 0) {
 			if (dx > 0) {
 				dx -= friction;
 				if (dx < 0) {
 					dx = 0;
-//					facingRight = true;
-//					facingDown = facingLeft = facingUp = false;
-//					animation.setFrames(standingRight);
 				}
 			} else {
 				dx += friction;
 				if (dx > 0) {
 					dx = 0;
-//					facingLeft = true;
-//					facingDown = facingUp = facingRight = false;
-//					animation.setFrames(standingLeft);
 				}
 			}
 		}
-		if (dy != 0) { // stopping in y direction
+		// stopping in y direction
+		if (dy != 0) { 
 			if (dy > 0) {
 				dy -= friction;
 				if (dy < 0) {
 					dy = 0;
-//					facingUp = true;
-//					facingDown = facingLeft = facingRight = false;
 				}
 			} else {
 				dy += friction;
 				if (dy > 0) {
 					dy = 0;
-//					facingDown = true;
-//					facingUp = facingLeft = facingRight = false;
 				}
 			}
 		}
 
-		// update steps taken
+		// update steps taken and notify mapView so that step count display is updated in view 
 		prevRow = currRow;
 		prevCol = currCol;
 		currCol = map.getColTileIndex((int) x);
@@ -352,14 +350,22 @@ public class Trainer extends Observable {
 		}
 
 		// collision check here
+		
+		//determine would be position of trainer
 		double to_x = x + dx;
 		double to_y = y + dy;
 
+		//use temp variables for now to be careful
 		double temp_x = x;
 		double temp_y = y;
+		
+		//set instance variables based on whether the neighbors of would be position are blocked
 		calculateNeighbors(to_x, to_y);
 		
-		
+		//check these booleans and if collision is occurring the adjust trainer's position so he is stopped by the un-walkable tile
+		//if no collision is going to occur then set trainers position to (x + dx, y + dy).
+		//Note dx is scaled by 1.36 because our map is 1.36 times wider than tall.
+		//This offset allows speed to appear more consistent in vertical and horizontal directions
 		if (dy < 0) {
 			if (topLeft || top || topRight) {
 				dy = 0;
@@ -376,7 +382,6 @@ public class Trainer extends Observable {
 				temp_y += dy;
 			}
 		}
-		// calculateNeighbors(to_x, y);
 		if (dx < 0) {
 			if (left) {
 				dx = 0;
@@ -398,15 +403,11 @@ public class Trainer extends Observable {
 			temp_y = y - dy*(2);
 			temp_x = x - dx*(2);
 		}
-		/*
-		 * if (x < to_x) { facingRight = true; } if (x > to_x) { facingLeft =
-		 * true; } if (y < to_y) { facingDown = true; } if (y > to_y) { facingUp
-		 * = true; }
-		 */
+		//set x and y to trainer's new position
 		x = temp_x;
 		y = temp_y;
 
-		// hardcoded dimensions of MapPanel
+		// hard-coded dimensions of MapPanel
 		// this keeps player centered at all times
 		map.setX(750 / 2 - x);
 		map.setY(550 / 2 - y);
@@ -448,10 +449,11 @@ public class Trainer extends Observable {
 
 		animation.update();
 
-		// stepsTaken++;
 		checkWinConditions();
 	}
 
+	//the win condtion for this iteration is going over 500 steps
+	//this method checks stps taken and sets the boolean gameOver accordingly
 	private void checkWinConditions() {
 		if (stepsTaken == 500) {
 			gameOver = true;
@@ -460,6 +462,10 @@ public class Trainer extends Observable {
 		}
 	}
 
+	//this method is used to check for collision
+	//the method is passed the x and y coordinates of the trainer's would be position
+	//this method sets instance variables to determine which type of collision is going to occur
+	//the instance variables are set by checking the isBlocked boolean of the tile class
 	private void calculateNeighbors(double y, double x) {
 		int rowIndex = map.getRowTileIndex((int) y);
 		int colIndex = map.getColTileIndex((int) x);
@@ -469,38 +475,27 @@ public class Trainer extends Observable {
 		int bottomIndex = map.getColTileIndex((int) (y + height / 2) - 1);
 
 		center = (map.isBlocked(rowIndex, colIndex));
-		left = (map.isBlocked(rowIndex, leftIndex)); // == 0);
-		right = (map.isBlocked(rowIndex, rightIndex)); // == 0);
+		left = (map.isBlocked(rowIndex, leftIndex));
+		right = (map.isBlocked(rowIndex, rightIndex));
 
-		top = (map.isBlocked(topIndex, colIndex)); // == 0);
-		bottom = (map.isBlocked(bottomIndex, colIndex)); // == 0);
+		top = (map.isBlocked(topIndex, colIndex));
+		bottom = (map.isBlocked(bottomIndex, colIndex));
 
-		topLeft = (map.isBlocked(topIndex, leftIndex)); // == 0);
-		topRight = (map.isBlocked(topIndex, rightIndex)); // == 0);
+		topLeft = (map.isBlocked(topIndex, leftIndex));
+		topRight = (map.isBlocked(topIndex, rightIndex));
 
-		bottomLeft = (map.isBlocked(bottomIndex, leftIndex)); // == 0);
-		bottomRight = (map.isBlocked(bottomIndex, rightIndex)); // == 0);
+		bottomLeft = (map.isBlocked(bottomIndex, leftIndex));
+		bottomRight = (map.isBlocked(bottomIndex, rightIndex));
 	}
 
+	//draw method which draws trainer in the center of the mapPanel
 	public void draw(Graphics2D g) {
 		int tileX = map.getX();
 		int tileY = map.getY();
-
-		// g.setColor(Color.BLACK);
-		// g.fillRect(tileX + 600, tileY + 50, 100, 50);
-		// g.drawString("Number of steps taken: " + this.getStepCount(), tileX +
-		// 600, tileY + 52);
-
-		// g.setColor(Color.RED);
-		// g.fillRect((int) (tileX + x - width / 2), (int) (tileY + y - height /
-		// 2), width, height);
-
-		if (true) {
-			g.drawImage(animation.getImage(), (int) (tileX + x - width / 2), (int) (tileY + y - height / 2), null);
-		}
-
+		g.drawImage(animation.getImage(), (int) (tileX + x - width / 2), (int) (tileY + y - height / 2), null);
 	}
 
+	//getter for steps taken
 	public int getStepCount() {
 		return this.stepsTaken;
 	}

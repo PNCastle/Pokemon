@@ -1,3 +1,7 @@
+//Authors: Angel Burr, Paul Castleberry, Issac Kim, Sohyun Kim
+//File: PokemonGUI.java
+//Purpose: Main controller in Pokemon Safari Zone application
+
 package Controller;
 
 import java.awt.event.ActionEvent;
@@ -23,6 +27,8 @@ import Model.Trainer;
 //import View.BattleView;
 import View.MapView;
 
+
+//pokemon class that extends JFrame
 public class PokemonGUI extends JFrame {
 
 	//instance variables
@@ -33,18 +39,22 @@ public class PokemonGUI extends JFrame {
 	private JPanel currentView;
 	private Trainer theTrainer;
 	
+	//simple main method
 	public static void main(String args[]){
 		PokemonGUI g = new PokemonGUI();
 		g.setVisible(true);
 	}
 	
+	//ctor
 	public PokemonGUI(){
+		//set standard information such as size, title etc.
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(null);
 		this.setSize(WIDTH, HEIGHT);
 		this.setTitle("Pokemon Safari Zone");
 		this.setLocation(0, 0);
 		
+		//this section of code makes the system persistant, so that we can load and save games
 		File file = new File("persistence");
 
 		if (file.exists()){
@@ -52,6 +62,7 @@ public class PokemonGUI extends JFrame {
 					+ "No means start with a new game.\nIf no, previous game can be loaded from menu.", 
 					"Select an Option", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
 
+			//try to read the file
 			if (ret == JOptionPane.YES_OPTION){
 				try {
 					FileInputStream fis = new FileInputStream(file);
@@ -79,19 +90,22 @@ public class PokemonGUI extends JFrame {
 			mapView = new MapView(WIDTH, HEIGHT);
 		}
 		
+		//add mapView as an observer of the trainer
 		theTrainer = mapView.getTrainer();
 		theTrainer.addObserver(mapView);
 		setViewTo(mapView); //set default view to map view
-		setUpMenus();
+		setUpMenus(); //build menu system
 		
 	}
 	
+	//additional constructor used in load game
 	public PokemonGUI(Object[] toLoad){
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(null);
 		this.setSize(WIDTH, HEIGHT);
 		this.setTitle("Pokemon Safari Zone");
 		this.setLocation(0, 0);
+		//initialize mapView and add as an observer of trainer
 		mapView = new MapView(WIDTH, HEIGHT, toLoad);
 		theTrainer = mapView.getTrainer();
 		theTrainer.addObserver(mapView);
@@ -100,7 +114,8 @@ public class PokemonGUI extends JFrame {
 		
 	}
 
-	//set up menus
+	//private helper method whose purpose is to build the menu system
+	//this menu system contains features such as: new game, save game, load game, and others
 	private void setUpMenus() {
 		JMenuItem menu = new JMenu("Options");
 		JMenuItem newGame = new JMenuItem("New Game");
@@ -142,7 +157,7 @@ public class PokemonGUI extends JFrame {
 	}
 
 	
-	//helper method to change view from graphic to text
+	//helper method to change views
 	private void setViewTo(JPanel newView) {
 		if (currentView != null){
 			remove(currentView);
@@ -161,6 +176,7 @@ public class PokemonGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			String text = ((JMenuItem) e.getSource()).getText();
 			
+			//if new game is selected build a new instance of the GUI and dispose of the old one
 			if(text.equals("New Game")){
 				PokemonGUI g = new PokemonGUI();
 				g.setVisible(true);
@@ -168,6 +184,7 @@ public class PokemonGUI extends JFrame {
 				dispose();
 			}
 			
+			//if save game is selected then write the current state of the system to file
 			if(text.equals("Save Game")){
 				try {
 					FileOutputStream fos = new FileOutputStream("persistence");
@@ -185,6 +202,7 @@ public class PokemonGUI extends JFrame {
 				}
 			}
 			
+			//if load game is selected the construct a new GUI object from the system information that was saved
 			if (text.equals("Load Game")){
 				try {
 					FileInputStream fis = new FileInputStream("persistence");
@@ -209,19 +227,19 @@ public class PokemonGUI extends JFrame {
 			}
 			
 			if(text.equals("View Trainer")){
-				//SET Trainer.visible to TRUE
+				//TO DO
 			}
 			
 			if(text.equals("Hide Trainer")){
-				//set TrainerPanel.visible to False
+				//TO DO
 			}
 			
 			if(text.equals("View Pokedex")){
-				//set PokdexPanel.visible to true
+				//TO DO
 			}
 			
 			if(text.equals("Hide Pokedex")){
-				//set PokedexPanel.visible to false
+				//TO DO
 			}
 			
 		}
