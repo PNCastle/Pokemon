@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -23,6 +24,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import Model.Pokemon;
 import Model.Trainer;
 //import View.BattleView;
 import View.MapView;
@@ -235,7 +237,12 @@ public class PokemonGUI extends JFrame {
 			}
 			
 			if(text.equals("View Pokedex")){
-				//TO DO
+				Trainer theTrainer = mapView.getTrainer();
+				ArrayList<Pokemon> pokedex = theTrainer.getPokedex();
+				Pokemon first = pokedex.get(0);
+				JOptionPane.showMessageDialog(null, "Pokedex (Placeholder for "
+						+ "this iteration)\n1. " + first.getName() + " - " +
+						"HP: " + first.getHP() + " ID: " + first.getPokemonID());
 			}
 			
 			if(text.equals("Hide Pokedex")){

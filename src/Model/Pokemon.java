@@ -1,7 +1,7 @@
 package Model;
 
 public abstract class Pokemon {
-	private int catchProbability, catchRate, hp, runProbability;
+	private int catchProbability, catchRate, hp, runProbability, maxHP;
 	private double encounterRate;
 	private String name;
 	
@@ -10,6 +10,7 @@ public abstract class Pokemon {
 	public Pokemon(String name, int hp, int catchRate, double encounterRate) {
 		this.name = name;
 		this.hp = hp;
+		this.maxHP = hp;
 		this.catchRate = catchRate;
 		this.encounterRate = encounterRate;
 		calcRunProbability();
@@ -26,6 +27,10 @@ public abstract class Pokemon {
 	
 	public void setHP(int hpModifier){
 		hp += hpModifier;
+		
+		if (hp > maxHP){
+			hp = maxHP;
+		}
 	}
 	
 	public int getCatchRate() {
@@ -40,6 +45,13 @@ public abstract class Pokemon {
 		return catchProbability;
 	}
 	
+	public void useItem(Item item) {
+		setCatchRate(item.getCatchModifier());
+		setHP(item.hpModifier());
+		calcRunProbability();
+		calcCatchProbability();
+	}
+	
 	/**
 	 * Formula from https://www.dragonflycave.com/mechanics/gen-i-safari-zone
 	 */
@@ -48,15 +60,16 @@ public abstract class Pokemon {
 				((hp * 255) / 12) / Math.max(1, hp / 4) + 1) / 256) / 151; 
 	}
 	
+	/**
+	 * Formula also from https://www.dragonflycave.com/mechanics/gen-i-safari-zone
+	 */
 	public void calcRunProbability() {
-		runProbability = 0;
-		/**
-		 * Placeholder, need to implement Speed stat for each pokemon
-		 */
+		runProbability = Math.max(255, (hp % 256) * 2);
 	}
 	
 	public double getEncounterRate() {
 		return encounterRate;
 	}
 	
+	public abstract int getPokemonID();
 }

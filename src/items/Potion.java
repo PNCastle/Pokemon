@@ -7,7 +7,7 @@ public class Potion extends Item {
 	private String name = "Potion";
 	
 	public Potion() {
-		super(true, 2, 15, 0);
+		super(false, 2, 15, 0);
 	}
 	
 	@Override

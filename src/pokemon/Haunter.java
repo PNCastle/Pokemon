@@ -10,10 +10,6 @@ public class Haunter extends UncommonPokemon {
 		super(name, 45, 90);
 		this.pokemonID = pokemonID;
 	}
-
-	public String getName() {
-		return name;
-	}
 	
 	public int getPokemonID() {
 		return pokemonID;

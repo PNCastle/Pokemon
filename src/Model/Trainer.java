@@ -500,5 +500,10 @@ public class Trainer extends Observable {
 	public int getStepCount() {
 		return this.stepsTaken;
 	}
+	
+	//getter for Pokedex 
+	public ArrayList<Pokemon> getPokedex() {
+		return pokeDex;
+	}
 
 }

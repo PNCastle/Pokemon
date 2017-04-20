@@ -11,10 +11,6 @@ public class Drowzee extends CommonPokemon {
 		this.pokemonID = pokemonID;
 	}
 	
-	public String getName() {
-		return name;
-	}
-	
 	public int getPokemonID() {
 		return pokemonID;
 	}

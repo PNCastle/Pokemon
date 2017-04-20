@@ -11,10 +11,6 @@ public class Staryu extends CommonPokemon{
 		this.pokemonID = pokemonID;
 	}
 	
-	public String getName() {
-		return name;
-	}
-	
 	public int getPokemonID() {
 		return pokemonID;
 	}

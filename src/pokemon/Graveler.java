@@ -10,10 +10,6 @@ public class Graveler extends UncommonPokemon {
 		super(name, 55, 120);
 		this.pokemonID = pokemonID;
 	}
-
-	public String getName() {
-		return name;
-	}
 	
 	public int getPokemonID() {
 		return pokemonID;

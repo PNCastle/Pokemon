@@ -24,6 +24,10 @@ public abstract class Item {
 			return false;
 		}
 		
+		if (amount == -1){
+			return true;
+		}
+		
 		amount--;
 		return true;
 	}

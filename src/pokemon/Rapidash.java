@@ -11,10 +11,6 @@ public class Rapidash extends UncommonPokemon {
 		this.pokemonID = pokemonID;
 	}
 	
-	public String getName() {
-		return name;
-	}
-	
 	public int getPokemonID() {
 		return pokemonID;
 	}
