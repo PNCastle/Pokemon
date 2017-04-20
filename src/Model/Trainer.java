@@ -36,7 +36,7 @@ public class Trainer extends Observable {
 	private double maxVelocity;
 	private double friction;
 
-	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight;
+	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight, center;
 
 	private Map map;
 
@@ -358,6 +358,8 @@ public class Trainer extends Observable {
 		double temp_x = x;
 		double temp_y = y;
 		calculateNeighbors(to_x, to_y);
+		
+		
 		if (dy < 0) {
 			if (topLeft || top || topRight) {
 				dy = 0;
@@ -390,6 +392,11 @@ public class Trainer extends Observable {
 			} else {
 				temp_x += dx * (1.36);
 			}
+		}
+		
+		if(center){
+			temp_y = y - dy;
+			temp_x = x - dx*(1.36);
 		}
 		/*
 		 * if (x < to_x) { facingRight = true; } if (x > to_x) { facingLeft =
@@ -461,6 +468,7 @@ public class Trainer extends Observable {
 		int topIndex = map.getColTileIndex((int) (y - height / 2));
 		int bottomIndex = map.getColTileIndex((int) (y + height / 2) - 1);
 
+		center = (map.isBlocked(rowIndex, colIndex));
 		left = (map.isBlocked(rowIndex, leftIndex)); // == 0);
 		right = (map.isBlocked(rowIndex, rightIndex)); // == 0);
 
