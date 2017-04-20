@@ -10,6 +10,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Model.Map;
@@ -89,6 +90,11 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 				Thread.sleep(waitTime);
 			} catch(Exception e){
 				e.printStackTrace();
+			}
+			
+			if (theTrainer.getStepCount() == 500){
+				JOptionPane.showMessageDialog(null, "Game Over! 500 steps taken.");
+				break;
 			}
 		}
 	}
