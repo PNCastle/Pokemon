@@ -1,3 +1,10 @@
+/* 
+ * Authors: Angel Burr, Paul Castleberry, Issac Kim, Sohyun Kim
+ * File: Graveler.java
+ * Purpose: A Pokemon which inherits the UncommonPokemon hierarchy, and implements
+ * any abstract methods from the main Pokemon abstract class
+ */
+
 package pokemon;
 
 import Model.UncommonPokemon;

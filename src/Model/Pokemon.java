@@ -1,3 +1,12 @@
+/* 
+ * Authors: Angel Burr, Paul Castleberry, Issac Kim, Sohyun Kim
+ * File: Pokemon.java
+ * Purpose: The main Pokemon inheritance hierarchy, which includes all operations
+ * relating to all Pokemon, regardless of type or rarity, and calculates all
+ * probabilites (since these are independent of rarity). Also includes setters
+ * and getters for various Pokemon stats during battle.
+ */
+
 package Model;
 
 public abstract class Pokemon {
@@ -28,6 +37,11 @@ public abstract class Pokemon {
 	public void setHP(int hpModifier){
 		hp += hpModifier;
 		
+		// We are implementing such that pokemon don't actually faint
+		if (hp <= 0) {
+			hp = 1;
+		}
+		
 		if (hp > maxHP){
 			hp = maxHP;
 		}
@@ -45,6 +59,8 @@ public abstract class Pokemon {
 		return catchProbability;
 	}
 	
+	// Uses an item and runs the methods to determine the state of the Pokemon
+	// during battle
 	public void useItem(Item item) {
 		setCatchRate(item.getCatchModifier());
 		setHP(item.hpModifier());
