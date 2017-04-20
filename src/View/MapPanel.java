@@ -35,7 +35,6 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	
 	//ctor
 	public MapPanel(){
-		//super();
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -44,12 +43,10 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		this.setFocusable(true);
 		this.requestFocus();
 		theMap = new Map("mapTwo.txt", 50);
-		theTrainer = new Trainer(theMap);
-		
+		theTrainer = new Trainer(theMap);	
 	}
 	
 	public MapPanel(Object[] toLoad){
-		//super();
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -102,13 +99,8 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	private void init(){
 		running = true;
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-		g = (Graphics2D) image.getGraphics();
-		
-		
-		//theMap = new Map("mapTwo.txt", 50);
-		//theTrainer = new Trainer(theMap);
+		g = (Graphics2D) image.getGraphics();		
 		theMap.loadTiles("resizedTiles.png");
-		//load tiles for map here
 	}
 	
 	private void update(){
@@ -117,10 +109,8 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	}
 	
 	private void render(){
-		
 		theMap.draw(g);
 		theTrainer.draw(g);
-
 	}
 	
 	private void draw(){
@@ -131,16 +121,10 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public Trainer getTrainer() {
+		return theTrainer;
+	}
+		
 	//////////// KEY LISTENER CODE ///////////////////////////////
 	
 	//ignore
@@ -197,9 +181,4 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 			theTrainer.setDown(false);
 		}
 	}
-
-	public Trainer getTrainer() {
-		return theTrainer;
-	}
-
 }

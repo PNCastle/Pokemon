@@ -58,6 +58,7 @@ public class Trainer extends Observable {
 
 	//the following variables are used for animating the trainer
 	private Animation animation;
+	private int delayTime = 100;
 	private BufferedImage[] walkingLeft;
 	private BufferedImage[] walkingRight;
 	private BufferedImage[] walkingUp;
@@ -279,21 +280,21 @@ public class Trainer extends Observable {
 			if (dx < -maxVelocity) {
 				dx = -maxVelocity;
 			}
-		} else if (right) { // moving right
+		}  if (right) { // moving right
 			dx += acceleration;
 			facingRight = true;
 			facingDown = facingLeft = facingUp = false;
 			if (dx > maxVelocity) {
 				dx = maxVelocity;
 			}
-		} else if (up) { // moving up
+		} if (up) { // moving up
 			dy -= acceleration;
 			facingUp = true;
 			facingDown = facingLeft = facingRight = false;
 			if (dy < -maxVelocity) {
 				dy = -maxVelocity;
 			}
-		} else if (down) { // moving down
+		} if (down) { // moving down
 			dy += acceleration;
 			facingDown = true;
 			facingUp = facingLeft = facingRight = false;
@@ -416,7 +417,7 @@ public class Trainer extends Observable {
 		if (facingDown) {
 			if (dy > 0) {
 				animation.setFrames(walkingDown);
-				animation.setDelay(100);
+				animation.setDelay(delayTime);
 			} else {
 				animation.setFrames(standingDown);
 				animation.setDelay(-1);
@@ -424,7 +425,7 @@ public class Trainer extends Observable {
 		} else if (facingUp) {
 			if (dy < 0) {
 				animation.setFrames(walkingUp);
-				animation.setDelay(100);
+				animation.setDelay(delayTime);
 			} else {
 				animation.setFrames(standingUp);
 				animation.setDelay(-1);
@@ -432,7 +433,7 @@ public class Trainer extends Observable {
 		} else if (facingLeft) {
 			if (dx < 0) {
 				animation.setFrames(walkingLeft);
-				animation.setDelay(100);
+				animation.setDelay(delayTime);
 			} else {
 				animation.setFrames(standingLeft);
 				animation.setDelay(-1);
@@ -440,7 +441,7 @@ public class Trainer extends Observable {
 		} else if (facingRight) {
 			if (dx > 0) {
 				animation.setFrames(walkingRight);
-				animation.setDelay(100);
+				animation.setDelay(delayTime);
 			} else {
 				animation.setFrames(standingRight);
 				animation.setDelay(-1);

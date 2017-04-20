@@ -1,6 +1,9 @@
+/*
+ * Paul Castleberry, Angel Burr, Sohyun Kim, Isaac Kim
+ * Map.java
+ */
 package Model;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -10,14 +13,6 @@ import java.io.FileReader;
 import javax.imageio.ImageIO;
 
 public class Map {
-	
-	final static int MAP_WIDTH = 30;
-	final static int MAP_HEIGHT = 22;
-	
-	final static char SHORT_GRASS = 'g';
-	final static char TREE = 'T';
-	final static char TRAIL = 't';
-	final static char TALL_GRASS = 'G';
 	
 	//instance variables
 	private int tileSize;
@@ -32,7 +27,7 @@ public class Map {
 	
 	//ctor
 	public Map(String fileName, int tileSize) {
-		//currentMap = new char[30][22];
+
 		//if statement for which  map
 		this.tileSize = tileSize;
 		
@@ -54,32 +49,32 @@ public class Map {
 					currentMap[row][col] = Integer.parseInt(tokens[col]);
 				}		
 			}
+			br.close();
 		}
-		
 		catch(Exception e) {	
 		}
-		//loadTiles("resizedTiles.png");
-		//currentMap = buildMapOne();
 	}
 	
-	public void loadTiles(String s) {
+	// loadTiles will accept the name of a file as a string then walk through
+	// the the image file and assign sub images and tile type (ie blocked)
+	// for each tile type. Currently 4 50x50 sub images.
+	public void loadTiles(String fileName) {
 		
 		try {
-			tileSet = ImageIO.read(new File(s));
-			int numTilesAcross = 3;//(tileSet.getWidth() +1/ (tileSize +1));
+			tileSet = ImageIO.read(new File(fileName));
+			int numTilesAcross = 3;
 			tiles = new Tile[4];
 			
 			BufferedImage subImage;
-			boolean b = false;
+			boolean blocked = false;
 			for(int col = 0; col <= numTilesAcross; col++) {
 				subImage = tileSet.getSubimage(col*tileSize, 0, tileSize, tileSize);
 				if (col == 3) {
-					b = true;
+					blocked = true;
 				}
 				else
-					b = false;
-				tiles[col] = new Tile(subImage, b);
-				//subImage = tileSet.getSubimage(col*tileSize+col, 0, tileSize, tileSize);
+					blocked = false;
+				tiles[col] = new Tile(subImage, blocked);
 			}
 		}
 		catch (Exception e) {
@@ -88,43 +83,27 @@ public class Map {
 		
 	}
 	
+	// empty update method
 	public void update() {
 		
 	}
 	
-	// 0 = blocked     = black
-	// 1 = trail       = white
-	// 2 = short grass = light green
-	// 3 = tall grass  = dark green
+	// walk through the currentMap and draw appropriate
+	// images by indexing into the tiles[] array images
+	// to draw our entire map from txt file
+	// 0 = path
+	// 1 = short grass
+	// 2 = tall grass
+	// 3 = tree(blocked)
 	public void draw(Graphics2D g) {
 		
 		for(int row = 0; row < mapHeight; row++) {
 			for(int col = 0; col < mapWidth; col++) {
 				
 				int rc = currentMap[row][col];
-				
-				//int r = rc / 3;
-				//int c = rc % 3;
-				
+								
 				g.drawImage(tiles[rc].getImage(), x+col*tileSize,
 							y+row*tileSize, null);
-				
-				
-			/*	if(rc == 0) {
-					g.setColor(Color.BLACK);
-				}
-				if(rc == 1) {
-					g.setColor(Color.WHITE);
-				}
-				if(rc == 2) {
-					g.setColor(Color.gray);
-				}
-				if(rc == 3) {
-					g.setColor(Color.GREEN);
-				}
-				g.fillRect(x + col * tileSize,  y + row * tileSize,  tileSize,  tileSize);		
-			
-			*/
 			}
 		}
 	}
@@ -134,90 +113,56 @@ public class Map {
 	public String toString() {
 		StringBuilder mapToString = new StringBuilder();
 		
-		for(int i = 0; i < MAP_HEIGHT; i++) {
-			for (int j = 0; j < MAP_WIDTH; j++) {
+		for(int i = 0; i < mapWidth; i++) {
+			for (int j = 0; j < mapHeight; j++) {
 				mapToString.append(this.currentMap[i][j] + " ");
 			}
 			mapToString.append('\n');
 		}
 		return mapToString.toString();
 	}
-
-	//method to build first map
-	private char[][] buildMapOne() {
-		char[][] tempMap = new char[MAP_HEIGHT][MAP_WIDTH];
-		//set all tiles to walkable
-		for(int i = 0; i < MAP_HEIGHT; i++) {	
-			for (int j = 0; j < MAP_WIDTH; j++) {
-				tempMap[i][j] = SHORT_GRASS;
-			}
-		}
-		// build barrier
-		for (int i = 0; i < MAP_WIDTH; i++) {
-			tempMap[0][i] = TREE;
-			tempMap[MAP_HEIGHT-1][i] = TREE;
-			if (i < MAP_HEIGHT) {
-				tempMap[i][0] = TREE;
-				tempMap[i][MAP_WIDTH-1] = TREE;
-			}
-		}
-		//build trail
-		for(int i = 1; i < MAP_HEIGHT - 1; i++){
-			tempMap[i][14] = TRAIL;
-			tempMap[i][15] = TRAIL;
-		}
-		for(int j = 1; j < MAP_WIDTH - 1; j++){
-			tempMap[11][j] = TRAIL;
-			tempMap[10][j] = TRAIL;
-		}
-		
-		//build tall grass
-		for(int i = 0; i < 5; i++){
-			for(int j = 0; j < 9; j++){
-				tempMap[3+i][3+j] = TALL_GRASS;
-				tempMap[3+i][18+j] = TALL_GRASS;
-				tempMap[14+i][3+j] = TALL_GRASS;
-				tempMap[14+i][18+j] = TALL_GRASS;
-			}
-		}
-		return tempMap;
-	}
-
+	
+	// getter for whether the tile at (col,row) is blocked
 	public boolean isBlocked(int col, int row) {
 		int rc = currentMap[row][col];
-		//int r = rc / tiles[0].length;
-		//int c = rc % tiles[0].length;
 		return tiles[rc].isBlocked();
 	}
 	
+	// getter for tileSize
 	public int getTileSize(){
 		return this.tileSize;
 	}
 
+	// setter for X
 	public void setX(double x){
 		this.x = (int) x;
 	}
 	
+	// setter for Y
 	public void setY(double y){
 		this.y = (int) y;
 	}
 	
+	// getter for X
 	public int getX() {
 		return this.x;
 	}
 
+	// getter for Y
 	public int getY() {
 		return this.y;
 	}
-	
+	// getter for col tile index
 	public int getColTileIndex(int x){
 		return x / tileSize;
 	}
 	
+	// getter for row tile index
 	public int getRowTileIndex(int y){
 		return y / tileSize;
 	}
 	
+	// getter for tile at (x,y)
 	public int getTile(int x, int y){
 		return currentMap[y][x];
 	}
