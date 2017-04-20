@@ -395,8 +395,8 @@ public class Trainer extends Observable {
 		}
 		
 		if(center){
-			temp_y = y - dy;
-			temp_x = x - dx*(1.36);
+			temp_y = y - dy*(2);
+			temp_x = x - dx*(2);
 		}
 		/*
 		 * if (x < to_x) { facingRight = true; } if (x > to_x) { facingLeft =
