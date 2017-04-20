@@ -1,6 +1,9 @@
 /*
  * Authors:  Paul Castleberry, Angel Burr, Sohyun Kim, Isaac Kim
  * Filename: Map.java
+ * Purpose:  The Map object of the Pokemon game. Handles reading
+ * 			 of image files and text files to build an object.
+ *           A 2D int array is used in a text file to build the map.
  */
 
 package Model;

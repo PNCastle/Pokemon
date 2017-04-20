@@ -1,6 +1,8 @@
 /*
  * Authors:  Paul Castleberry, Angel Burr, Sohyun Kim, Isaac Kim
  * Filename: MapPanel.java
+ * Purpose:  The interior map of the GUI. Contains the game itself and the
+ * 			 listeners.
  */
 
 package View;
@@ -24,7 +26,7 @@ import Model.Trainer;
 public class MapPanel extends JPanel implements Runnable, KeyListener {
 
 	//instance variables
-	static final int WIDTH = 750; //assuming tile size is 50*50
+	static final int WIDTH = 750;
 	static final int HEIGHT = 550;
 	private Thread thread;
 	private boolean running;
@@ -33,7 +35,7 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	private Graphics2D g;
 	
 	private int FPS = 15;
-	private int targetTime = 1000/ FPS;
+	private int targetTime = 1000/FPS;
 	
 	private Map theMap;
 	private Trainer theTrainer;
@@ -51,6 +53,7 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		theTrainer = new Trainer(theMap);	
 	}
 	
+	//additional constructor for saving and loading games
 	public MapPanel(Object[] toLoad){
 		this.setLayout(null);
 		this.setBackground(Color.white);
@@ -64,6 +67,8 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		
 	}
 	
+	//addNotify, start threads and add key listeners to
+	//the mapPanel
 	public void addNotify(){
 		super.addNotify();
 		if(thread == null){
@@ -73,6 +78,10 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		this.addKeyListener(this);
 	}
 	
+	//run the thread, calculate the time between
+	//updates and check for win conditions
+	//as long as the thread is running the trainer
+	//and map are updated, drawn, and rendered.
 	@Override
 	public void run() {
 		
@@ -85,6 +94,7 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 			render();
 			draw();
 			
+			//calculate wait time to sleep the thread
 			urdTime = (System.nanoTime() - startTime) / 100000;
 			waitTime = Math.abs(targetTime - urdTime);
 			
@@ -94,6 +104,7 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 				e.printStackTrace();
 			}
 			
+			//check for win conditions
 			if (theTrainer.getStepCount() == 500){
 				JOptionPane.showMessageDialog(null, "Game Over! 500 steps taken.");
 				break;
@@ -101,6 +112,7 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		}
 	}
 	
+	//init, set variables running, image, g, and load the tiles
 	private void init(){
 		running = true;
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -108,16 +120,19 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		theMap.loadTiles("resizedTiles.png");
 	}
 	
+	//update theMap and theTrainer objects
 	private void update(){
 		theMap.update();
 		theTrainer.update();
 	}
 	
+	//render theMap and theTrainer objects
 	private void render(){
 		theMap.draw(g);
 		theTrainer.draw(g);
 	}
 	
+	//draw the graphics
 	private void draw(){
 		Graphics g2 = getGraphics();
 		if (g2 != null){
@@ -126,16 +141,25 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		}
 	}
 	
+	//retrieve theTrainer for this mapPanel
 	public Trainer getTrainer() {
 		return theTrainer;
 	}
 		
-	//////////// KEY LISTENER CODE ///////////////////////////////
+	/*********************
+	 * KEYCODE LISTENERS *
+	 *********************/
 	
-	//ignore
+	//unused, ignore for now
+	//may be used in iteration 2
 	@Override
 	public void keyTyped(KeyEvent key) {	
 	}
+	
+	//listen for any of the arrow keys being pressed
+	//if they are set the direction of theTrainer object
+	//to true so that theTrainer can move in that direction
+	//only one direction boolean may be flagged to true at a time
 	@Override
 	public void keyPressed(KeyEvent key) {
 		int code = key.getKeyCode();
@@ -170,6 +194,10 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		}
 	}
 
+
+	//listen for any of the arrow keys being released
+	//if they are set the direction of theTrainer object
+	//to false so that theTrainer can stop in that direction
 	@Override
 	public void keyReleased(KeyEvent key) {
 		int code = key.getKeyCode();
