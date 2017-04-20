@@ -447,14 +447,12 @@ public class Trainer extends Observable {
 				animation.setDelay(-1);
 			}
 		}
-
 		animation.update();
-
 		checkWinConditions();
 	}
 
-	//the win condtion for this iteration is going over 500 steps
-	//this method checks stps taken and sets the boolean gameOver accordingly
+	//the win condition for this iteration is going over 500 steps
+	//this method checks steps taken and sets the boolean gameOver accordingly
 	private void checkWinConditions() {
 		if (stepsTaken == 500) {
 			gameOver = true;

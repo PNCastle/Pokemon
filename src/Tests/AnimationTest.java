@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 
 import org.junit.Test;
 
+import Model.Animation;
 import Model.Map;
 import Model.Tile;
 import Model.Trainer;
@@ -86,6 +87,11 @@ public class AnimationTest {
 		theMap.getX();
 		theMap.getY();
 		
+		BufferedImage[] standingDown = new BufferedImage[1];
+		
+		Animation animation = new Animation();
+		animation.setFrames(standingDown);
+		animation.getImage();
 	}
 
 }
