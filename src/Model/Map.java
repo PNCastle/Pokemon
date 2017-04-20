@@ -112,20 +112,6 @@ public class Map {
 		}
 	}
 	
-	//to string method
-	@Override
-	public String toString() {
-		StringBuilder mapToString = new StringBuilder();
-		
-		for(int i = 0; i < mapWidth; i++) {
-			for (int j = 0; j < mapHeight; j++) {
-				mapToString.append(this.currentMap[i][j] + " ");
-			}
-			mapToString.append('\n');
-		}
-		return mapToString.toString();
-	}
-	
 	// getter for whether the tile at (col,row) is blocked
 	public boolean isBlocked(int col, int row) {
 		int rc = currentMap[row][col];

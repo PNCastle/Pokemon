@@ -2,9 +2,18 @@ package Tests;
 
 import static org.junit.Assert.*;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import org.junit.Test;
 
 import Model.Map;
+import Model.Tile;
 import Model.Trainer;
 
 public class AnimationTest {
@@ -56,6 +65,18 @@ public class AnimationTest {
 		ketchum.update();
 		
 		ashe.toSerialize();
+		
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(new File("trainerOneTrans.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Graphics2D g = (Graphics2D) image.getGraphics();
+		theMap.draw(g);
+		Tile testTile = new Tile(image, false);
+		testTile.getImage();
 		
 		//theMap.toString(); 
 		theMap.getColTileIndex(5);
