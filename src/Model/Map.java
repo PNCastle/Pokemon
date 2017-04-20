@@ -1,7 +1,8 @@
 /*
- * Paul Castleberry, Angel Burr, Sohyun Kim, Isaac Kim
- * Map.java
+ * Authors:  Paul Castleberry, Angel Burr, Sohyun Kim, Isaac Kim
+ * Filename: Map.java
  */
+
 package Model;
 
 import java.awt.Graphics2D;
@@ -28,20 +29,23 @@ public class Map {
 	//ctor
 	public Map(String fileName, int tileSize) {
 
-		//if statement for which  map
+		// ToDo: if statement for which map
+		
 		this.tileSize = tileSize;
 		
 		try {
 			
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
 		
-			mapWidth = Integer.parseInt(br.readLine());
-			mapHeight = Integer.parseInt(br.readLine());
+			mapWidth = Integer.parseInt(br.readLine()); // these are variables from the first
+			mapHeight = Integer.parseInt(br.readLine());// and second lines of the text file
 			
 			currentMap = new int[mapHeight][mapWidth];
 			
-			String delimiters = "\\s+";
+			String delimiters = "\\s+"; // this will separate our file by whitespace
 			
+			// split our text file up and assign appropriate tile types throughout
+			// our int array
 			for(int row = 0; row < mapHeight; row++) {
 				String line = br.readLine();
 				String[] tokens = line.split(delimiters);

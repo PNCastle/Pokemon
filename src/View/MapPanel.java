@@ -1,3 +1,8 @@
+/*
+ * Authors:  Paul Castleberry, Angel Burr, Sohyun Kim, Isaac Kim
+ * Filename: MapPanel.java
+ */
+
 package View;
 
 import java.awt.Color;

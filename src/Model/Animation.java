@@ -1,3 +1,8 @@
+/*
+ * Authors:  Paul Castleberry, Angel Burr, Sohyun Kim, Isaac Kim
+ * Filename: Animation.java
+ */
+
 package Model;
 import java.awt.image.BufferedImage;
 
