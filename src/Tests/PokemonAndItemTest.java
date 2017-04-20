@@ -95,6 +95,9 @@ public class PokemonAndItemTest {
 		testAbra.useItem(rock);
 		assertEquals(1, testAbra.getHP());
 		
+		testAbra.useItem(potion);
+		testAbra.useItem(potion);
+		assertEquals(25, testAbra.getHP());
 		
 		System.out.println(testAbra.toString());
 		System.out.println("Catch Probability: " + testAbra.getCatchProbability());
@@ -147,6 +150,20 @@ public class PokemonAndItemTest {
 		assertEquals(testStaryu.getCatchRate(), 225);
 		assertEquals(120, testStaryu.getPokemonID());
 		
+		testStaryu.useItem(rock);
+		testStaryu.useItem(rock);
+		testStaryu.useItem(rock);
+		testStaryu.useItem(rock);
+		testStaryu.useItem(rock);
+		testStaryu.useItem(rock);
+		testStaryu.useItem(rock);
+		testStaryu.useItem(rock);
+		testStaryu.useItem(rock);
+		assertEquals(12, testStaryu.getHP());
+		
+		testStaryu.useItem(safariBall);
+		assertEquals(12, testStaryu.getHP());
+		
 		System.out.println(testStaryu.toString());
 		System.out.println("Catch Probability: " + testStaryu.getCatchProbability());
 		System.out.println("Encounter Rate: " + testStaryu.getEncounterRate());
@@ -160,6 +177,21 @@ public class PokemonAndItemTest {
 		assertEquals(testGrimer.getName(), "Grimer");
 		assertEquals(testGrimer.getCatchRate(), 190);
 		assertEquals(88, testGrimer.getPokemonID());
+		
+		testGrimer.useItem(rock);
+		testGrimer.useItem(rock);
+		testGrimer.useItem(rock);
+		testGrimer.useItem(rock);
+		testGrimer.useItem(rock);
+		testGrimer.useItem(rock);
+		testGrimer.useItem(rock);
+		testGrimer.useItem(rock);
+		testGrimer.useItem(rock);
+		testGrimer.useItem(rock);
+		assertEquals(60, testGrimer.getHP());
+		
+		testGrimer.useItem(potion);
+		assertEquals(75, testGrimer.getHP());
 		
 		System.out.println(testGrimer.toString());
 		System.out.println("Catch Probability: " + testGrimer.getCatchProbability());
@@ -175,6 +207,21 @@ public class PokemonAndItemTest {
 		assertEquals(testRapidash.getCatchRate(), 60);
 		assertEquals(78, testRapidash.getPokemonID());
 		
+		testRapidash.useItem(rock);
+		testRapidash.useItem(rock);
+		testRapidash.useItem(rock);
+		testRapidash.useItem(rock);
+		testRapidash.useItem(rock);
+		testRapidash.useItem(rock);
+		testRapidash.useItem(rock);
+		testRapidash.useItem(rock);
+		testRapidash.useItem(rock);
+		testRapidash.useItem(rock);
+		assertEquals(45, testRapidash.getHP());
+		
+		testRapidash.useItem(potion);
+		assertEquals(60, testRapidash.getHP());
+		
 		System.out.println(testRapidash.toString());
 		System.out.println("Catch Probability: " + testRapidash.getCatchProbability());
 		System.out.println("Encounter Rate: " + testRapidash.getEncounterRate());
@@ -188,6 +235,21 @@ public class PokemonAndItemTest {
 		assertEquals(testPikachu.getName(), "Pikachu");
 		assertEquals(testPikachu.getCatchRate(), 190);
 		assertEquals(25, testPikachu.getPokemonID());
+		
+		testPikachu.useItem(rock);
+		testPikachu.useItem(rock);
+		testPikachu.useItem(rock);
+		testPikachu.useItem(rock);
+		testPikachu.useItem(rock);
+		testPikachu.useItem(rock);
+		testPikachu.useItem(rock);
+		testPikachu.useItem(rock);
+		testPikachu.useItem(rock);
+		testPikachu.useItem(rock);
+		assertEquals(15, testPikachu.getHP());
+		
+		testPikachu.useItem(safariBall);
+		assertEquals(15, testPikachu.getHP());
 		
 		System.out.println(testPikachu.toString());
 		System.out.println("Catch Probability: " + testPikachu.getCatchProbability());
@@ -203,6 +265,16 @@ public class PokemonAndItemTest {
 		assertEquals(testPidgey.getCatchRate(), 255);
 		assertEquals(16, testPidgey.getPokemonID());
 		
+		testPidgey.useItem(rock);
+		testPidgey.useItem(rock);
+		testPidgey.useItem(rock);
+		testPidgey.useItem(rock);
+		testPidgey.useItem(rock);
+		assertEquals(30, testPidgey.getHP());
+		
+		testPidgey.useItem(potion);
+		assertEquals(40, testPidgey.getHP());
+		
 		System.out.println(testPidgey.toString());
 		System.out.println("Catch Probability: " + testPidgey.getCatchProbability());
 		System.out.println("Encounter Rate: " + testPidgey.getEncounterRate());
@@ -216,6 +288,26 @@ public class PokemonAndItemTest {
 		assertEquals(testHaunter.getName(), "Haunter");
 		assertEquals(testHaunter.getCatchRate(), 90);
 		assertEquals(93, testHaunter.getPokemonID());
+		
+		testHaunter.useItem(rock);
+		testHaunter.useItem(rock);
+		testHaunter.useItem(rock);
+		testHaunter.useItem(rock);
+		testHaunter.useItem(rock);
+		testHaunter.useItem(rock);
+		testHaunter.useItem(rock);
+		testHaunter.useItem(rock);
+		testHaunter.useItem(rock);
+		testHaunter.useItem(rock);
+		testHaunter.useItem(rock);
+		testHaunter.useItem(rock);
+		testHaunter.useItem(rock);
+		testHaunter.useItem(rock);
+		testHaunter.useItem(rock);
+		assertEquals(15, testHaunter.getHP());
+		
+		testHaunter.useItem(potion);
+		assertEquals(30, testHaunter.getHP());
 		
 		System.out.println(testHaunter.toString());
 		System.out.println("Catch Probability: " + testHaunter.getCatchProbability());
@@ -231,6 +323,27 @@ public class PokemonAndItemTest {
 		assertEquals(testGraveler.getCatchRate(), 120);
 		assertEquals(75, testGraveler.getPokemonID());
 		
+		testGraveler.useItem(rock);
+		testGraveler.useItem(rock);
+		testGraveler.useItem(rock);
+		testGraveler.useItem(rock);
+		testGraveler.useItem(rock);
+		testGraveler.useItem(rock);
+		testGraveler.useItem(rock);
+		testGraveler.useItem(rock);
+		testGraveler.useItem(rock);
+		testGraveler.useItem(rock);
+		testGraveler.useItem(rock);
+		testGraveler.useItem(rock);
+		testGraveler.useItem(rock);
+		testGraveler.useItem(rock);
+		testGraveler.useItem(rock);
+		assertEquals(25, testGraveler.getHP());
+		
+		testGraveler.useItem(potion);
+		testGraveler.useItem(potion);
+		assertEquals(55, testGraveler.getHP());
+		
 		System.out.println(testGraveler.toString());
 		System.out.println("Catch Probability: " + testGraveler.getCatchProbability());
 		System.out.println("Encounter Rate: " + testGraveler.getEncounterRate());
@@ -244,6 +357,16 @@ public class PokemonAndItemTest {
 		assertEquals(testDrowzee.getName(), "Drowzee");
 		assertEquals(testDrowzee.getCatchRate(), 190);
 		assertEquals(96, testDrowzee.getPokemonID());
+		
+		testDrowzee.useItem(rock);
+		testDrowzee.useItem(rock);
+		testDrowzee.useItem(rock);
+		testDrowzee.useItem(rock);
+		testDrowzee.useItem(rock);
+		assertEquals(50, testDrowzee.getHP());
+		
+		testDrowzee.useItem(potion);
+		assertEquals(60, testDrowzee.getHP());
 		
 		System.out.println(testDrowzee.toString());
 		System.out.println("Catch Probability: " + testDrowzee.getCatchProbability());

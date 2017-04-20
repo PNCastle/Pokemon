@@ -3,6 +3,9 @@
  * File: Graveler.java
  * Purpose: A Pokemon which inherits the UncommonPokemon hierarchy, and implements
  * any abstract methods from the main Pokemon abstract class
+ * Rare Pokemon (1 ~ 50)
+ * Uncommon Pokemon (51 ~ 150)
+ * Common Pokemon (151 ~ 255)
  */
 
 package pokemon;
@@ -14,7 +17,9 @@ public class Graveler extends UncommonPokemon {
 	private int pokemonID;
 
 	public Graveler(int pokemonID) {
+		// hp = 55, catchRate = 120
 		super(name, 55, 120);
+		// pokemonID = 75
 		this.pokemonID = pokemonID;
 	}
 	

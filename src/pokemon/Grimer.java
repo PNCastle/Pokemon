@@ -3,6 +3,9 @@
  * File: Grimer.java
  * Purpose: A Pokemon which inherits the CommonPokemon hierarchy, and implements
  * any abstract methods from the main Pokemon abstract class
+ * Rare Pokemon (1 ~ 50)
+ * Uncommon Pokemon (51 ~ 150)
+ * Common Pokemon (151 ~ 255)
  */
 
 package pokemon;
@@ -14,7 +17,9 @@ public class Grimer extends CommonPokemon {
 	private int pokemonID;
 	
 	public Grimer(int pokemonID) {
+		// hp = 80, catchRate = 190
 		super(name, 80, 190);
+		// pokemonID = 88
 		this.pokemonID = pokemonID;
 	}	
 	
