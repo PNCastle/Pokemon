@@ -122,6 +122,7 @@ public class Trainer extends Observable {
 		this.y = 110 / 2 * height;
 		this.dx = 0;
 		this.dy = 0;
+		
 		acceleration = 1;
 		maxVelocity = 7;
 		friction = .55;
@@ -454,7 +455,7 @@ public class Trainer extends Observable {
 	//the win condition for this iteration is going over 500 steps
 	//this method checks steps taken and sets the boolean gameOver accordingly
 	private void checkWinConditions() {
-		if (stepsTaken == 500) {
+		if (stepsTaken >= 500) {
 			gameOver = true;
 		} else if (pokeDex.size() == 10) {
 			gameOver = true;
