@@ -240,8 +240,8 @@ public class PokemonGUI extends JFrame {
 				Trainer theTrainer = mapView.getTrainer();
 				ArrayList<Pokemon> pokedex = theTrainer.getPokedex();
 				Pokemon first = pokedex.get(0);
-				JOptionPane.showMessageDialog(null, "Pokedex (Placeholder for "
-						+ "this iteration)\n1. " + first.getName() + " - " +
+				JOptionPane.showMessageDialog(null, 
+						"Pokedex (Placeholder for this iteration)\n1. " + first.getName() + " - " +
 						"HP: " + first.getHP() + " ID: " + first.getPokemonID());
 			}
 			

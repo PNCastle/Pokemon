@@ -245,21 +245,21 @@ public class Trainer extends Observable {
 		items.add(new Bait());
 
 		// Testing purposes?
-		pokeDex.add(new Pikachu(4));
+		pokeDex.add(new Pikachu(25));
 
 		// Placeholder Pokemon spawner for now
-		commonCollection.add(new Abra(0));
-		commonCollection.add(new Drowzee(1));
-		commonCollection.add(new Grimer(2));
-		commonCollection.add(new Pidgey(3));
-		commonCollection.add(new Pikachu(4));
-		commonCollection.add(new Staryu(5));
+		commonCollection.add(new Abra(63));
+		commonCollection.add(new Drowzee(96));
+		commonCollection.add(new Grimer(88));
+		commonCollection.add(new Pidgey(16));
+		commonCollection.add(new Pikachu(25));
+		commonCollection.add(new Staryu(120));
 
-		uncommonCollection.add(new Graveler(6));
-		uncommonCollection.add(new Haunter(7));
-		uncommonCollection.add(new Rapidash(8));
+		uncommonCollection.add(new Graveler(75));
+		uncommonCollection.add(new Haunter(93));
+		uncommonCollection.add(new Rapidash(78));
 
-		rareCollection.add(new Dragonair(9));
+		rareCollection.add(new Dragonair(148));
 	}
 
 	//The following setters allow the key listener on mapPanel,
