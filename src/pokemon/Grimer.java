@@ -14,20 +14,38 @@ import Model.CommonPokemon;
 
 public class Grimer extends CommonPokemon {
 	private static String name = "Grimer";
-	private int pokemonID;
+	private String type = "Poison";
+	private String info = "Wherever GRIMER has passed, so many germs are left behind \nthat no plants will ever grow again.";
+	private int pokemonID = 88;
+	private int pokemonSP = 25;
 	
 	public Grimer(int pokemonID) {
 		// hp = 80, catchRate = 190
 		super(name, 80, 190);
-		// pokemonID = 88
 		this.pokemonID = pokemonID;
 	}	
+	
+	public String getType() {
+		return type;
+	}
+	
+	public String getInfo() {
+		return info;
+	}
 	
 	public int getPokemonID() {
 		return pokemonID;
 	}
 	
+	public int getPokemonSP() {
+		return pokemonSP;
+	}
+	
 	public String toString() {
-		return "Name:" + name + "PokemonID: " + pokemonID;
+		return "Name:" + name 
+				+ "Type: " + type
+				+ "Pokédex entry: " + info
+				+ "PokemonID: " + pokemonID 
+				+ "Speed: " + pokemonSP;
 	}
 }

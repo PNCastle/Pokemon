@@ -14,20 +14,38 @@ import Model.UncommonPokemon;
 
 public class Graveler extends UncommonPokemon {
 	private static String name = "Graveler";
-	private int pokemonID;
+	private String type = "Rock & Ground";
+	private String info = "A slow walker, it rolls to move. \nIt pays no attention to any object that happens to be in its path.";
+	private int pokemonID = 75;
+	private int pokemonSP = 35;
 
 	public Graveler(int pokemonID) {
 		// hp = 55, catchRate = 120
 		super(name, 55, 120);
-		// pokemonID = 75
 		this.pokemonID = pokemonID;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public String getInfo() {
+		return info;
 	}
 	
 	public int getPokemonID() {
 		return pokemonID;
 	}
 	
+	public int getPokemonSP() {
+		return pokemonSP;
+	}
+	
 	public String toString() {
-		return "Name:" + name + "PokemonID: " + pokemonID;
+		return "Name:" + name 
+				+ "Type: " + type
+				+ "Pokédex entry: " + info
+				+ "PokemonID: " + pokemonID 
+				+ "Speed: " + pokemonSP;
 	}
 }

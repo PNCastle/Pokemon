@@ -1,6 +1,8 @@
-//Authors: Angel Burr, Paul Castleberry, Issac Kim, Sohyun Kim
-//File: Trainer.java
-//Purpose: central object of pokemon safari zone. models a player of the game who stores a reference of the map.
+/**
+ * Authors: Angel Burr, Paul Castleberry, Issac Kim, Sohyun Kim
+ * File: Trainer.java
+ * Purpose: central object of pokemon safari zone. models a player of the game who stores a reference of the map.
+ */
 
 package Model;
 

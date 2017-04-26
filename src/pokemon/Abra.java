@@ -14,20 +14,38 @@ import Model.CommonPokemon;
 
 public class Abra extends CommonPokemon{
 	private static String name = "Abra";
-	private int pokemonID;
-	
+	private String type = "Psychic";
+	private String info = "If it decides to TELEPORT randomly,\nit creates the illusion that it has created copies of itself.";
+	private int pokemonID = 63;
+	private int pokemonSP = 90;
+
 	public Abra(int pokemonID) {
 		// hp = 25, catchRate = 200
 		super(name, 25, 200);
-		// pokemonID = 63
 		this.pokemonID = pokemonID;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public String getInfo() {
+		return info;
 	}
 	
 	public int getPokemonID() {
 		return pokemonID;
 	}
 	
+	public int getPokemonSP() {
+		return pokemonSP;
+	}
+	
 	public String toString() {
-		return "Name:" + name + "PokemonID: " + pokemonID;
+		return "Name:" + name 
+				+ "Type: " + type
+				+ "Pokédex entry: " + info
+				+ "PokemonID: " + pokemonID 
+				+ "Speed: " + pokemonSP;
 	}
 }

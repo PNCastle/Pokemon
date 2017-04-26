@@ -14,20 +14,38 @@ import Model.UncommonPokemon;
 
 public class Rapidash extends UncommonPokemon {
 	private static String name = "Rapidash";
-	private int pokemonID;
+	private String type = "Fire";
+	private String info = "With incredible acceleration, \nit reaches its top speed of 150 mph after running just ten steps.";
+	private int pokemonID = 78;
+	private int pokemonSP = 105;
 
 	public Rapidash (int pokemonID) {
 		// hp = 65, catchRate = 60
 		super(name, 65, 60);
-		// pokemonID = 78
 		this.pokemonID = pokemonID;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public String getInfo() {
+		return info;
 	}
 	
 	public int getPokemonID() {
 		return pokemonID;
 	}
 	
+	public int getPokemonSP() {
+		return pokemonSP;
+	}
+	
 	public String toString() {
-		return "Name:" + name + "PokemonID: " + pokemonID;
+		return "Name:" + name 
+				+ "Type: " + type
+				+ "Pokédex entry: " + info
+				+ "PokemonID: " + pokemonID 
+				+ "Speed: " + pokemonSP;
 	}
 }

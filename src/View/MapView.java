@@ -24,7 +24,7 @@ public class MapView extends JPanel implements Observer {
 	private MapPanel mapPanel;
 	private JLabel stepCount;
 	private TrainerPanel trainerPanel;
-	//private PokedexPanel pokedexPanel;
+	private PokedexPanel pokedexPanel;
 	
 	//ctor
 	//initializes stepCount and mapPanel
@@ -42,6 +42,7 @@ public class MapView extends JPanel implements Observer {
 		mapPanel = new MapPanel();
 		mapPanel.setLocation(125, 50);
 		trainerPanel = new TrainerPanel();
+
 		trainerPanel.setLocation(125, 700);
 		
 		this.add(mapPanel, BorderLayout.NORTH);
