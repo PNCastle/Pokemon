@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
@@ -13,6 +14,9 @@ public class TrainerPanel extends JPanel {
 		
 		JLabel lblTest = new JLabel("Test");
 		add(lblTest);
+		
+		setPreferredSize(new Dimension(750, 300));
+		setBackground(Color.WHITE);
 	}
 
 }

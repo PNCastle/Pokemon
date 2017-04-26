@@ -4,6 +4,7 @@
 //		   This view displays the animated trainer and map, before any pokemon have been detected			
 package View;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Observable;
@@ -35,19 +36,21 @@ public class MapView extends JPanel implements Observer {
 		stepCount.setLocation(775, 0);
 		stepCount.setLayout(null);
 		this.setSize(width, height);
-		this.setLayout(null);
+//		this.setLayout(new BorderLayout());
 		this.setLocation(0, 0);
 		this.setBackground(Color.DARK_GRAY);
 		mapPanel = new MapPanel();
 		mapPanel.setLocation(125, 50);
-		this.add(mapPanel);
-		this.add(stepCount);
-		
 		trainerPanel = new TrainerPanel();
-		trainerPanel.setPreferredSize(new Dimension(750, 300));
-		trainerPanel.setLocation(125, 650);
-		this.add(trainerPanel);
-		trainerPanel.setVisible(false);
+		trainerPanel.setLocation(125, 700);
+		
+		this.add(mapPanel, BorderLayout.NORTH);
+		this.add(stepCount, BorderLayout.CENTER);
+		this.add(trainerPanel, BorderLayout.PAGE_END);
+		
+		
+		
+//		trainerPanel.setVisible(t);
 	}
 	
 	//additional ctor used to allow persistent behavior
@@ -59,7 +62,7 @@ public class MapView extends JPanel implements Observer {
 		stepCount.setLocation(775, 0);
 		stepCount.setLayout(null);
 		this.setSize(width, height);
-		this.setLayout(null);
+//		this.setLayout(null);
 		this.setLocation(0, 0);
 		this.setBackground(Color.DARK_GRAY);
 		mapPanel = new MapPanel(toLoad);
@@ -69,9 +72,10 @@ public class MapView extends JPanel implements Observer {
 		
 		trainerPanel = new TrainerPanel();
 		trainerPanel.setPreferredSize(new Dimension(750, 300));
+		trainerPanel.setBackground(Color.WHITE);
 		trainerPanel.setLocation(125, 650);
 		this.add(trainerPanel);
-		trainerPanel.setVisible(false);
+		//trainerPanel.setVisible(false);
 	}
 
 	// 0 is show trainer, 1 is hide trainer
