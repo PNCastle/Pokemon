@@ -76,6 +76,8 @@ public class MapView extends JPanel implements Observer {
 		trainerPanel.setBackground(Color.WHITE);
 		trainerPanel.setLocation(125, 650);
 		this.add(trainerPanel);
+		
+		pokedexPanel = new PokedexPanel(getTrainer().getPokedex());
 		//trainerPanel.setVisible(false);
 	}
 
@@ -97,6 +99,7 @@ public class MapView extends JPanel implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		stepCount.setText("Steps Taken: " + mapPanel.getTrainer().getStepCount());
+		pokedexPanel.updatePokedex(getTrainer().getPokedex());
 	}
 
 	//getter method for trainer

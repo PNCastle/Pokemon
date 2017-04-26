@@ -2,10 +2,15 @@ package View;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
+
+import Model.Pokemon;
 
 /**
  * Authors: Angel Burr, Paul Castleberry, Issac Kim, Sohyun Kim
@@ -17,14 +22,26 @@ public class PokedexPanel extends JPanel {
 	//instance variables
 	private BufferedImage image;
 	private Graphics2D g;
+	ArrayList<Pokemon> pokeDex;
 
-	public PokedexPanel() {
-		this.setLayout(null);
-		this.setBackground(Color.white);
-		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		this.setSize(this.getPreferredSize());
-		this.setVisible(true);
-		this.setFocusable(true);
-		this.requestFocus();
+	public PokedexPanel(ArrayList<Pokemon> pokeDex) {
+		setLayout(new GridLayout(1, 0, 0, 0));
+		
+		setPreferredSize(new Dimension(750, 300));
+		setBackground(Color.WHITE);
+		this.pokeDex = pokeDex;
+	}
+	
+	public void updatePokedex(ArrayList<Pokemon> pokeDex) {
+		this.pokeDex = pokeDex;
+	}
+	
+	//draw the graphics
+	private void draw(){
+		Graphics g2 = getGraphics();
+		if (g2 != null){
+			g2.drawImage(image, 0, 0, null);
+			g2.dispose();
+		}
 	}
 }
