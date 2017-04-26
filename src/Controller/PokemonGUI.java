@@ -229,11 +229,11 @@ public class PokemonGUI extends JFrame {
 			}
 			
 			if(text.equals("View Trainer")){
-				//TO DO
+				mapView.setSecondaryView(0);
 			}
 			
 			if(text.equals("Hide Trainer")){
-				//TO DO
+				mapView.setSecondaryView(1);
 			}
 			
 			if(text.equals("View Pokedex")){

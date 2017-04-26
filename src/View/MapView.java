@@ -5,6 +5,7 @@
 package View;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,7 +22,7 @@ public class MapView extends JPanel implements Observer {
 	//instance variables
 	private MapPanel mapPanel;
 	private JLabel stepCount;
-	//private TrainerPanel trainerPanel;
+	private TrainerPanel trainerPanel;
 	//private PokedexPanel pokedexPanel;
 	
 	//ctor
@@ -41,6 +42,12 @@ public class MapView extends JPanel implements Observer {
 		mapPanel.setLocation(125, 50);
 		this.add(mapPanel);
 		this.add(stepCount);
+		
+		trainerPanel = new TrainerPanel();
+		trainerPanel.setPreferredSize(new Dimension(750, 300));
+		trainerPanel.setLocation(125, 650);
+		this.add(trainerPanel);
+		trainerPanel.setVisible(false);
 	}
 	
 	//additional ctor used to allow persistent behavior
@@ -59,8 +66,27 @@ public class MapView extends JPanel implements Observer {
 		mapPanel.setLocation(125, 50);
 		this.add(mapPanel);
 		this.add(stepCount);
+		
+		trainerPanel = new TrainerPanel();
+		trainerPanel.setPreferredSize(new Dimension(750, 300));
+		trainerPanel.setLocation(125, 650);
+		this.add(trainerPanel);
+		trainerPanel.setVisible(false);
 	}
 
+	// 0 is show trainer, 1 is hide trainer
+	// 2 is show pokedex, 3 is hide pokedex
+	public void setSecondaryView(int type){
+		if (type == 0){
+			trainerPanel.setVisible(true);
+			repaint();
+		}
+		if (type == 1){
+			trainerPanel.setVisible(false);
+			repaint();
+		}
+	}
+	
 	//update method
 	//for now this method only updates stepCount label when the traines has moved across a new tile
 	@Override
