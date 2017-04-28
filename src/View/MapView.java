@@ -46,7 +46,7 @@ public class MapView extends JPanel implements Observer {
 		trainerPanel.setLocation(125, 700);
 		
 		this.add(mapPanel, BorderLayout.NORTH);
-		this.add(stepCount, BorderLayout.CENTER);
+		//this.add(stepCount, BorderLayout.CENTER);
 		this.add(trainerPanel, BorderLayout.PAGE_END);
 		
 		
@@ -99,7 +99,7 @@ public class MapView extends JPanel implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		stepCount.setText("Steps Taken: " + mapPanel.getTrainer().getStepCount());
-		pokedexPanel.updatePokedex(getTrainer().getPokedex());
+		//pokedexPanel.updatePokedex(getTrainer().getPokedex());
 	}
 
 	//getter method for trainer

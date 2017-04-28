@@ -17,12 +17,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import Model.Pokemon;
 import Model.Trainer;
@@ -139,10 +141,15 @@ public class PokemonGUI extends JFrame {
 		pokedex.add(viewPokedex);
 		pokedex.add(hidePokedex);
 		
+		JMenuItem stepCount = new JMenu("Step Count: " + mapView.getTrainer().getStepCount());
+		stepCount.setEnabled(false);
+		
 		//set up menu bar
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(menu);
+		menuBar.add(Box.createHorizontalGlue());
+		menuBar.add(stepCount);
 		
 		//add listeners
 		MenuItemListener menuListener = new MenuItemListener();
@@ -156,6 +163,20 @@ public class PokemonGUI extends JFrame {
 		hideTrainer.addActionListener(menuListener);
 		viewPokedex.addActionListener(menuListener);
 		hidePokedex.addActionListener(menuListener);
+		
+		Runnable updateSteps = new Runnable(){
+
+			@Override
+			public void run(){
+
+				while(true){
+					stepCount.setText("Step Count: " + mapView.getTrainer().getStepCount());
+				}
+
+			}
+		};
+		
+		new Thread(updateSteps).start();
 	}
 
 	
@@ -169,7 +190,6 @@ public class PokemonGUI extends JFrame {
 		currentView.repaint();
 		validate();
 	}
-	
 	
 	////// MENU ITEM LISTENER ////////////////
 	private class MenuItemListener implements ActionListener {
