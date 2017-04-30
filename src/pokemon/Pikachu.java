@@ -22,7 +22,7 @@ public class Pikachu extends CommonPokemon {
 	
 	public Pikachu(int pokemonID) {
 		// hp = 35, catchRate = 190
-		super(name, 35, 190);
+		super(name, 35, 190, 90);
 		this.pokemonID = pokemonID;
 	}
 	

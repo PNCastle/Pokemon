@@ -114,6 +114,7 @@ public class MapView extends JPanel implements Observer {
 					mapPanel.setLocation(mapPanel.getX() + 2, 0);
 					if (mapPanel.getX() + mapPanel.getWidth() == 875) {
 						((Timer) e.getSource()).stop();
+						mapPanel.enableKeyListener();
 					}
 				}
 			}).start();

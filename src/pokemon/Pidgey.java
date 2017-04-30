@@ -22,7 +22,7 @@ public class Pidgey extends CommonPokemon{
 
 	public Pidgey(int pokemonID) {
 		// hp = 40, catchRate = 255
-		super(name, 40, 255);
+		super(name, 40, 255, 56);
 		this.pokemonID = pokemonID;
 	}
 	

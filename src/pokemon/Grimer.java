@@ -22,7 +22,7 @@ public class Grimer extends CommonPokemon {
 	
 	public Grimer(int pokemonID) {
 		// hp = 80, catchRate = 190
-		super(name, 80, 190);
+		super(name, 80, 190, 25);
 		this.pokemonID = pokemonID;
 	}	
 	

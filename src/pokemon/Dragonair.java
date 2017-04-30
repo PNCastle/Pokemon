@@ -22,7 +22,7 @@ public class Dragonair extends RarePokemon{
 
 	public Dragonair(int pokemonID) {
 		// hp = 61, catchRate = 45
-		super(name, 61, 45);
+		super(name, 61, 45, 70);
 		this.pokemonID = pokemonID;
 	}
 	

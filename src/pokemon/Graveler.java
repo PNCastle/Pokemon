@@ -22,7 +22,7 @@ public class Graveler extends UncommonPokemon {
 
 	public Graveler(int pokemonID) {
 		// hp = 55, catchRate = 120
-		super(name, 55, 120);
+		super(name, 55, 120, 35);
 		this.pokemonID = pokemonID;
 	}
 	

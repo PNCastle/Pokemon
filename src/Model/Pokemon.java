@@ -10,16 +10,17 @@
 package Model;
 
 public abstract class Pokemon {
-	private int catchProbability, catchRate, hp, runProbability, maxHP;
+	private int catchProbability, catchRate, hp, runProbability, maxHP, speed;
 	private double encounterRate;
 	private String name;
 	
 	private int eatingCounter, angryCounter;
 	
-	public Pokemon(String name, int hp, int catchRate, double encounterRate) {
+	public Pokemon(String name, int hp, int catchRate, int speed, double encounterRate) {
 		this.name = name;
 		this.hp = hp;
 		this.maxHP = hp;
+		this.speed = speed;
 		this.catchRate = catchRate;
 		this.encounterRate = encounterRate;
 		calcRunProbability();

@@ -22,7 +22,7 @@ public class Haunter extends UncommonPokemon {
 	
 	public Haunter (int pokemonID) {
 		// hp = 45, catchRate = 90
-		super(name, 45, 90);
+		super(name, 45, 90, 95);
 		this.pokemonID = pokemonID;
 	}
 	

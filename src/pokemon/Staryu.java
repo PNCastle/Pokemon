@@ -22,7 +22,7 @@ public class Staryu extends CommonPokemon{
 	
 	public Staryu (int pokemonID) {
 		// hp = 30, catchRate = 225
-		super(name, 30, 225);
+		super(name, 30, 225, 85);
 		this.pokemonID = pokemonID;
 	}
 	

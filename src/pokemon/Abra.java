@@ -22,7 +22,7 @@ public class Abra extends CommonPokemon{
 
 	public Abra(int pokemonID) {
 		// hp = 25, catchRate = 200
-		super(name, 25, 200);
+		super(name, 25, 200, 90);
 		this.pokemonID = pokemonID;
 	}
 	

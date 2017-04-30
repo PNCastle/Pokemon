@@ -22,7 +22,7 @@ public class Drowzee extends CommonPokemon {
 	
 	public Drowzee (int pokemonID) {
 		// hp = 60, catchRate = 190
-		super(name, 60, 190);
+		super(name, 60, 190, 42);
 		this.pokemonID = pokemonID;
 	}
 	

@@ -22,7 +22,7 @@ public class Rapidash extends UncommonPokemon {
 
 	public Rapidash (int pokemonID) {
 		// hp = 65, catchRate = 60
-		super(name, 65, 60);
+		super(name, 65, 60, 105);
 		this.pokemonID = pokemonID;
 	}
 	
