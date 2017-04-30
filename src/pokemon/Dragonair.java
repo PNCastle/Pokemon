@@ -14,15 +14,15 @@ import Model.RarePokemon;
 
 public class Dragonair extends RarePokemon{
 	private static String name = "Dragonair";
-	private String type = "Dragon";
+	private static String type = "Dragon";
 	private String info = "Its crystalline orbs appear to give this \nPOKéMON the power to freely control the weather.";
 	private int pokemonID = 148;
 	private int pokemonSP = 70;
-	private String pokePicName = "pokePic/Dragonair.gif";
+	private static String pokePicName = "pokePic/Dragonair.gif";
 
 	public Dragonair(int pokemonID) {
 		// hp = 61, catchRate = 45
-		super(name, 61, 45, 70);
+		super(name, 61, 45, 70, type, pokePicName);
 		this.pokemonID = pokemonID;
 	}
 	

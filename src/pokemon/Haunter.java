@@ -14,15 +14,15 @@ import Model.UncommonPokemon;
 
 public class Haunter extends UncommonPokemon {
 	private static String name = "Haunter";
-	private String type = "Ghost & Poison";
+	private static String type = "Ghost & Poison";
 	private String info = "Its tongue is made of gas. If licked, \nits victim starts shaking constantly until death eventually comes.";
 	private int pokemonID = 93;
 	private int pokemonSP = 95;
-	private String pokePicName = "pokePic/Haunter.gif";
+	private static String pokePicName = "pokePic/Haunter.gif";
 	
 	public Haunter (int pokemonID) {
 		// hp = 45, catchRate = 90
-		super(name, 45, 90, 95);
+		super(name, 45, 90, 95, type, pokePicName);
 		this.pokemonID = pokemonID;
 	}
 	

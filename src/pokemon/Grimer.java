@@ -14,15 +14,15 @@ import Model.CommonPokemon;
 
 public class Grimer extends CommonPokemon {
 	private static String name = "Grimer";
-	private String type = "Poison";
+	private static String type = "Poison";
 	private String info = "Wherever GRIMER has passed, so many germs are left behind \nthat no plants will ever grow again.";
 	private int pokemonID = 88;
 	private int pokemonSP = 25;
-	private String pokePicName = "pokePic/Grimer.gif";
+	private static String pokePicName = "pokePic/Grimer.gif";
 	
 	public Grimer(int pokemonID) {
 		// hp = 80, catchRate = 190
-		super(name, 80, 190, 25);
+		super(name, 80, 190, 25, type, pokePicName);
 		this.pokemonID = pokemonID;
 	}	
 	

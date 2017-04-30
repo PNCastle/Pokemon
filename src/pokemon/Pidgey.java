@@ -14,15 +14,15 @@ import Model.CommonPokemon;
 
 public class Pidgey extends CommonPokemon{
 	private static String name = "Pidgey";
-	private String type = "Normal & Flying";
+	private static String type = "Normal & Flying";
 	private String info = "Common in grassy areas and forests, \nit is very docile and will chase off enemies by flapping up sand.";
 	private int pokemonID = 16;
 	private int pokemonSP = 56;
-	private String pokePicName = "pokePic/Pidgey.gif";
+	private static String pokePicName = "pokePic/Pidgey.gif";
 
 	public Pidgey(int pokemonID) {
 		// hp = 40, catchRate = 255
-		super(name, 40, 255, 56);
+		super(name, 40, 255, 56, type, pokePicName);
 		this.pokemonID = pokemonID;
 	}
 	

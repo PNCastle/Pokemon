@@ -12,23 +12,34 @@ package Model;
 public abstract class Pokemon {
 	private int catchProbability, catchRate, hp, runProbability, maxHP, speed;
 	private double encounterRate;
-	private String name;
+	private String name, type, pokePicName;
 	
 	private int eatingCounter, angryCounter;
 	
-	public Pokemon(String name, int hp, int catchRate, int speed, double encounterRate) {
+	public Pokemon(String name, int hp, int catchRate, int speed, double encounterRate,
+			String type, String pokePicName) {
 		this.name = name;
 		this.hp = hp;
 		this.maxHP = hp;
 		this.speed = speed;
 		this.catchRate = catchRate;
 		this.encounterRate = encounterRate;
+		this.type = type;
+		this.pokePicName = pokePicName;
 		calcRunProbability();
 		calcCatchProbability();
 	}
 	
 	public String getName() {
 		return name;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public String getPicFileName() {
+		return pokePicName;
 	}
 
 	public int getHP() {
