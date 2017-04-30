@@ -9,12 +9,14 @@
 
 package Model;
 
+import java.util.Random;
+
 public abstract class Pokemon {
 	private int catchProbability, catchRate, hp, runProbability, maxHP, speed;
 	private double encounterRate;
 	private String name, type, pokePicName, info;
 	
-	private int eatingCounter, angryCounter;
+	private boolean isEating, isAngry;
 	
 	public Pokemon(String name, int hp, int catchRate, int speed, double encounterRate,
 			String type, String pokePicName, String info) {
@@ -26,7 +28,7 @@ public abstract class Pokemon {
 		this.encounterRate = encounterRate;
 		this.type = type;
 		this.pokePicName = pokePicName;
-		calcRunProbability();
+		pokemonRun();
 		calcCatchProbability();
 	}
 	
@@ -78,9 +80,46 @@ public abstract class Pokemon {
 	// Uses an item and runs the methods to determine the state of the Pokemon
 	// during battle
 	public void useItem(Item item) {
+		if (!isEating && !isAngry) {
+			if (item.getClass() == items.Rock.class){
+				isAngry = true;
+			}
+			else if (item.getClass() == items.Bait.class){
+				isEating = true;
+			}
+		}
+		
+		if (isEating && !isAngry){
+			if (item.getClass() == items.Rock.class){
+				isEating = false;
+				isAngry = true;
+			}
+			else if (item.getClass() == items.Bait.class){
+				isEating = true;
+				isAngry = false;
+			}
+			else {
+				isEating = false;
+			}
+		}
+		
+		if (!isEating && isAngry){
+			if (item.getClass() == items.Bait.class){
+				isEating = true;
+				isAngry = false;
+			}
+			else if (item.getClass() == items.Rock.class){
+				isEating = false;
+				isAngry = true;
+			}
+			else {
+				isAngry = false;
+			}
+		}
+		
 		setCatchRate(item.getCatchModifier());
 		setHP(item.hpModifier());
-		calcRunProbability();
+		pokemonRun();
 		calcCatchProbability();
 	}
 	
@@ -95,8 +134,32 @@ public abstract class Pokemon {
 	/**
 	 * Formula also from https://www.dragonflycave.com/mechanics/gen-i-safari-zone
 	 */
-	public void calcRunProbability() {
-		runProbability = Math.max(255, (hp % 256) * 2);
+	public boolean pokemonRun() {
+		if (!isEating && !isAngry){
+			runProbability = (speed % 256) * 2;
+		}
+		else if (isAngry){
+			runProbability = (speed % 256) * 4;
+			if (runProbability > 255){
+				runProbability = 255;
+			}
+		}
+		else if (isEating){
+			runProbability = (speed % 256) * 2;
+			runProbability /= 4;
+		}
+		
+		
+		Random random = new Random();
+		if (random.nextInt(256) < runProbability && !isAngry){
+			return true;
+		}
+		if (random.nextInt(320) < runProbability && isAngry){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	public double getEncounterRate() {
