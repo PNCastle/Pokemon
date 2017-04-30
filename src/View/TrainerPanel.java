@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import java.awt.GridLayout;
@@ -23,8 +24,11 @@ public class TrainerPanel extends JPanel {
 	private BufferedImage image;
 	private Graphics2D g;
 	
+	JLabel name;
+	JLabel pokedex;
+	
 	public TrainerPanel() {
-		setLayout(new GridLayout(1, 0, 0, 0));
+		setLayout(null);
 		setPreferredSize(new Dimension(750, 300));
 		setBackground(Color.WHITE);
 		
@@ -33,6 +37,11 @@ public class TrainerPanel extends JPanel {
 		} catch (IOException e) {
 			System.err.println("Could not read image file");
 		}
+		
+		name = new JLabel("Name\t\t\t\t\tAsh");
+		name.setSize(new Dimension(600, 30));
+		name.setLocation(300, 30);
+		this.add(name);
 	}
 	
 	@Override
