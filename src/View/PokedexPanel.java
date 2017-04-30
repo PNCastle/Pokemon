@@ -44,26 +44,13 @@ public class PokedexPanel extends JPanel {
 		
 		image = Toolkit.getDefaultToolkit().createImage("./pokePic/Abra.gif");
 		
-		// Pic of Pokemon
-///*		try {
-//			image = ImageIO.read(getClass().getResource("./pokePic/Abra.gif"));
-//		} catch (IOException e) {
-//			System.err.println("Could not read image file");
-//		}*/
-//		
-//		ImageIcon imageIcon = new ImageIcon("./pokePic/Abra.gif");
-//		JLabel label = new JLabel(imageIcon);
-//		label.setPreferredSize(new Dimension(300, 200));
-//		label.setLocation(300, 0);
-//		this.add(label);
-		
 		setVisible(true);
 	}
 	
 	@Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(image, 300, 0, this);
+        g.drawImage(image, 300, 0, 200, 150, this);
     }
 	
 }
