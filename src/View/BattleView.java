@@ -3,7 +3,9 @@ package View;
 import java.util.Observable;
 import java.util.Observer;
 
-public class BattleView implements Observer {
+import javax.swing.JPanel;
+
+public class BattleView extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {

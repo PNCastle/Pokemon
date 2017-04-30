@@ -301,7 +301,8 @@ public class PokemonGUI extends JFrame implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		if((int) arg < 0){
-			mapView.animateOut();
+			//mapView.animateOut();
+			setViewTo(battleView);
 		}
 	}
 	

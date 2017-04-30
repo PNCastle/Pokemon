@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Observable;
 
 import javax.imageio.ImageIO;
@@ -103,12 +104,15 @@ public class Trainer extends Observable {
 	private boolean gameOver;	//true when game is over
 
 	//the trainer stores a 
+	//MOVE SOME LISTS TO MAP LATER
 	private ArrayList<Pokemon> pokeDex;
 	private ArrayList<CommonPokemon> commonCollection;
 	private ArrayList<UncommonPokemon> uncommonCollection;
 	private ArrayList<RarePokemon> rareCollection;
 	private ArrayList<Item> items;
 
+	//move this variable to map later
+	private Pokemon currentPokemon;
 	/*
 	 * End hierarchy variables
 	 */
@@ -133,7 +137,7 @@ public class Trainer extends Observable {
 		currCol = map.getColTileIndex((int) x);
 		stepsTaken = 0;
 		gameOver = false;
-
+		currentPokemon = null;
 		initCollections();
 
 		try {
@@ -342,16 +346,7 @@ public class Trainer extends Observable {
 		prevCol = currCol;
 		currCol = map.getColTileIndex((int) x);
 		currRow = map.getRowTileIndex((int) y);
-		if (prevRow != currRow) {
-			stepsTaken++;
-			setChanged();
-			notifyObservers(stepsTaken);
-		}
-		if (prevCol != currCol) {
-			stepsTaken++;
-			setChanged();
-			notifyObservers(stepsTaken);
-		}
+
 
 		// collision check here
 		
@@ -365,10 +360,36 @@ public class Trainer extends Observable {
 		
 		//set instance variables based on whether the neighbors of would be position are blocked
 		calculateNeighbors(to_x, to_y);
-		if(spawning){
+		
+		if (prevRow != currRow) {
+			stepsTaken++;
 			setChanged();
-			notifyObservers(-9);
+			notifyObservers(stepsTaken);
+			if(spawning && (dx != 0 || dy != 0)){
+				double prob = Math.random();
+				System.out.println(prob);
+				if(prob >= .85){
+					this.setCurrentPokemon(prob);
+					setChanged();
+					notifyObservers(-9);
+				}
+			}
 		}
+		if (prevCol != currCol) {
+			stepsTaken++;
+			setChanged();
+			notifyObservers(stepsTaken);
+			if(spawning && (dx != 0 || dy != 0)){
+				double prob = Math.random();
+				System.out.println(prob);
+				if(prob >= .85){
+					this.setCurrentPokemon(prob);
+					setChanged();
+					notifyObservers(-9);
+				}
+			}
+		}
+		
 		//check these booleans and if collision is occurring the adjust trainer's position so he is stopped by the un-walkable tile
 		//if no collision is going to occur then set trainers position to (x + dx, y + dy).
 		//Note dx is scaled by 1.36 because our map is 1.36 times wider than tall.
@@ -455,6 +476,21 @@ public class Trainer extends Observable {
 		}
 		animation.update();
 		checkWinConditions();
+	}
+
+	private void setCurrentPokemon(double prob) {
+		if(prob >= .975){
+			Collections.shuffle(rareCollection);
+			currentPokemon = rareCollection.get(0);
+		}
+		else if(prob >= .925){
+			Collections.shuffle(uncommonCollection);
+			currentPokemon = uncommonCollection.get(0);
+		}
+		else{
+			Collections.shuffle(commonCollection);
+			currentPokemon = commonCollection.get(0);
+		}
 	}
 
 	//the win condition for this iteration is going over 500 steps
