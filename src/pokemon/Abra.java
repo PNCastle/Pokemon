@@ -15,14 +15,14 @@ import Model.CommonPokemon;
 public class Abra extends CommonPokemon{
 	private static String name = "Abra";
 	private static String type = "Psychic";
-	private String info = "If it decides to TELEPORT randomly,\nit creates the illusion that it has created copies of itself.";
+	private static String info = "If it decides to TELEPORT randomly,\nit creates the illusion that it has created copies of itself.";
 	private int pokemonID = 63;
 	private int pokemonSP = 90;
 	private static String pokePicName = "pokePic/Abra.gif";
 
 	public Abra(int pokemonID) {
 		// hp = 25, catchRate = 200
-		super(name, 25, 200, 90, type, pokePicName);
+		super(name, 25, 200, 90, type, pokePicName, info);
 		this.pokemonID = pokemonID;
 	}
 	

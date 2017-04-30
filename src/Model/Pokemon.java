@@ -12,12 +12,12 @@ package Model;
 public abstract class Pokemon {
 	private int catchProbability, catchRate, hp, runProbability, maxHP, speed;
 	private double encounterRate;
-	private String name, type, pokePicName;
+	private String name, type, pokePicName, info;
 	
 	private int eatingCounter, angryCounter;
 	
 	public Pokemon(String name, int hp, int catchRate, int speed, double encounterRate,
-			String type, String pokePicName) {
+			String type, String pokePicName, String info) {
 		this.name = name;
 		this.hp = hp;
 		this.maxHP = hp;
@@ -32,6 +32,10 @@ public abstract class Pokemon {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public String getInfo() {
+		return info;
 	}
 	
 	public String getType() {
