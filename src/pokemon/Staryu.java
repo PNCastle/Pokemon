@@ -14,14 +14,15 @@ import Model.CommonPokemon;
 
 public class Staryu extends CommonPokemon{
 	private static String name = "Staryu";
-	private String type = "Water";
-	private String info = "Even if its body is torn, \nit can regenerate as long as the glowing central core remains intact.";
+	private static String type = "Water";
+	private static String info = "<html>Even if its body is torn, it can regenerate as long<br>as the glowing central core remains intact.</html>";
 	private int pokemonID = 120;
 	private int pokemonSP = 85;
+	private static String pokePicName = "pokePic/Staryu.gif";
 	
 	public Staryu (int pokemonID) {
 		// hp = 30, catchRate = 225
-		super(name, 30, 225);
+		super(name, 30, 225, 85, type, pokePicName, info);
 		this.pokemonID = pokemonID;
 	}
 	
@@ -39,6 +40,10 @@ public class Staryu extends CommonPokemon{
 	
 	public int getPokemonSP() {
 		return pokemonSP;
+	}
+
+	public String getPicFileName() {
+		return pokePicName;
 	}
 	
 	public String toString() {

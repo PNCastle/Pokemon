@@ -131,8 +131,12 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 					}
 				}
 			}).start();
-			this.addKeyListener(this);
+			
 		}
+	}
+	
+	public void enableKeyListener(){
+		this.addKeyListener(this);
 	}
 	
 	//run the thread, calculate the time between

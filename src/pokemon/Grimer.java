@@ -14,14 +14,15 @@ import Model.CommonPokemon;
 
 public class Grimer extends CommonPokemon {
 	private static String name = "Grimer";
-	private String type = "Poison";
-	private String info = "Wherever GRIMER has passed, so many germs are left behind \nthat no plants will ever grow again.";
+	private static String type = "Poison";
+	private static String info = "<html>Wherever GRIMER has passed,<br>so many germs are left behind that no plants<br>will ever grow again.</html>";
 	private int pokemonID = 88;
 	private int pokemonSP = 25;
+	private static String pokePicName = "pokePic/Grimer.gif";
 	
 	public Grimer(int pokemonID) {
 		// hp = 80, catchRate = 190
-		super(name, 80, 190);
+		super(name, 80, 190, 25, type, pokePicName, info);
 		this.pokemonID = pokemonID;
 	}	
 	
@@ -39,6 +40,10 @@ public class Grimer extends CommonPokemon {
 	
 	public int getPokemonSP() {
 		return pokemonSP;
+	}
+
+	public String getPicFileName() {
+		return pokePicName;
 	}
 	
 	public String toString() {

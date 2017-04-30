@@ -14,14 +14,15 @@ import Model.UncommonPokemon;
 
 public class Haunter extends UncommonPokemon {
 	private static String name = "Haunter";
-	private String type = "Ghost & Poison";
-	private String info = "Its tongue is made of gas. If licked, \nits victim starts shaking constantly until death eventually comes.";
+	private static String type = "Ghost&Poison";
+	private static String info = "<html>Its tongue is made of gas.<br>If licked, \nits victim starts shaking constantly until<br>death eventually comes.</html>";
 	private int pokemonID = 93;
 	private int pokemonSP = 95;
+	private static String pokePicName = "pokePic/Haunter.gif";
 	
 	public Haunter (int pokemonID) {
 		// hp = 45, catchRate = 90
-		super(name, 45, 90);
+		super(name, 45, 90, 95, type, pokePicName, info);
 		this.pokemonID = pokemonID;
 	}
 	
@@ -39,6 +40,10 @@ public class Haunter extends UncommonPokemon {
 	
 	public int getPokemonSP() {
 		return pokemonSP;
+	}
+
+	public String getPicFileName() {
+		return pokePicName;
 	}
 	
 	public String toString() {

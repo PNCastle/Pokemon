@@ -114,6 +114,7 @@ public class MapView extends JPanel implements Observer {
 					mapPanel.setLocation(mapPanel.getX() + 2, 0);
 					if (mapPanel.getX() + mapPanel.getWidth() == 875) {
 						((Timer) e.getSource()).stop();
+						mapPanel.enableKeyListener();
 					}
 				}
 			}).start();
@@ -130,18 +131,26 @@ public class MapView extends JPanel implements Observer {
 	// 2 is show pokedex, 3 is hide pokedex
 	public void setSecondaryView(int type){
 		if (type == 0){
-			trainerPanel.repaint();
-			trainerPanel.setVisible(true);
+			if (!trainerPanel.isVisible() && !pokedexPanel.isVisible()){
+				trainerPanel.repaint();
+				trainerPanel.setVisible(true);
+			}
 		}
 		if (type == 1){
-			trainerPanel.setVisible(false);
+			if (trainerPanel.isVisible()){
+				trainerPanel.setVisible(false);
+			}
 		}
 		if (type == 2) {
-			pokedexPanel.repaint();
-			pokedexPanel.setVisible(true);
+			if (!trainerPanel.isVisible() && !pokedexPanel.isVisible()){
+				pokedexPanel.repaint();
+				pokedexPanel.setVisible(true);
+			}
 		}
 		if (type == 3) {
-			pokedexPanel.setVisible(false);
+			if (pokedexPanel.isVisible()){
+				pokedexPanel.setVisible(false);
+			}
 		}
 	}
 	
