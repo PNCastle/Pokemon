@@ -1,16 +1,16 @@
 package View;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
-
-import Model.Pokemon;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  * Authors: Angel Burr, Paul Castleberry, Issac Kim, Sohyun Kim
@@ -26,6 +26,16 @@ public class PokedexPanel extends JPanel {
 		setLayout(new GridLayout(1, 0, 0, 0));
 		setPreferredSize(new Dimension(750, 300));
 		setBackground(Color.WHITE);
+		this.setLayout(null);
+		
+		JTextArea textArea = new JTextArea();
+		JScrollPane pokesList = new JScrollPane(textArea);
+		
+		// List of Pokemons
+		add(pokesList);
+		pokesList.setLocation(0, 0);
+		pokesList.setSize(300, 300);
+		setVisible(true);
 	}
 	
 	//draw the graphics

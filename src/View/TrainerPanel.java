@@ -1,11 +1,15 @@
 package View;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 
@@ -23,6 +27,15 @@ public class TrainerPanel extends JPanel {
 		setLayout(new GridLayout(1, 0, 0, 0));
 		setPreferredSize(new Dimension(750, 300));
 		setBackground(Color.WHITE);
+		
+		JPanel panel = new JPanel(new BorderLayout());
+		JTextArea textArea = new JTextArea();
+		JScrollPane pokesList = new JScrollPane(textArea);
+		
+		panel.add(pokesList);
+		add(panel);
+		setSize(300, 300);
+		setVisible(true);
 	}
 	
 	//draw the graphics
