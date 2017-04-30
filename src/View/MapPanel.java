@@ -12,6 +12,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -19,6 +21,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import Model.Map;
 import Model.Trainer;
@@ -30,12 +33,17 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	static final int HEIGHT = 550;
 	private Thread thread;
 	private boolean running;
+	private boolean inBattle;
 	
 	private BufferedImage image;
 	private Graphics2D g;
 	
 	private int FPS = 15;
 	private int targetTime = 1000/FPS;
+	
+	int red = 255;
+	int green = 255;
+	int blue = 255;
 	
 	private Map theMap;
 	private Trainer theTrainer;
@@ -51,6 +59,8 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		this.requestFocus();
 		theMap = new Map("mapTwo.txt", 50);
 		theTrainer = new Trainer(theMap);	
+		
+		inBattle = false;
 	}
 	
 	//additional constructor for saving and loading games
@@ -65,6 +75,7 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		theMap = new Map("mapTwo.txt", 50);
 		theTrainer = new Trainer(theMap, toLoad);
 		
+		inBattle = false;
 	}
 	
 	//addNotify, start threads and add key listeners to
@@ -78,6 +89,52 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		this.addKeyListener(this);
 	}
 	
+	public void battleMode() {
+		if (!inBattle){
+			inBattle = true;
+			JPanel thisPanel = this;
+			
+			new Timer(3, new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					red -= 1;
+					green -= 1;
+					blue -= 1;
+					
+					thisPanel.setBackground(new Color(red, green, blue));
+					
+					if (red == 0) {
+						((Timer) e.getSource()).stop();
+					}
+				}
+			}).start();
+			
+			this.removeKeyListener(this);
+		}
+	}
+	
+	public void mapMode() {
+		if (inBattle){
+			inBattle = false;
+			JPanel thisPanel = this;
+			
+			new Timer(5, new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					red += 1;
+					green += 1;
+					blue += 1;
+					
+					thisPanel.setBackground(new Color(red, green, blue));
+					
+					if (red == 100) {
+						((Timer) e.getSource()).stop();
+						red = green = blue = 255;
+					}
+				}
+			}).start();
+			this.addKeyListener(this);
+		}
+	}
+	
 	//run the thread, calculate the time between
 	//updates and check for win conditions
 	//as long as the thread is running the trainer
@@ -89,6 +146,14 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 		long startTime, urdTime, waitTime;
 		
 		while(running){
+			while (inBattle){
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			startTime = System.nanoTime();
 			update();
 			render();

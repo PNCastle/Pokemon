@@ -144,10 +144,15 @@ public class PokemonGUI extends JFrame {
 		JMenuItem stepCount = new JMenu("Step Count: " + mapView.getTrainer().getStepCount());
 		stepCount.setEnabled(false);
 		
+		JMenuItem battleTest1 = new JMenuItem("Battle Start");
+		JMenuItem battleTest2 = new JMenuItem("Battle End");
+		
 		//set up menu bar
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(menu);
+		menuBar.add(battleTest1);
+		menuBar.add(battleTest2);
 		menuBar.add(Box.createHorizontalGlue());
 		menuBar.add(stepCount);
 		
@@ -163,6 +168,9 @@ public class PokemonGUI extends JFrame {
 		hideTrainer.addActionListener(menuListener);
 		viewPokedex.addActionListener(menuListener);
 		hidePokedex.addActionListener(menuListener);
+		
+		battleTest1.addActionListener(menuListener);
+		battleTest2.addActionListener(menuListener);
 		
 		Runnable updateSteps = new Runnable(){
 
@@ -254,6 +262,14 @@ public class PokemonGUI extends JFrame {
 			
 			if(text.equals("Hide Trainer")){
 				mapView.setSecondaryView(1);
+			}
+			
+			if(text.equals("Battle Start")){
+				mapView.animateOut();
+			}
+			
+			if(text.equals("Battle End")){
+				mapView.animateIn();
 			}
 			
 			if(text.equals("View Pokedex")){

@@ -7,11 +7,15 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import Model.Trainer;
 
@@ -26,6 +30,8 @@ public class MapView extends JPanel implements Observer {
 	private TrainerPanel trainerPanel;
 	private PokedexPanel pokedexPanel;
 	
+	private boolean inBattle;
+	
 	//ctor
 	//initializes stepCount and mapPanel
 	public MapView(int width, int height){
@@ -34,24 +40,20 @@ public class MapView extends JPanel implements Observer {
 		stepCount.setBackground(Color.BLACK);
 		stepCount.setForeground(Color.cyan);
 		stepCount.setLocation(775, 0);
-		stepCount.setLayout(null);
 		this.setSize(width, height);
-//		this.setLayout(new BorderLayout());
 		this.setLocation(0, 0);
 		this.setBackground(Color.DARK_GRAY);
 		mapPanel = new MapPanel();
 		mapPanel.setLocation(125, 50);
+		
 		trainerPanel = new TrainerPanel();
-
 		trainerPanel.setLocation(125, 700);
+		trainerPanel.setVisible(false);
 		
 		this.add(mapPanel, BorderLayout.NORTH);
-		//this.add(stepCount, BorderLayout.CENTER);
 		this.add(trainerPanel, BorderLayout.PAGE_END);
 		
-		
-		
-//		trainerPanel.setVisible(t);
+		inBattle = false;
 	}
 	
 	//additional ctor used to allow persistent behavior
@@ -61,36 +63,69 @@ public class MapView extends JPanel implements Observer {
 		stepCount.setBackground(Color.BLACK);
 		stepCount.setForeground(Color.cyan);
 		stepCount.setLocation(775, 0);
-		stepCount.setLayout(null);
 		this.setSize(width, height);
-//		this.setLayout(null);
 		this.setLocation(0, 0);
 		this.setBackground(Color.DARK_GRAY);
 		mapPanel = new MapPanel(toLoad);
 		mapPanel.setLocation(125, 50);
-		this.add(mapPanel);
-		this.add(stepCount);
 		
 		trainerPanel = new TrainerPanel();
-		trainerPanel.setPreferredSize(new Dimension(750, 300));
-		trainerPanel.setBackground(Color.WHITE);
-		trainerPanel.setLocation(125, 650);
-		this.add(trainerPanel);
+		trainerPanel.setLocation(125, 700);
+		trainerPanel.setVisible(false);
 		
-		pokedexPanel = new PokedexPanel(getTrainer().getPokedex());
-		//trainerPanel.setVisible(false);
+		this.add(mapPanel, BorderLayout.NORTH);
+		this.add(trainerPanel, BorderLayout.PAGE_END);
+		
+		inBattle = false;
 	}
-
+	
+	public void animateOut() {
+		if (!inBattle){
+			mapPanel.battleMode();
+			mapPanel.setEnabled(false);
+			
+			new Timer(1, new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					mapPanel.setLocation(mapPanel.getX() - 2, 0);
+					if (mapPanel.getX() + mapPanel.getWidth() <= 0) {
+						((Timer) e.getSource()).stop();
+					}
+				}
+			}).start();
+			
+			inBattle = true;
+			this.repaint();
+		}
+	}
+	
+	public void animateIn() {
+		if (inBattle){
+			new Timer(1, new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					mapPanel.setLocation(mapPanel.getX() + 2, 0);
+					if (mapPanel.getX() + mapPanel.getWidth() == 875) {
+						((Timer) e.getSource()).stop();
+					}
+				}
+			}).start();
+			
+			mapPanel.mapMode();
+			mapPanel.setEnabled(true);
+			
+			inBattle = false;
+			this.repaint();
+		}
+	}
+	
 	// 0 is show trainer, 1 is hide trainer
 	// 2 is show pokedex, 3 is hide pokedex
 	public void setSecondaryView(int type){
 		if (type == 0){
+			trainerPanel.repaint();
 			trainerPanel.setVisible(true);
-			repaint();
 		}
 		if (type == 1){
 			trainerPanel.setVisible(false);
-			repaint();
 		}
 	}
 	
