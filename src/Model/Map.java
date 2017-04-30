@@ -13,8 +13,20 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+
+import pokemon.Abra;
+import pokemon.Dragonair;
+import pokemon.Drowzee;
+import pokemon.Graveler;
+import pokemon.Grimer;
+import pokemon.Haunter;
+import pokemon.Pidgey;
+import pokemon.Pikachu;
+import pokemon.Rapidash;
+import pokemon.Staryu;
 
 public class Map {
 	
@@ -28,6 +40,10 @@ public class Map {
 	
 	private BufferedImage tileSet;
 	private Tile[] tiles;
+	
+	private ArrayList<CommonPokemon> commonCollection;
+	private ArrayList<UncommonPokemon> uncommonCollection;
+	private ArrayList<RarePokemon> rareCollection;
 	
 	//ctor
 	public Map(String fileName, int tileSize) {
@@ -60,6 +76,8 @@ public class Map {
 		}
 		catch(Exception e) {	
 		}
+		initCollections();
+
 	}
 	
 	// loadTiles will accept the name of a file as a string then walk through
@@ -74,6 +92,7 @@ public class Map {
 			
 			BufferedImage subImage;
 			boolean blocked = false;
+			boolean spawnable = false;
 			for(int col = 0; col <= numTilesAcross; col++) {
 				subImage = tileSet.getSubimage(col*tileSize, 0, tileSize, tileSize);
 				if (col == 3) {
@@ -81,7 +100,12 @@ public class Map {
 				}
 				else
 					blocked = false;
-				tiles[col] = new Tile(subImage, blocked);
+				if (col == 2) {
+					spawnable = true;
+				}
+				else 
+					spawnable = false;
+				tiles[col] = new Tile(subImage, blocked, spawnable);
 			}
 		}
 		catch (Exception e) {
@@ -121,6 +145,11 @@ public class Map {
 		return tiles[rc].isBlocked();
 	}
 	
+	public boolean isSpawnable(int col, int row){
+		int rc = currentMap[row][col];
+		return tiles[rc].isSpawnable();
+	}
+	
 	// getter for tileSize
 	public int getTileSize(){
 		return this.tileSize;
@@ -158,6 +187,27 @@ public class Map {
 	// getter for tile at (x,y)
 	public int getTile(int x, int y){
 		return currentMap[y][x];
+	}
+	
+	//initializes all lists currently stored in the trainer
+	public void initCollections() {
+		commonCollection = new ArrayList<CommonPokemon>();
+		uncommonCollection = new ArrayList<UncommonPokemon>();
+		rareCollection = new ArrayList<RarePokemon>();
+
+		// Placeholder Pokemon spawner for now
+		commonCollection.add(new Abra(63));
+		commonCollection.add(new Drowzee(96));
+		commonCollection.add(new Grimer(88));
+		commonCollection.add(new Pidgey(16));
+		commonCollection.add(new Pikachu(25));
+		commonCollection.add(new Staryu(120));
+
+		uncommonCollection.add(new Graveler(75));
+		uncommonCollection.add(new Haunter(93));
+		uncommonCollection.add(new Rapidash(78));
+
+		rareCollection.add(new Dragonair(148));
 	}
 
 }
