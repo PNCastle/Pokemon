@@ -15,6 +15,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Queue;
 
 import javax.swing.JFrame;
@@ -31,7 +33,7 @@ import View.MapView;
 
 
 //pokemon class that extends JFrame
-public class PokemonGUI extends JFrame {
+public class PokemonGUI extends JFrame implements Observer {
 
 	//instance variables
 	private static final int HEIGHT = 1000;
@@ -95,6 +97,7 @@ public class PokemonGUI extends JFrame {
 		//add mapView as an observer of the trainer
 		theTrainer = mapView.getTrainer();
 		theTrainer.addObserver(mapView);
+		theTrainer.addObserver(this);
 		setViewTo(mapView); //set default view to map view
 		setUpMenus(); //build menu system
 		
@@ -251,5 +254,14 @@ public class PokemonGUI extends JFrame {
 			
 		}
 		
+	}
+
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if((int) arg < 0){
+			//change view to battle view
+		}
+		//otherwise ignore
 	}
 }

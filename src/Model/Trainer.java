@@ -51,7 +51,7 @@ public class Trainer extends Observable {
 	private double friction;
 
 	//these booleans are used in collsion detection
-	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight, center;
+	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight, center, spawning;
 
 	//trainer stores a reference to the map
 	private Map map;
@@ -343,12 +343,12 @@ public class Trainer extends Observable {
 		if (prevRow != currRow) {
 			stepsTaken++;
 			setChanged();
-			notifyObservers();
+			notifyObservers(stepsTaken);
 		}
 		if (prevCol != currCol) {
 			stepsTaken++;
 			setChanged();
-			notifyObservers();
+			notifyObservers(stepsTaken);
 		}
 
 		// collision check here
@@ -364,6 +364,10 @@ public class Trainer extends Observable {
 		//set instance variables based on whether the neighbors of would be position are blocked
 		calculateNeighbors(to_x, to_y);
 		
+		if(spawning){
+			setChanged();
+			notifyObservers(-9);
+		}
 		//check these booleans and if collision is occurring the adjust trainer's position so he is stopped by the un-walkable tile
 		//if no collision is going to occur then set trainers position to (x + dx, y + dy).
 		//Note dx is scaled by 1.36 because our map is 1.36 times wider than tall.
@@ -486,6 +490,8 @@ public class Trainer extends Observable {
 
 		bottomLeft = (map.isBlocked(bottomIndex, leftIndex));
 		bottomRight = (map.isBlocked(bottomIndex, rightIndex));
+		
+		spawning = center || left || right || top || bottom;
 	}
 
 	//draw method which draws trainer in the center of the mapPanel
