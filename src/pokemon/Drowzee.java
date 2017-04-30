@@ -14,20 +14,38 @@ import Model.CommonPokemon;
 
 public class Drowzee extends CommonPokemon {
 	private static String name = "Drowzee";
-	private int pokemonID;
+	private String type = "Psychic";
+	private String info = "It remembers every dream it eats. \nIt rarely eats the dreams of adults because children's are much tastier.";
+	private int pokemonID = 96;
+	private int pokemonSP = 42;
 	
 	public Drowzee (int pokemonID) {
 		// hp = 60, catchRate = 190
 		super(name, 60, 190);
-		// pokemonID = 96
 		this.pokemonID = pokemonID;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public String getInfo() {
+		return info;
 	}
 	
 	public int getPokemonID() {
 		return pokemonID;
 	}
 	
+	public int getPokemonSP() {
+		return pokemonSP;
+	}
+	
 	public String toString() {
-		return "Name:" + name + "PokemonID: " + pokemonID;
+		return "Name:" + name 
+				+ "Type: " + type
+				+ "Pokédex entry: " + info
+				+ "PokemonID: " + pokemonID 
+				+ "Speed: " + pokemonSP;
 	}
 }
