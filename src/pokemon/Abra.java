@@ -18,6 +18,7 @@ public class Abra extends CommonPokemon{
 	private String info = "If it decides to TELEPORT randomly,\nit creates the illusion that it has created copies of itself.";
 	private int pokemonID = 63;
 	private int pokemonSP = 90;
+	private String pokePicName = "pokePic/Abra.gif";
 
 	public Abra(int pokemonID) {
 		// hp = 25, catchRate = 200
@@ -39,6 +40,11 @@ public class Abra extends CommonPokemon{
 	
 	public int getPokemonSP() {
 		return pokemonSP;
+	}
+	
+
+	public String getPicFileName() {
+		return pokePicName;
 	}
 	
 	public String toString() {

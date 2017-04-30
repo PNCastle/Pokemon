@@ -1,13 +1,17 @@
 package View;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -35,16 +39,28 @@ public class PokedexPanel extends JPanel {
 		add(pokesList);
 		pokesList.setLocation(0, 0);
 		pokesList.setSize(300, 300);
+		
+		
+		// Pic of Pokemon
+///*		try {
+//			image = ImageIO.read(getClass().getResource("./pokePic/Abra.gif"));
+//		} catch (IOException e) {
+//			System.err.println("Could not read image file");
+//		}*/
+//		
+//		ImageIcon imageIcon = new ImageIcon("./pokePic/Abra.gif");
+//		JLabel label = new JLabel(imageIcon);
+//		label.setPreferredSize(new Dimension(300, 200));
+//		label.setLocation(300, 0);
+//		this.add(label);
+		
 		setVisible(true);
 	}
 	
-	//draw the graphics
-	private void draw(){
-		Graphics g2 = getGraphics();
-		if (g2 != null){
-			g2.drawImage(image, 0, 0, null);
-			g2.dispose();
-		}
-	}
+	@Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 300, 0, this);
+    }
 	
 }
