@@ -74,6 +74,7 @@ public class Map {
 			
 			BufferedImage subImage;
 			boolean blocked = false;
+			boolean spawnable = false;
 			for(int col = 0; col <= numTilesAcross; col++) {
 				subImage = tileSet.getSubimage(col*tileSize, 0, tileSize, tileSize);
 				if (col == 3) {
@@ -81,7 +82,12 @@ public class Map {
 				}
 				else
 					blocked = false;
-				tiles[col] = new Tile(subImage, blocked);
+				if (col == 2) {
+					spawnable = true;
+				}
+				else 
+					spawnable = false;
+				tiles[col] = new Tile(subImage, blocked, spawnable);
 			}
 		}
 		catch (Exception e) {
