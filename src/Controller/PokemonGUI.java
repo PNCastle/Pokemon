@@ -107,7 +107,7 @@ public class PokemonGUI extends JFrame implements Observer {
 		theTrainer.addObserver(mapView);
 		theTrainer.addObserver(battleView);
 		theTrainer.addObserver(this);
-		setViewTo(battleView); // set default view to map view
+		setViewTo(mapView); // set default view to map view
 		setUpMenus(); // build menu system
 
 	}
