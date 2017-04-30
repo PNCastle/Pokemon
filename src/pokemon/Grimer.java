@@ -18,6 +18,7 @@ public class Grimer extends CommonPokemon {
 	private String info = "Wherever GRIMER has passed, so many germs are left behind \nthat no plants will ever grow again.";
 	private int pokemonID = 88;
 	private int pokemonSP = 25;
+	private String pokePicName = "pokePic/Grimer.gif";
 	
 	public Grimer(int pokemonID) {
 		// hp = 80, catchRate = 190
@@ -39,6 +40,10 @@ public class Grimer extends CommonPokemon {
 	
 	public int getPokemonSP() {
 		return pokemonSP;
+	}
+
+	public String getPicFileName() {
+		return pokePicName;
 	}
 	
 	public String toString() {

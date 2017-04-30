@@ -18,6 +18,7 @@ public class Drowzee extends CommonPokemon {
 	private String info = "It remembers every dream it eats. \nIt rarely eats the dreams of adults because children's are much tastier.";
 	private int pokemonID = 96;
 	private int pokemonSP = 42;
+	private String pokePicName = "pokePic/Drowzee.gif";
 	
 	public Drowzee (int pokemonID) {
 		// hp = 60, catchRate = 190
@@ -39,6 +40,10 @@ public class Drowzee extends CommonPokemon {
 	
 	public int getPokemonSP() {
 		return pokemonSP;
+	}
+
+	public String getPicFileName() {
+		return pokePicName;
 	}
 	
 	public String toString() {

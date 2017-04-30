@@ -18,6 +18,7 @@ public class Staryu extends CommonPokemon{
 	private String info = "Even if its body is torn, \nit can regenerate as long as the glowing central core remains intact.";
 	private int pokemonID = 120;
 	private int pokemonSP = 85;
+	private String pokePicName = "pokePic/Staryu.gif";
 	
 	public Staryu (int pokemonID) {
 		// hp = 30, catchRate = 225
@@ -39,6 +40,10 @@ public class Staryu extends CommonPokemon{
 	
 	public int getPokemonSP() {
 		return pokemonSP;
+	}
+
+	public String getPicFileName() {
+		return pokePicName;
 	}
 	
 	public String toString() {

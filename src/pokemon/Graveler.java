@@ -18,6 +18,7 @@ public class Graveler extends UncommonPokemon {
 	private String info = "A slow walker, it rolls to move. \nIt pays no attention to any object that happens to be in its path.";
 	private int pokemonID = 75;
 	private int pokemonSP = 35;
+	private String pokePicName = "pokePic/Graveler.gif";
 
 	public Graveler(int pokemonID) {
 		// hp = 55, catchRate = 120
@@ -39,6 +40,10 @@ public class Graveler extends UncommonPokemon {
 	
 	public int getPokemonSP() {
 		return pokemonSP;
+	}
+
+	public String getPicFileName() {
+		return pokePicName;
 	}
 	
 	public String toString() {

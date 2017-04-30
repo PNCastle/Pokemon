@@ -18,6 +18,7 @@ public class Haunter extends UncommonPokemon {
 	private String info = "Its tongue is made of gas. If licked, \nits victim starts shaking constantly until death eventually comes.";
 	private int pokemonID = 93;
 	private int pokemonSP = 95;
+	private String pokePicName = "pokePic/Haunter.gif";
 	
 	public Haunter (int pokemonID) {
 		// hp = 45, catchRate = 90
@@ -39,6 +40,10 @@ public class Haunter extends UncommonPokemon {
 	
 	public int getPokemonSP() {
 		return pokemonSP;
+	}
+
+	public String getPicFileName() {
+		return pokePicName;
 	}
 	
 	public String toString() {

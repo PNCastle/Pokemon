@@ -41,7 +41,6 @@ public class Abra extends CommonPokemon{
 	public int getPokemonSP() {
 		return pokemonSP;
 	}
-	
 
 	public String getPicFileName() {
 		return pokePicName;

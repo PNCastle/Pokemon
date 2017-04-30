@@ -18,6 +18,7 @@ public class Rapidash extends UncommonPokemon {
 	private String info = "With incredible acceleration, \nit reaches its top speed of 150 mph after running just ten steps.";
 	private int pokemonID = 78;
 	private int pokemonSP = 105;
+	private String pokePicName = "pokePic/Rapidash.gif";
 
 	public Rapidash (int pokemonID) {
 		// hp = 65, catchRate = 60
@@ -39,6 +40,10 @@ public class Rapidash extends UncommonPokemon {
 	
 	public int getPokemonSP() {
 		return pokemonSP;
+	}
+
+	public String getPicFileName() {
+		return pokePicName;
 	}
 	
 	public String toString() {

@@ -18,6 +18,7 @@ public class Dragonair extends RarePokemon{
 	private String info = "Its crystalline orbs appear to give this \nPOKéMON the power to freely control the weather.";
 	private int pokemonID = 148;
 	private int pokemonSP = 70;
+	private String pokePicName = "pokePic/Dragonair.gif";
 
 	public Dragonair(int pokemonID) {
 		// hp = 61, catchRate = 45
@@ -39,6 +40,10 @@ public class Dragonair extends RarePokemon{
 	
 	public int getPokemonSP() {
 		return pokemonSP;
+	}
+	
+	public String getPicFileName() {
+		return pokePicName;
 	}
 	
 	public String toString() {

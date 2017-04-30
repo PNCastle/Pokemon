@@ -18,6 +18,7 @@ public class Pikachu extends CommonPokemon {
 	private String info = "It raises its tail to check its surroundings. \nThe tail is sometimes struck by lightning in this pose.";
 	private int pokemonID = 25;
 	private int pokemonSP = 90;
+	private String pokePicName = "pokePic/Pikachu.gif";
 	
 	public Pikachu(int pokemonID) {
 		// hp = 35, catchRate = 190
@@ -39,6 +40,10 @@ public class Pikachu extends CommonPokemon {
 	
 	public int getPokemonSP() {
 		return pokemonSP;
+	}
+
+	public String getPicFileName() {
+		return pokePicName;
 	}
 	
 	public String toString() {
