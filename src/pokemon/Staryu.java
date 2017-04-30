@@ -15,7 +15,7 @@ import Model.CommonPokemon;
 public class Staryu extends CommonPokemon{
 	private static String name = "Staryu";
 	private static String type = "Water";
-	private static String info = "Even if its body is torn, \nit can regenerate as long as the glowing central core remains intact.";
+	private static String info = "<html>Even if its body is torn, it can regenerate as long<br>as the glowing central core remains intact.</html>";
 	private int pokemonID = 120;
 	private int pokemonSP = 85;
 	private static String pokePicName = "pokePic/Staryu.gif";

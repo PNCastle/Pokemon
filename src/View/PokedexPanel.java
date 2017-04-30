@@ -45,7 +45,7 @@ public class PokedexPanel extends JPanel {
 	Pokemon currentPokemon;
 	
 	public PokedexPanel() {
-		currentPokemon = new Abra(63);
+		currentPokemon = new Dragonair(148);
 		
 		setLayout(new GridLayout(1, 0, 0, 0));
 		setPreferredSize(new Dimension(750, 300));

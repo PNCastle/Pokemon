@@ -14,8 +14,8 @@ import Model.UncommonPokemon;
 
 public class Graveler extends UncommonPokemon {
 	private static String name = "Graveler";
-	private static String type = "Rock & Ground";
-	private static String info = "A slow walker, it rolls to move. \nIt pays no attention to any object that happens to be in its path.";
+	private static String type = "Rock&Ground";
+	private static String info = "<html>A slow walker, it rolls to move.<br>It pays no attention to any object that happens<br>to be in its path.</html>";
 	private int pokemonID = 75;
 	private int pokemonSP = 35;
 	private static String pokePicName = "pokePic/Graveler.gif";

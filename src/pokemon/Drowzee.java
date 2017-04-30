@@ -15,7 +15,7 @@ import Model.CommonPokemon;
 public class Drowzee extends CommonPokemon {
 	private static String name = "Drowzee";
 	private static String type = "Psychic";
-	private static String info = "It remembers every dream it eats. \nIt rarely eats the dreams of adults because children's are much tastier.";
+	private static String info = "<html>It remembers every dream it eats.<br>It rarely eats the dreams of adults because<br>children's are much tastier.</html>";
 	private int pokemonID = 96;
 	private int pokemonSP = 42;
 	private static String pokePicName = "pokePic/Drowzee.gif";
