@@ -16,7 +16,7 @@ public abstract class Pokemon {
 	private double encounterRate;
 	private String name, type, pokePicName, info;
 	
-	private boolean isEating, isAngry;
+	private boolean isEating, isAngry, willRun;
 	
 	public Pokemon(String name, int hp, int catchRate, int speed, double encounterRate,
 			String type, String pokePicName, String info) {
@@ -28,6 +28,7 @@ public abstract class Pokemon {
 		this.encounterRate = encounterRate;
 		this.type = type;
 		this.pokePicName = pokePicName;
+		this.willRun = false;
 		pokemonRun();
 		calcCatchProbability();
 	}
@@ -77,9 +78,22 @@ public abstract class Pokemon {
 		return catchProbability;
 	}
 	
+	public boolean willRun() {
+		return willRun();
+	}
+	
 	// Uses an item and runs the methods to determine the state of the Pokemon
 	// during battle
 	public void useItem(Item item) {
+		willRun = pokemonRun();
+		
+		if (item.getClass() == items.SafariBall.class){
+			calcCatchProbability();
+			isEating = false;
+			isAngry = false;
+			return;
+		}
+		
 		if (!isEating && !isAngry) {
 			if (item.getClass() == items.Rock.class){
 				isAngry = true;
@@ -119,7 +133,6 @@ public abstract class Pokemon {
 		
 		setCatchRate(item.getCatchModifier());
 		setHP(item.hpModifier());
-		pokemonRun();
 		calcCatchProbability();
 	}
 	
