@@ -14,12 +14,13 @@ public class Tile {
 	// instance variables
 	private BufferedImage image;
 	private boolean blocked;
-	//private boolean spawnable;
+	private boolean spawnable;
 	
 	//ctor
-	public Tile (BufferedImage image, boolean blocked) {
+	public Tile (BufferedImage image, boolean blocked, boolean spawnable) {
 		this.image = image;
 		this.blocked = blocked;
+		this.spawnable = spawnable;
 	}
 	
 	// a getter for the image of this tile
