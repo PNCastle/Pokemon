@@ -302,9 +302,13 @@ public class PokemonGUI extends JFrame implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if((int) arg < 0){
+		if((int) arg == -1){
 			mapView.animateOut();
 			setViewTo(battleView);
+		}
+		if((int) arg == -2){
+			mapView.animateIn();
+			setViewTo(mapView);
 		}
 	}
 	

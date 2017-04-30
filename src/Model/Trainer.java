@@ -371,7 +371,7 @@ public class Trainer extends Observable {
 				if(prob >= .85){
 					this.setCurrentPokemon(prob);
 					setChanged();
-					notifyObservers(-9);
+					notifyObservers(-1);
 				}
 			}
 		}
@@ -385,7 +385,7 @@ public class Trainer extends Observable {
 				if(prob >= .85){
 					this.setCurrentPokemon(prob);
 					setChanged();
-					notifyObservers(-9);
+					notifyObservers(-1);
 				}
 			}
 		}
@@ -556,6 +556,12 @@ public class Trainer extends Observable {
 	//setter for dx for testing
 	public void setDx(double vel) {
 		this.dx = vel;
+	}
+
+	public void ran() {
+		setChanged();
+		notifyObservers(-2);
+		
 	}
 
 }

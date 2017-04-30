@@ -1,14 +1,21 @@
 package View;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.Timer;
+
+import Model.Map;
+import Model.Trainer;
 
 public class BattleView extends JPanel implements Observer {
-
+	
+	private Trainer theTrainer;
 	
 	private BattlePanel battlePanel;
 	private JButton ballButton;
@@ -32,20 +39,26 @@ public class BattleView extends JPanel implements Observer {
 		baitButton = new JButton("Bait");
 		runButton = new JButton("Run");
 		
-		ballButton.setSize(375, 150);
-		rockButton.setSize(375, 150);
-		baitButton.setSize(375, 150);
-		runButton.setSize(375, 150);
+		ballButton.setSize(100, 50);
+		rockButton.setSize(100, 50);
+		baitButton.setSize(100, 50);
+		runButton.setSize(100, 50);
 		
-		baitButton.setLocation(125, 700);
-		ballButton.setLocation(500, 700);
-		rockButton.setLocation(125, 850);
-		runButton.setLocation(500, 850);
+		baitButton.setLocation(325, 600);
+		ballButton.setLocation(425, 600);
+		rockButton.setLocation(325, 650);
+		runButton.setLocation(425, 650);
 		
 		baitButton.setVisible(true);
 		rockButton.setVisible(true);
 		ballButton.setVisible(true);
 		runButton.setVisible(true);
+		
+		baitButton.addActionListener(new ButtonListener());
+		rockButton.addActionListener(new ButtonListener());
+		ballButton.addActionListener(new ButtonListener());
+		runButton.addActionListener(new ButtonListener());
+		
 		
 		this.add(baitButton);
 		this.add(ballButton);
@@ -56,6 +69,84 @@ public class BattleView extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		int anInt = (int) arg;
+		if (theTrainer == null && anInt > 0) {
+			theTrainer = (Trainer)o;
+		}
+	}
+	
+	
+	private class ButtonListener implements ActionListener {
+		
+//		Timer timer = new Timer(flags, null);
+		int count = 0;
+		
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			JButton buttonClicked = (JButton) arg0.getSource();
+			
+			
+			if (buttonClicked.getText().equals("Rock")) {
+				//throwing(g, "Rock");
+				new Timer(275, new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						count++;
+						battlePanel.throwObject("Rock");
+						repaint();
+						{
+							if(count == 5) {
+								((Timer) e.getSource()).stop();
+								count = 0;
+								battlePanel.doneThrowing();
+							}
+						}
+					}
+				}).start();
+			
+			} 
+			if (buttonClicked.getText().equals("Bait")) {
+				//throwing(g, "Bait");
+				new Timer(275, new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						count++;
+						battlePanel.throwObject("Bait");
+						repaint();
+						{
+							if(count == 5) {
+								((Timer) e.getSource()).stop();
+								count = 0;
+								battlePanel.doneThrowing();
+							}
+						}
+					}
+				}).start();
+			
+			}
+			if (buttonClicked.getText().equals("Pokeball")) {
+				//throwing(g, "Pokeball");
+				new Timer(275, new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						count++;
+						battlePanel.throwObject("Pokeball");
+						repaint();
+						{
+							if(count == 5) {
+								((Timer) e.getSource()).stop();
+								count = 0;
+								battlePanel.doneThrowing();
+							}
+						}
+					}
+				}).start();
+			
+			}
+			if (buttonClicked.getText().equals("Run")) {
+				//animate run
+				theTrainer.ran();
+			}
+			
+		}
 		
 	}
 
