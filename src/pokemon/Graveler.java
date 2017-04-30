@@ -15,14 +15,14 @@ import Model.UncommonPokemon;
 public class Graveler extends UncommonPokemon {
 	private static String name = "Graveler";
 	private static String type = "Rock & Ground";
-	private String info = "A slow walker, it rolls to move. \nIt pays no attention to any object that happens to be in its path.";
+	private static String info = "A slow walker, it rolls to move. \nIt pays no attention to any object that happens to be in its path.";
 	private int pokemonID = 75;
 	private int pokemonSP = 35;
 	private static String pokePicName = "pokePic/Graveler.gif";
 
 	public Graveler(int pokemonID) {
 		// hp = 55, catchRate = 120
-		super(name, 55, 120, 35, type, pokePicName);
+		super(name, 55, 120, 35, type, pokePicName, info);
 		this.pokemonID = pokemonID;
 	}
 	

@@ -15,14 +15,14 @@ import Model.CommonPokemon;
 public class Staryu extends CommonPokemon{
 	private static String name = "Staryu";
 	private static String type = "Water";
-	private String info = "Even if its body is torn, \nit can regenerate as long as the glowing central core remains intact.";
+	private static String info = "Even if its body is torn, \nit can regenerate as long as the glowing central core remains intact.";
 	private int pokemonID = 120;
 	private int pokemonSP = 85;
 	private static String pokePicName = "pokePic/Staryu.gif";
 	
 	public Staryu (int pokemonID) {
 		// hp = 30, catchRate = 225
-		super(name, 30, 225, 85, type, pokePicName);
+		super(name, 30, 225, 85, type, pokePicName, info);
 		this.pokemonID = pokemonID;
 	}
 	

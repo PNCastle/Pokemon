@@ -15,7 +15,7 @@ import Model.CommonPokemon;
 public class Abra extends CommonPokemon{
 	private static String name = "Abra";
 	private static String type = "Psychic";
-	private static String info = "If it decides to TELEPORT randomly,\nit creates the illusion that it has created copies of itself.";
+	private static String info = "<html>If it decides to TELEPORT randomly, <br> it creates the illusion that it has created copies <br> of itself.</html>";
 	private int pokemonID = 63;
 	private int pokemonSP = 90;
 	private static String pokePicName = "pokePic/Abra.gif";

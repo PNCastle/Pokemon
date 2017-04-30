@@ -8,13 +8,6 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -52,7 +45,7 @@ public class PokedexPanel extends JPanel {
 	Pokemon currentPokemon;
 	
 	public PokedexPanel() {
-		currentPokemon = new Pikachu(25);
+		currentPokemon = new Abra(63);
 		
 		setLayout(new GridLayout(1, 0, 0, 0));
 		setPreferredSize(new Dimension(750, 300));
@@ -78,25 +71,39 @@ public class PokedexPanel extends JPanel {
 		this.add(PokemonCard);
 		
 		// set up the name;
-		name = new JLabel(currentPokemon.getName());
+		name = new JLabel("NAME : " + currentPokemon.getName());
 		name.setFont(new Font("Helvetica", Font.BOLD, 20));
 		name.setSize(new Dimension(600, 30));
-		name.setLocation(550, 50);
+		name.setLocation(530, 60);
 		this.add(name);
 		
 		// set up the PokemonID;
-		pokemonID = new JLabel ("( #" + currentPokemon.getPokemonID() +" )");
+		pokemonID = new JLabel ("Pokemon ID : " + currentPokemon.getPokemonID());
 		pokemonID.setFont(new Font("Helvetica", Font.BOLD, 20));
 		pokemonID.setSize(new Dimension(600, 30));
-		pokemonID.setLocation(650, 50);
+		pokemonID.setLocation(530, 90);
 		this.add(pokemonID);
 		
-		// set up the HP
+		// set up the pokemon Type
+		type = new JLabel("TYPE : " + currentPokemon.getType());
+		type.setFont(new Font("Helvetica", Font.BOLD, 20));
+		type.setSize(new Dimension(600, 30));
+		type.setLocation(530, 120);
+		this.add(type);
 		
+		// set up the HP
+		hp = new JLabel("HP : " + currentPokemon.getHP());
+		hp.setFont(new Font("Helvetica", Font.BOLD, 20));
+		hp.setSize(new Dimension(600, 30));
+		hp.setLocation(530, 150);
+		this.add(hp);
 		
 		// set up the information
-		
-		
+		info = new JLabel("<html>POKEDEX INFO : <br>" + currentPokemon.getInfo() + "</html>");
+		info.setFont(new Font("Helvetica", Font.BOLD, 18));
+		info.setSize(new Dimension(600, 100));
+		info.setLocation(310, 190);
+		this.add(info);
 		
 		setVisible(true);
 	}
@@ -105,7 +112,7 @@ public class PokedexPanel extends JPanel {
 	@Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(image, 310, 50, 200, 150, this);
+        g.drawImage(image, 310, 40, 200, 150, this);
     }
 	
 }
