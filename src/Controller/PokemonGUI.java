@@ -95,17 +95,19 @@ public class PokemonGUI extends JFrame implements Observer {
 				}
 			} else {
 				mapView = new MapView(WIDTH, HEIGHT);
+				battleView = new BattleView(WIDTH, HEIGHT);
 			}
 		} else {
 			mapView = new MapView(WIDTH, HEIGHT);
+			battleView = new BattleView(WIDTH, HEIGHT);
 		}
 
 		// add mapView as an observer of the trainer
 		theTrainer = mapView.getTrainer();
 		theTrainer.addObserver(mapView);
-		//theTrainer.addObserver(battleView);
+		theTrainer.addObserver(battleView);
 		theTrainer.addObserver(this);
-		setViewTo(mapView); // set default view to map view
+		setViewTo(battleView); // set default view to map view
 		setUpMenus(); // build menu system
 
 	}
@@ -301,7 +303,7 @@ public class PokemonGUI extends JFrame implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		if((int) arg < 0){
-			//mapView.animateOut();
+			mapView.animateOut();
 			setViewTo(battleView);
 		}
 	}
