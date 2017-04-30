@@ -2,12 +2,14 @@ package View;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
@@ -24,6 +26,7 @@ public class TrainerPanel extends JPanel {
 	private BufferedImage image;
 	private Graphics2D g;
 	
+	JLabel trainerCard;
 	JLabel name;
 	JLabel pokedex;
 	
@@ -38,9 +41,16 @@ public class TrainerPanel extends JPanel {
 			System.err.println("Could not read image file");
 		}
 		
-		name = new JLabel("Name\t\t\t\t\tAsh");
+		trainerCard = new JLabel("Trainer Card");
+		trainerCard.setFont(new Font("Helvetica", Font.BOLD, 30));
+		trainerCard.setSize(new Dimension(600, 30));
+		trainerCard.setLocation(415, 20);
+		this.add(trainerCard);
+		
+		name = new JLabel("Name                                 Ash");
+		name.setFont(new Font("Herculanum", Font.BOLD, 28));
 		name.setSize(new Dimension(600, 30));
-		name.setLocation(300, 30);
+		name.setLocation(300, 60);
 		this.add(name);
 	}
 	
