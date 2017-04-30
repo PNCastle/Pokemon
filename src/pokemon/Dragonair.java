@@ -15,7 +15,7 @@ import Model.RarePokemon;
 public class Dragonair extends RarePokemon{
 	private static String name = "Dragonair";
 	private static String type = "Dragon";
-	private static String info = "Its crystalline orbs appear to give this \nPOKéMON the power to freely control the weather.";
+	private static String info = "<html>Its crystalline orbs appear to give this POKéMON<br>the power to freely control the weather.</html>";
 	private int pokemonID = 148;
 	private int pokemonSP = 70;
 	private static String pokePicName = "pokePic/Dragonair.gif";

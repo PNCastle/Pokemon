@@ -14,8 +14,8 @@ import Model.CommonPokemon;
 
 public class Pidgey extends CommonPokemon{
 	private static String name = "Pidgey";
-	private static String type = "Normal & Flying";
-	private static String info = "Common in grassy areas and forests, \nit is very docile and will chase off enemies by flapping up sand.";
+	private static String type = "Normal&Flying";
+	private static String info = "<html>Common in grassy areas and forests,<br>it is very docile and will chase off enemies by<br>flapping up sand.</html>";
 	private int pokemonID = 16;
 	private int pokemonSP = 56;
 	private static String pokePicName = "pokePic/Pidgey.gif";

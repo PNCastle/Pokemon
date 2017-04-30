@@ -15,7 +15,7 @@ import Model.UncommonPokemon;
 public class Rapidash extends UncommonPokemon {
 	private static String name = "Rapidash";
 	private static String type = "Fire";
-	private static String info = "With incredible acceleration, \nit reaches its top speed of 150 mph after running just ten steps.";
+	private static String info = "<html>With incredible acceleration, it reaches its top<br>speed of 150 mph after running just ten steps.</html>";
 	private int pokemonID = 78;
 	private int pokemonSP = 105;
 	private static String pokePicName = "pokePic/Rapidash.gif";

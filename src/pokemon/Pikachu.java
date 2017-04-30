@@ -15,7 +15,7 @@ import Model.CommonPokemon;
 public class Pikachu extends CommonPokemon {
 	private static String name = "Pikachu";
 	private static String type = "Electric";
-	private static String info = "It raises its tail to check its surroundings. \nThe tail is sometimes struck by lightning in this pose.";
+	private static String info = "<html>It raises its tail to check its surroundings.<br>The tail is sometimes struck by lightning in this<br>pose.</html>";
 	private int pokemonID = 25;
 	private int pokemonSP = 90;
 	private static String pokePicName = "pokePic/Pikachu.gif";
