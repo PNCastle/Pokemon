@@ -103,7 +103,7 @@ public class PokemonGUI extends JFrame implements Observer {
 		// add mapView as an observer of the trainer
 		theTrainer = mapView.getTrainer();
 		theTrainer.addObserver(mapView);
-		theTrainer.addObserver(battleView);
+		//theTrainer.addObserver(battleView);
 		theTrainer.addObserver(this);
 		setViewTo(mapView); // set default view to map view
 		setUpMenus(); // build menu system
@@ -300,8 +300,9 @@ public class PokemonGUI extends JFrame implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+		if((int) arg < 0){
+			mapView.animateOut();
+		}
 	}
 	
 }

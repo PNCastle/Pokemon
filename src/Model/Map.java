@@ -127,6 +127,11 @@ public class Map {
 		return tiles[rc].isBlocked();
 	}
 	
+	public boolean isSpawnable(int col, int row){
+		int rc = currentMap[row][col];
+		return tiles[rc].isSpawnable();
+	}
+	
 	// getter for tileSize
 	public int getTileSize(){
 		return this.tileSize;

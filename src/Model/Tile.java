@@ -33,4 +33,8 @@ public class Tile {
 		return this.blocked;
 	}
 
+	public boolean isSpawnable() {
+		return this.spawnable;
+	}
+
 }

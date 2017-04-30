@@ -365,7 +365,6 @@ public class Trainer extends Observable {
 		
 		//set instance variables based on whether the neighbors of would be position are blocked
 		calculateNeighbors(to_x, to_y);
-		
 		if(spawning){
 			setChanged();
 			notifyObservers(-9);
@@ -493,7 +492,7 @@ public class Trainer extends Observable {
 		bottomLeft = (map.isBlocked(bottomIndex, leftIndex));
 		bottomRight = (map.isBlocked(bottomIndex, rightIndex));
 		
-		spawning = center || left || right || top || bottom;
+		spawning = map.isSpawnable(rowIndex, colIndex);
 	}
 
 	//draw method which draws trainer in the center of the mapPanel
