@@ -19,21 +19,13 @@ import Model.Pokemon;
  */
 
 public class PokedexPanel extends JPanel {
-	//instance variables
 	private BufferedImage image;
 	private Graphics2D g;
-	ArrayList<Pokemon> pokeDex;
-
-	public PokedexPanel(ArrayList<Pokemon> pokeDex) {
+	
+	public PokedexPanel() {
 		setLayout(new GridLayout(1, 0, 0, 0));
-		
 		setPreferredSize(new Dimension(750, 300));
 		setBackground(Color.WHITE);
-		this.pokeDex = pokeDex;
-	}
-	
-	public void updatePokedex(ArrayList<Pokemon> pokeDex) {
-		this.pokeDex = pokeDex;
 	}
 	
 	//draw the graphics
@@ -44,4 +36,5 @@ public class PokedexPanel extends JPanel {
 			g2.dispose();
 		}
 	}
+	
 }

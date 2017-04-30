@@ -50,8 +50,13 @@ public class MapView extends JPanel implements Observer {
 		trainerPanel.setLocation(125, 700);
 		trainerPanel.setVisible(false);
 		
+		pokedexPanel = new PokedexPanel();
+		pokedexPanel.setLocation(125, 700);
+		pokedexPanel.setVisible(false);
+		
 		this.add(mapPanel, BorderLayout.NORTH);
 		this.add(trainerPanel, BorderLayout.PAGE_END);
+		this.add(pokedexPanel, BorderLayout.PAGE_END);
 		
 		inBattle = false;
 	}
@@ -72,9 +77,13 @@ public class MapView extends JPanel implements Observer {
 		trainerPanel = new TrainerPanel();
 		trainerPanel.setLocation(125, 700);
 		trainerPanel.setVisible(false);
+		pokedexPanel = new PokedexPanel();
+		pokedexPanel.setLocation(125, 700);
+		pokedexPanel.setVisible(false);
 		
 		this.add(mapPanel, BorderLayout.NORTH);
 		this.add(trainerPanel, BorderLayout.PAGE_END);
+		this.add(pokedexPanel, BorderLayout.PAGE_END);
 		
 		inBattle = false;
 	}
@@ -126,6 +135,13 @@ public class MapView extends JPanel implements Observer {
 		}
 		if (type == 1){
 			trainerPanel.setVisible(false);
+		}
+		if (type == 2) {
+			pokedexPanel.repaint();
+			pokedexPanel.setVisible(true);
+		}
+		if (type == 3) {
+			pokedexPanel.setVisible(false);
 		}
 	}
 	

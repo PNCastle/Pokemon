@@ -31,43 +31,47 @@ import Model.Trainer;
 //import View.BattleView;
 import View.MapView;
 
-
 //pokemon class that extends JFrame
 public class PokemonGUI extends JFrame {
 
-	//instance variables
+	// instance variables
 	private static final int HEIGHT = 1000;
 	private static final int WIDTH = 1000;
 	private MapView mapView;
-	//private BattleView battleView;
+	// private BattleView battleView;
 	private JPanel currentView;
 	private Trainer theTrainer;
-	
-	//simple main method
-	public static void main(String args[]){
+
+	// simple main method
+	public static void main(String args[]) {
 		PokemonGUI g = new PokemonGUI();
 		g.setVisible(true);
 	}
-	
-	//ctor
-	public PokemonGUI(){
-		//set standard information such as size, title etc.
+
+	// ctor
+	public PokemonGUI() {
+		// set standard information such as size, title etc.
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(null);
 		this.setSize(WIDTH, HEIGHT);
 		this.setTitle("Pokemon Safari Zone");
 		this.setLocation(0, 0);
-		
-		//this section of code makes the system persistant, so that we can load and save games
+
+		// this section of code makes the system persistant, so that we can load
+		// and save games
 		File file = new File("persistence");
 
-		if (file.exists()){
-			int ret = JOptionPane.showOptionDialog(null, "Start with previous game?\n"
-					+ "No means start with a new game.\nIf no, previous game can be loaded from menu.", 
-					"Select an Option", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+		if (file.exists()) {
+			int ret = JOptionPane
+					.showOptionDialog(
+							null,
+							"Start with previous game?\n"
+									+ "No means start with a new game.\nIf no, previous game can be loaded from menu.",
+							"Select an Option", JOptionPane.YES_NO_OPTION,
+							JOptionPane.PLAIN_MESSAGE, null, null, null);
 
-			//try to read the file
-			if (ret == JOptionPane.YES_OPTION){
+			// try to read the file
+			if (ret == JOptionPane.YES_OPTION) {
 				try {
 					FileInputStream fis = new FileInputStream(file);
 					try {
@@ -76,7 +80,8 @@ public class PokemonGUI extends JFrame {
 							Object[] toLoad = (Object[]) ois.readObject();
 							mapView = new MapView(WIDTH, HEIGHT, toLoad);
 						} catch (ClassNotFoundException e) {
-							System.err.println("Could not read persistence file");
+							System.err
+									.println("Could not read persistence file");
 						}
 						ois.close();
 					} catch (IOException e) {
@@ -85,41 +90,40 @@ public class PokemonGUI extends JFrame {
 				} catch (FileNotFoundException e1) {
 					System.err.println("Could not read persistence file");
 				}
-			}
-			else {
+			} else {
 				mapView = new MapView(WIDTH, HEIGHT);
 			}
-		}
-		else {
+		} else {
 			mapView = new MapView(WIDTH, HEIGHT);
 		}
-		
-		//add mapView as an observer of the trainer
+
+		// add mapView as an observer of the trainer
 		theTrainer = mapView.getTrainer();
 		theTrainer.addObserver(mapView);
-		setViewTo(mapView); //set default view to map view
-		setUpMenus(); //build menu system
-		
+		setViewTo(mapView); // set default view to map view
+		setUpMenus(); // build menu system
+
 	}
-	
-	//additional constructor used in load game
-	public PokemonGUI(Object[] toLoad){
+
+	// additional constructor used in load game
+	public PokemonGUI(Object[] toLoad) {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(null);
 		this.setSize(WIDTH, HEIGHT);
 		this.setTitle("Pokemon Safari Zone");
 		this.setLocation(0, 0);
-		//initialize mapView and add as an observer of trainer
+		// initialize mapView and add as an observer of trainer
 		mapView = new MapView(WIDTH, HEIGHT, toLoad);
 		theTrainer = mapView.getTrainer();
 		theTrainer.addObserver(mapView);
-		setViewTo(mapView); //set default view to map view
+		setViewTo(mapView); // set default view to map view
 		setUpMenus();
-		
+
 	}
 
-	//private helper method whose purpose is to build the menu system
-	//this menu system contains features such as: new game, save game, load game, and others
+	// private helper method whose purpose is to build the menu system
+	// this menu system contains features such as: new game, save game, load
+	// game, and others
 	private void setUpMenus() {
 		JMenuItem menu = new JMenu("Options");
 		JMenuItem newGame = new JMenuItem("New Game");
@@ -140,14 +144,15 @@ public class PokemonGUI extends JFrame {
 		JMenuItem hidePokedex = new JMenuItem("Hide Pokedex");
 		pokedex.add(viewPokedex);
 		pokedex.add(hidePokedex);
-		
-		JMenuItem stepCount = new JMenu("Step Count: " + mapView.getTrainer().getStepCount());
+
+		JMenuItem stepCount = new JMenu("Step Count: "
+				+ mapView.getTrainer().getStepCount());
 		stepCount.setEnabled(false);
-		
+
 		JMenuItem battleTest1 = new JMenuItem("Battle Start");
 		JMenuItem battleTest2 = new JMenuItem("Battle End");
-		
-		//set up menu bar
+
+		// set up menu bar
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(menu);
@@ -155,8 +160,8 @@ public class PokemonGUI extends JFrame {
 		menuBar.add(battleTest2);
 		menuBar.add(Box.createHorizontalGlue());
 		menuBar.add(stepCount);
-		
-		//add listeners
+
+		// add listeners
 		MenuItemListener menuListener = new MenuItemListener();
 		menu.addActionListener(menuListener);
 		newGame.addActionListener(menuListener);
@@ -168,29 +173,29 @@ public class PokemonGUI extends JFrame {
 		hideTrainer.addActionListener(menuListener);
 		viewPokedex.addActionListener(menuListener);
 		hidePokedex.addActionListener(menuListener);
-		
+
 		battleTest1.addActionListener(menuListener);
 		battleTest2.addActionListener(menuListener);
-		
-		Runnable updateSteps = new Runnable(){
+
+		Runnable updateSteps = new Runnable() {
 
 			@Override
-			public void run(){
+			public void run() {
 
-				while(true){
-					stepCount.setText("Step Count: " + mapView.getTrainer().getStepCount());
+				while (true) {
+					stepCount.setText("Step Count: "
+							+ mapView.getTrainer().getStepCount());
 				}
 
 			}
 		};
-		
+
 		new Thread(updateSteps).start();
 	}
 
-	
-	//helper method to change views
+	// helper method to change views
 	private void setViewTo(JPanel newView) {
-		if (currentView != null){
+		if (currentView != null) {
 			remove(currentView);
 		}
 		currentView = newView;
@@ -198,24 +203,26 @@ public class PokemonGUI extends JFrame {
 		currentView.repaint();
 		validate();
 	}
-	
-	////// MENU ITEM LISTENER ////////////////
+
+	// //// MENU ITEM LISTENER ////////////////
 	private class MenuItemListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String text = ((JMenuItem) e.getSource()).getText();
-			
-			//if new game is selected build a new instance of the GUI and dispose of the old one
-			if(text.equals("New Game")){
+
+			// if new game is selected build a new instance of the GUI and
+			// dispose of the old one
+			if (text.equals("New Game")) {
 				PokemonGUI g = new PokemonGUI();
 				g.setVisible(true);
 				setVisible(false);
 				dispose();
 			}
-			
-			//if save game is selected then write the current state of the system to file
-			if(text.equals("Save Game")){
+
+			// if save game is selected then write the current state of the
+			// system to file
+			if (text.equals("Save Game")) {
 				try {
 					FileOutputStream fos = new FileOutputStream("persistence");
 					try {
@@ -231,9 +238,10 @@ public class PokemonGUI extends JFrame {
 					e1.printStackTrace();
 				}
 			}
-			
-			//if load game is selected the construct a new GUI object from the system information that was saved
-			if (text.equals("Load Game")){
+
+			// if load game is selected the construct a new GUI object from the
+			// system information that was saved
+			if (text.equals("Load Game")) {
 				try {
 					FileInputStream fis = new FileInputStream("persistence");
 					try {
@@ -245,7 +253,8 @@ public class PokemonGUI extends JFrame {
 							setVisible(false);
 							dispose();
 						} catch (ClassNotFoundException cnfe) {
-							System.err.println("Could not read persistence file");
+							System.err
+									.println("Could not read persistence file");
 						}
 						ois.close();
 					} catch (IOException ioe) {
@@ -255,37 +264,32 @@ public class PokemonGUI extends JFrame {
 					System.err.println("Could not read persistence file");
 				}
 			}
-			
-			if(text.equals("View Trainer")){
+
+			if (text.equals("View Trainer")) {
 				mapView.setSecondaryView(0);
 			}
-			
-			if(text.equals("Hide Trainer")){
+
+			if (text.equals("Hide Trainer")) {
 				mapView.setSecondaryView(1);
 			}
-			
-			if(text.equals("Battle Start")){
+
+			if (text.equals("Battle Start")) {
 				mapView.animateOut();
 			}
-			
-			if(text.equals("Battle End")){
+
+			if (text.equals("Battle End")) {
 				mapView.animateIn();
 			}
-			
-			if(text.equals("View Pokedex")){
-				Trainer theTrainer = mapView.getTrainer();
-				ArrayList<Pokemon> pokedex = theTrainer.getPokedex();
-				Pokemon first = pokedex.get(0);
-				JOptionPane.showMessageDialog(null, 
-						"Pokedex (Placeholder for this iteration)\n1. " + first.getName() + " - " +
-						"HP: " + first.getHP() + " ID: " + first.getPokemonID());
+
+			if (text.equals("View Pokedex")) {
+				mapView.setSecondaryView(2);
 			}
-			
-			if(text.equals("Hide Pokedex")){
-				//TO DO
+
+			if (text.equals("Hide Pokedex")) {
+				mapView.setSecondaryView(3);
 			}
-			
+
 		}
-		
+
 	}
 }

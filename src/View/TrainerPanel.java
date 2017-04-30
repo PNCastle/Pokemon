@@ -9,6 +9,12 @@ import javax.swing.JPanel;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 
+/**
+ * Authors: Angel Burr, Paul Castleberry, Issac Kim, Sohyun Kim
+ * File: Trainer.java
+ * Purpose: central object of pokemon safari zone. models a player of the game who stores a reference of the map.
+ */
+
 public class TrainerPanel extends JPanel {
 	private BufferedImage image;
 	private Graphics2D g;
