@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +25,7 @@ import javax.swing.JTextArea;
  */
 
 public class PokedexPanel extends JPanel {
-	private BufferedImage image;
+	private Image image;
 	private Graphics2D g;
 	
 	public PokedexPanel() {
@@ -40,6 +42,7 @@ public class PokedexPanel extends JPanel {
 		pokesList.setLocation(0, 0);
 		pokesList.setSize(300, 300);
 		
+		image = Toolkit.getDefaultToolkit().createImage("./pokePic/Abra.gif");
 		
 		// Pic of Pokemon
 ///*		try {
