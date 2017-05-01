@@ -30,7 +30,7 @@ public class BattlePanel extends JPanel {
 	private BufferedImage[] throwingObj;
 	private BufferedImage[] standingStill;
 	
-	private BufferedImage[] ballAnimation;
+	private BufferedImage[] ballImages;
 	
 	private Animation animation;
 	private Animation aerial;
@@ -55,12 +55,12 @@ public class BattlePanel extends JPanel {
 	
 	private void makeThrowAnimations() {
 		try {
-			ballAnimation = new BufferedImage[5];
+			ballImages = new BufferedImage[5];
 			
 			BufferedImage image = ImageIO.read(new File("ballAnimation.png"));
 			
 			for (int i = 0; i < 5; i++) {
-				ballAnimation[i] = image.getSubimage(i*750, 0, 750, 550);
+				ballImages[i] = image.getSubimage(i*750, 0, 750, 550);
 			}
 		}
 		catch (Exception e) {
@@ -88,7 +88,7 @@ public class BattlePanel extends JPanel {
 		}
 		
 		animation = new Animation();
-		//aerial = new Animation();
+		aerial = new Animation();
 		
 		animation.setFrames(standingStill);
 		animation.setDelay(-1);
@@ -100,20 +100,18 @@ public class BattlePanel extends JPanel {
 	public void throwObject(String string) {
 		animation.setFrames(throwingObj);
 		animation.setDelay(200);
-		/*
 		switch(string){
 		case "Rock":
-			aerial.setFrames(rockImages);
+			//aerial.setFrames(rockImages);
 			break;
 		case "Pokeball":
 			aerial.setFrames(ballImages);
 			break;
 		case "Bait":
-			aerial.setFrames(baitImages);
+			//aerial.setFrames(baitImages);
 			break;
 		}
-		*/
-		//aerial.setDelay(300);
+		aerial.setDelay(300);
 		animation.update();
 				
 	}
@@ -126,11 +124,19 @@ public class BattlePanel extends JPanel {
 		
 			
 	}
+	
+	public void throwAerial(){
+		aerial.update();
+	}
 
 	public void doneThrowing() {
 		animation.setFrames(standingStill);
 		animation.setDelay(-1);
 		animation.update();
+		
+	}
+
+	public void doneThrowingAerial() {
 		
 	}
 }
