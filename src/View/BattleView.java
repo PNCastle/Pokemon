@@ -75,13 +75,11 @@ public class BattleView extends JPanel implements Observer {
 		if (theTrainer == null) {
 			theTrainer = (Trainer) o;
 		}
-		if (theTrainer == null && anInt > 0) {
-			theTrainer = (Trainer) o;
-		}
 		if (anInt == -1) {
-			theTrainer = (Trainer) o;
 			battlePanel.setToSpawn(theTrainer.getCurrentPokemon());
+			battlePanel.makePokemon();
 		}
+		
 	}
 	
 	

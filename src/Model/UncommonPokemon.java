@@ -15,4 +15,6 @@ public abstract class UncommonPokemon extends Pokemon {
 		super(name, hp, catchRate, speed, 0.75, type, pokePicName, info);
 	}
 	
+	public abstract int getPokemonID();
+	
 }

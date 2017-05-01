@@ -15,4 +15,6 @@ public abstract class CommonPokemon extends Pokemon {
 		super(name, hp, catchRate, speed, 0.5, type, pokePicName, info);
 	}
 
+	public abstract int getPokemonID();
+	
 }

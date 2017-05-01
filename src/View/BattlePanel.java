@@ -54,7 +54,7 @@ public class BattlePanel extends JPanel {
 	private Animation aerial;
 	private Animation pokemonAni;
 
-	private Pokemon toSpawn;
+	private int toSpawn;
 
 	public BattlePanel() {
 
@@ -94,41 +94,37 @@ public class BattlePanel extends JPanel {
 			rapidash[0] = image.getSubimage(175 * 3, 175, 175, 175);
 			staryu[0] = image.getSubimage(175 * 4, 175, 175, 175);
 
-			// null pointer on toSpawn, need to debug. hard code
-			// pikachu spawn for now
-			pokemonAni.setFrames(pikachu);
-/*
-			if (toSpawn.getPokemonID() == 63) {
+			if (toSpawn == 63) {
 				pokemonAni.setFrames(abra);
 			}
-			if (toSpawn.getPokemonID() == 148) {
+			if (toSpawn == 148) {
 				pokemonAni.setFrames(dragonair);
 			}
-			if (toSpawn.getPokemonID() == 96) {
+			if (toSpawn == 96) {
 				pokemonAni.setFrames(drowzee);
 			}
-			if (toSpawn.getPokemonID() == 75) {
+			if (toSpawn == 75) {
 				pokemonAni.setFrames(graveler);
 			}
-			if (toSpawn.getPokemonID() == 88) {
+			if (toSpawn == 88) {
 				pokemonAni.setFrames(grimer);
 			}
-			if (toSpawn.getPokemonID() == 93) {
+			if (toSpawn == 93) {
 				pokemonAni.setFrames(haunter);
 			}
-			if (toSpawn.getPokemonID() == 16) {
+			if (toSpawn == 16) {
 				pokemonAni.setFrames(pidgey);
 			}
-			if (toSpawn.getPokemonID() == 25) {
+			if (toSpawn == 25) {
 				pokemonAni.setFrames(pikachu);
 			}
-			if (toSpawn.getPokemonID() == 78) {
+			if (toSpawn == 78) {
 				pokemonAni.setFrames(rapidash);
 			}
-			if (toSpawn.getPokemonID() == 120) {
+			if (toSpawn == 120) {
 				pokemonAni.setFrames(staryu);
 			}
-*/
+
 			pokemonAni.setDelay(-1);
 			pokemonAni.update();
 
@@ -277,8 +273,8 @@ public class BattlePanel extends JPanel {
 
 	}
 
-	public void setToSpawn(Pokemon currentPokemon) {
-		this.toSpawn = currentPokemon;
+	public void setToSpawn(int currentPokemonID) {
+		this.toSpawn = currentPokemonID;
 	}
 
 }

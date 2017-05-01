@@ -15,4 +15,6 @@ public abstract class RarePokemon extends Pokemon {
 		super(name, hp, catchRate, speed, 0.9, type, pokePicName, info);
 	}
 
+	public abstract int getPokemonID();
+	
 }
