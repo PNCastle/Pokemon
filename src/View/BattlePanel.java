@@ -31,6 +31,7 @@ public class BattlePanel extends JPanel {
 	private BufferedImage[] standingStill;
 	
 	private BufferedImage[] ballImages;
+	private BufferedImage[] nullSpace;
 	
 	private Animation animation;
 	private Animation aerial;
@@ -56,8 +57,11 @@ public class BattlePanel extends JPanel {
 	private void makeThrowAnimations() {
 		try {
 			ballImages = new BufferedImage[5];
+			nullSpace = new BufferedImage[1];
 			
 			BufferedImage image = ImageIO.read(new File("ballAnimation.png"));
+			
+			nullSpace[0] = image.getSubimage(0, 550, 750, 550);
 			
 			for (int i = 0; i < 5; i++) {
 				ballImages[i] = image.getSubimage(i*750, 0, 750, 550);
@@ -137,6 +141,8 @@ public class BattlePanel extends JPanel {
 	}
 
 	public void doneThrowingAerial() {
-		
+		aerial.setFrames(nullSpace);
+		aerial.setDelay(-1);
+		aerial.update();
 	}
 }
