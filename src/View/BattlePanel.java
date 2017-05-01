@@ -35,6 +35,7 @@ public class BattlePanel extends JPanel {
 	public BattlePanel() {
 		
 		makeTrainer();
+		makeThrowAnimations();
 		
 		this.setLayout(null);
 		this.setBackground(Color.white);
