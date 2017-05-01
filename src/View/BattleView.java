@@ -109,7 +109,7 @@ public class BattleView extends JPanel implements Observer {
 				{
 					if(count == 5){
 						((Timer) e.getSource()).stop();
-						count = 0;
+						count2 = 0;
 						battlePanel.doneThrowingAerial();
 					}
 				}
@@ -134,6 +134,7 @@ public class BattleView extends JPanel implements Observer {
 			if (buttonClicked.getText().equals("Pokeball")) {
 				Timer ballTimer = makeTimer("Pokeball");
 				ballTimer.start();
+				aerialTimer.start();
 			}
 			if (buttonClicked.getText().equals("Run")) {
 				theTrainer.ran();
