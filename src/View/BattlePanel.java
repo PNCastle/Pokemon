@@ -25,8 +25,8 @@ public class BattlePanel extends JPanel {
 	private BufferedImage image;
 	// private Graphics2D g;
 
-	private Map theMap;
-	private Trainer theTrainer;
+//	private Map theMap;
+//	private Trainer theTrainer;
 
 	private BufferedImage[] backGround;
 
@@ -95,8 +95,7 @@ public class BattlePanel extends JPanel {
 			staryu[0] = image.getSubimage(175 * 4, 175, 175, 175);
 
 			// null pointer on toSpawn, need to debug. hard code
-			// abra spawn for now
-			
+			// pikachu spawn for now
 			pokemonAni.setFrames(pikachu);
 /*
 			if (toSpawn.getPokemonID() == 63) {

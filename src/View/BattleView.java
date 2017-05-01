@@ -65,14 +65,22 @@ public class BattleView extends JPanel implements Observer {
 		this.add(rockButton);
 		this.add(runButton);
 		
+	//	update(theTrainer, 0);
+		
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		int anInt = (int) arg;
+		if (theTrainer == null) {
+			theTrainer = (Trainer) o;
+		}
 		if (theTrainer == null && anInt > 0) {
 			theTrainer = (Trainer) o;
-			
+		}
+		if (anInt == -1) {
+			theTrainer = (Trainer) o;
+			battlePanel.setToSpawn(theTrainer.getCurrentPokemon());
 		}
 	}
 	
