@@ -101,6 +101,8 @@ public class BattleView extends JPanel implements Observer {
 			});
 		}
 		
+
+		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			JButton buttonClicked = (JButton) arg0.getSource();
