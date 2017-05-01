@@ -26,7 +26,7 @@ import javax.swing.Timer;
 import Model.Map;
 import Model.Trainer;
 
-public class MapPanel extends JPanel implements Runnable, KeyListener {
+public class MapPanel extends JPanel implements Runnable {
 
 	//instance variables
 	static final int WIDTH = 750;
@@ -86,7 +86,7 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 			thread = new Thread(this);
 			thread.start();
 		}
-		this.addKeyListener(this);
+		//this.addKeyListener(this);
 	}
 	
 	public void battleMode() {
@@ -108,7 +108,7 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 				}
 			}).start();
 			
-			this.removeKeyListener(this);
+			//this.removeKeyListener(this);
 		}
 	}
 	
@@ -134,10 +134,11 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 			
 		}
 	}
-	
+	/*
 	public void enableKeyListener(){
 		this.addKeyListener(this);
 	}
+	*/
 	
 	//run the thread, calculate the time between
 	//updates and check for win conditions
@@ -219,68 +220,4 @@ public class MapPanel extends JPanel implements Runnable, KeyListener {
 	 * KEYCODE LISTENERS *
 	 *********************/
 	
-	//unused, ignore for now
-	//may be used in iteration 2
-	@Override
-	public void keyTyped(KeyEvent key) {	
 	}
-	
-	//listen for any of the arrow keys being pressed
-	//if they are set the direction of theTrainer object
-	//to true so that theTrainer can move in that direction
-	//only one direction boolean may be flagged to true at a time
-	@Override
-	public void keyPressed(KeyEvent key) {
-		int code = key.getKeyCode();
-		if(code == KeyEvent.VK_LEFT){
-			theTrainer.setLeft(true);
-			//set other directions to false
-			theTrainer.setDown(false);
-			theTrainer.setUp(false);
-			theTrainer.setRight(false);
-		}
-		if(code == KeyEvent.VK_RIGHT){
-			theTrainer.setRight(true);
-			//set other directions to false
-			theTrainer.setLeft(false);
-			theTrainer.setUp(false);
-			theTrainer.setDown(false);
-			
-		}
-		if(code == KeyEvent.VK_UP){
-			theTrainer.setUp(true);
-			//set other directions to false
-			theTrainer.setDown(false);
-			theTrainer.setLeft(false);
-			theTrainer.setRight(false);
-		}
-		if(code == KeyEvent.VK_DOWN){
-			theTrainer.setDown(true);
-			//set other directions to false
-			theTrainer.setUp(false);
-			theTrainer.setLeft(false);
-			theTrainer.setRight(false);
-		}
-	}
-
-
-	//listen for any of the arrow keys being released
-	//if they are set the direction of theTrainer object
-	//to false so that theTrainer can stop in that direction
-	@Override
-	public void keyReleased(KeyEvent key) {
-		int code = key.getKeyCode();
-		if(code == KeyEvent.VK_LEFT){
-			theTrainer.setLeft(false);
-		}
-		if(code == KeyEvent.VK_RIGHT){
-			theTrainer.setRight(false);
-		}
-		if(code == KeyEvent.VK_UP){
-			theTrainer.setUp(false);
-		}
-		if(code == KeyEvent.VK_DOWN){
-			theTrainer.setDown(false);
-		}
-	}
-}

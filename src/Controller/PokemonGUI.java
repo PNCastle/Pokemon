@@ -6,6 +6,8 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,7 +37,7 @@ import View.BattleView;
 import View.MapView;
 
 //pokemon class that extends JFrame
-public class PokemonGUI extends JFrame implements Observer {
+public class PokemonGUI extends JFrame implements Observer, KeyListener {
 
 	// instance variables
 	private static final int HEIGHT = 1000;
@@ -107,6 +109,9 @@ public class PokemonGUI extends JFrame implements Observer {
 		theTrainer.addObserver(mapView);
 		theTrainer.addObserver(battleView);
 		theTrainer.addObserver(this);
+		this.addKeyListener(this);
+		this.setFocusable(true);
+		this.requestFocus();
 		setViewTo(mapView); // set default view to map view
 		setUpMenus(); // build menu system
 
@@ -303,13 +308,77 @@ public class PokemonGUI extends JFrame implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		if((int) arg == -1){
-			mapView.animateOut();
+			//mapView.animateOut();
 			setViewTo(battleView);
 		}
 		if((int) arg == -2){
-			mapView.animateIn();
+			//mapView.animateIn();
 			setViewTo(mapView);
 		}
 	}
-	
+	//unused, ignore for now
+		//may be used in iteration 2
+		@Override
+		public void keyTyped(KeyEvent key) {	
+		}
+		
+		//listen for any of the arrow keys being pressed
+		//if they are set the direction of theTrainer object
+		//to true so that theTrainer can move in that direction
+		//only one direction boolean may be flagged to true at a time
+		@Override
+		public void keyPressed(KeyEvent key) {
+			int code = key.getKeyCode();
+			if(code == KeyEvent.VK_LEFT){
+				theTrainer.setLeft(true);
+				//set other directions to false
+				theTrainer.setDown(false);
+				theTrainer.setUp(false);
+				theTrainer.setRight(false);
+			}
+			if(code == KeyEvent.VK_RIGHT){
+				theTrainer.setRight(true);
+				//set other directions to false
+				theTrainer.setLeft(false);
+				theTrainer.setUp(false);
+				theTrainer.setDown(false);
+				
+			}
+			if(code == KeyEvent.VK_UP){
+				theTrainer.setUp(true);
+				//set other directions to false
+				theTrainer.setDown(false);
+				theTrainer.setLeft(false);
+				theTrainer.setRight(false);
+			}
+			if(code == KeyEvent.VK_DOWN){
+				theTrainer.setDown(true);
+				//set other directions to false
+				theTrainer.setUp(false);
+				theTrainer.setLeft(false);
+				theTrainer.setRight(false);
+			}
+		}
+
+
+		//listen for any of the arrow keys being released
+		//if they are set the direction of theTrainer object
+		//to false so that theTrainer can stop in that direction
+		@Override
+		public void keyReleased(KeyEvent key) {
+			int code = key.getKeyCode();
+			if(code == KeyEvent.VK_LEFT){
+				theTrainer.setLeft(false);
+			}
+			if(code == KeyEvent.VK_RIGHT){
+				theTrainer.setRight(false);
+			}
+			if(code == KeyEvent.VK_UP){
+				theTrainer.setUp(false);
+			}
+			if(code == KeyEvent.VK_DOWN){
+				theTrainer.setDown(false);
+			}
+		}
+
 }
