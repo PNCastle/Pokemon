@@ -27,18 +27,23 @@ public class BattlePanel extends JPanel {
 	private Map theMap;
 	private Trainer theTrainer;
 	
+	private BufferedImage[] backGround;
+	
 	private BufferedImage[] throwingObj;
 	private BufferedImage[] standingStill;
 	
 	private BufferedImage[] ballImages;
 	private BufferedImage[] nullSpace;
 	
+	private Animation backDrop;
 	private Animation animation;
 	private Animation aerial;
 
 	public BattlePanel() {
 		
+		
 		makeTrainer();
+		makeBackground();
 		makeThrowAnimations();
 		
 		this.setLayout(null);
@@ -54,6 +59,21 @@ public class BattlePanel extends JPanel {
 		
 	}
 	
+	private void makeBackground() {
+		try {
+			backGround = new BufferedImage[1];
+			
+			BufferedImage image = ImageIO.read(new File("battleBackground.png"));
+			backGround[0] = image.getSubimage(0, 0, 750, 550);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		backDrop.setFrames(backGround);
+		backDrop.setDelay(-1);
+		backDrop.update();
+	}
+
 	private void makeThrowAnimations() {
 		try {
 			ballImages = new BufferedImage[5];
@@ -98,6 +118,7 @@ public class BattlePanel extends JPanel {
 		
 		animation = new Animation();
 		aerial = new Animation();
+		backDrop = new Animation();
 		//aerial.setFrames(nullSpace);
 		//aerial.setDelay(-1);
 		//aerial.update();
@@ -132,7 +153,8 @@ public class BattlePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		//if(aerial != null){
-			g.drawImage(aerial.getImage(), 0, 0, null);
+		g.drawImage(backDrop.getImage(), 0, 0, null);
+		g.drawImage(aerial.getImage(), 0, 0, null);
 		//}
 		g.drawImage(animation.getImage(), 0, 355, null);
 		

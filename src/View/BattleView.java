@@ -101,7 +101,7 @@ public class BattleView extends JPanel implements Observer {
 			});
 		}
 		
-		Timer aerialTimer = new Timer(400, new ActionListener(){
+		Timer aerialTimer = new Timer(350, new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				count2++;
 				battlePanel.throwAerial();
