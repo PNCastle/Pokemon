@@ -28,6 +28,8 @@ public class BattlePanel extends JPanel {
 	private BufferedImage[] throwingObj;
 	private BufferedImage[] standingStill;
 	
+	private BufferedImage[] ballAnimation;
+	
 	private Animation animation;
 
 	public BattlePanel() {
@@ -45,6 +47,21 @@ public class BattlePanel extends JPanel {
 	//	this.setFocusable(true);
 	//	this.requestFocus();
 		
+	}
+	
+	private void makeThrowAnimations() {
+		try {
+			ballAnimation = new BufferedImage[5];
+			
+			BufferedImage image = ImageIO.read(new File("ballAnimation.png"));
+			
+			for (int i = 0; i < 5; i++) {
+				ballAnimation[i] = image.getSubimage(i*750, 0, 750, 550);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void makeTrainer() {
