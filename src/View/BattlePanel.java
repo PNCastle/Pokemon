@@ -70,6 +70,11 @@ public class BattlePanel extends JPanel {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		//trying stuff here
+		aerial.setFrames(nullSpace);
+		aerial.setDelay(-1);
+		aerial.update();
 	}
 
 	private void makeTrainer() {
@@ -126,9 +131,9 @@ public class BattlePanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		if(aerial.getImage() != null){
+		//if(aerial != null){
 			g.drawImage(aerial.getImage(), 0, 0, null);
-		}
+		//}
 		g.drawImage(animation.getImage(), 0, 355, null);
 		
 		
