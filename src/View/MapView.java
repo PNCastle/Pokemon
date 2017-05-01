@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import Controller.PokemonGUI;
 import Model.Trainer;
 
 //this class models map view of the pokemon safari zone game
@@ -88,16 +89,18 @@ public class MapView extends JPanel implements Observer {
 		inBattle = false;
 	}
 	
-	public void animateOut() {
+	public void animateOut(PokemonGUI gui, BattleView battleView) {
+		mapPanel.setLocation(125, 0);
+		
 		if (!inBattle){
 			mapPanel.battleMode();
-			mapPanel.setEnabled(false);
 			
 			new Timer(1, new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					mapPanel.setLocation(mapPanel.getX() - 2, 0);
+					mapPanel.setLocation(mapPanel.getX() - 2, 50);
 					if (mapPanel.getX() + mapPanel.getWidth() <= 0) {
 						((Timer) e.getSource()).stop();
+						gui.setViewTo(battleView);
 					}
 				}
 			}).start();
@@ -107,24 +110,10 @@ public class MapView extends JPanel implements Observer {
 		}
 	}
 	
-	public void animateIn() {
-		if (inBattle){
-			new Timer(1, new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					mapPanel.setLocation(mapPanel.getX() + 2, 0);
-					if (mapPanel.getX() + mapPanel.getWidth() == 875) {
-						((Timer) e.getSource()).stop();
-					//	mapPanel.enableKeyListener();
-					}
-				}
-			}).start();
-			
-			mapPanel.mapMode();
-			mapPanel.setEnabled(true);
-			
-			inBattle = false;
-			this.repaint();
-		}
+	public void enableMapPanel() {
+		mapPanel.mapMode();
+		mapPanel.setEnabled(true);
+		inBattle = false;
 	}
 	
 	// 0 is show trainer, 1 is hide trainer
