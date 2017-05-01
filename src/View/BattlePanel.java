@@ -93,6 +93,9 @@ public class BattlePanel extends JPanel {
 		
 		animation = new Animation();
 		aerial = new Animation();
+		//aerial.setFrames(nullSpace);
+		//aerial.setDelay(-1);
+		//aerial.update();
 		
 		animation.setFrames(standingStill);
 		animation.setDelay(-1);
@@ -123,6 +126,9 @@ public class BattlePanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		if(aerial.getImage() != null){
+			g.drawImage(aerial.getImage(), 0, 0, null);
+		}
 		g.drawImage(animation.getImage(), 0, 355, null);
 		
 		
