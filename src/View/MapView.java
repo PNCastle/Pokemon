@@ -116,6 +116,10 @@ public class MapView extends JPanel implements Observer {
 		inBattle = false;
 	}
 	
+	public boolean inBattle() {
+		return inBattle;
+	}
+	
 	// 0 is show trainer, 1 is hide trainer
 	// 2 is show pokedex, 3 is hide pokedex
 	public void setSecondaryView(int type){

@@ -35,6 +35,7 @@ import Model.Trainer;
 import View.BattleView;
 //import View.BattleView;
 import View.MapView;
+import songplayer.*;
 
 //pokemon class that extends JFrame
 public class PokemonGUI extends JFrame implements Observer, KeyListener {
@@ -46,6 +47,8 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 	private BattleView battleView;
 	private JPanel currentView;
 	private Trainer theTrainer;
+	private Thread songPlayer;
+	private EndOfSongListener listener;
 
 	// simple main method
 	public static void main(String args[]) {
@@ -113,6 +116,7 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		setViewTo(mapView); // set default view to map view
 		setUpMenus(); // build menu system
 
+		music();
 	}
 
 	// additional constructor used in load game
@@ -129,8 +133,25 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		setViewTo(mapView); // set default view to map view
 		setUpMenus();
 
+		music();
 	}
 
+	private void music() {
+		listener = new EndOfSongListener() {
+			
+			@Override
+			public void songFinishedPlaying(
+					EndOfSongEvent eventWithFileNameAndDateFinished) {
+				songPlayer = new AudioFilePlayer("music/map.wav");
+				songPlayer.start();
+			}
+		};
+		
+		songPlayer = new AudioFilePlayer("music/map.wav");
+		((AudioFilePlayer) songPlayer).addEndOfSongListener(listener);
+		songPlayer.start();
+	}
+	
 	// private helper method whose purpose is to build the menu system
 	// this menu system contains features such as: new game, save game, load
 	// game, and others
@@ -306,9 +327,13 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 	@Override
 	public void update(Observable o, Object arg) {
 		if ((int) arg == -1) {
+			songPlayer.stop();
 			mapView.animateOut(this, battleView);
 		}
 		if ((int) arg == -2) {
+			songPlayer = new AudioFilePlayer("music/map.wav");
+			((AudioFilePlayer) songPlayer).addEndOfSongListener(listener);
+			songPlayer.start();
 			mapView.enableMapPanel();
 			setViewTo(mapView);
 		}
