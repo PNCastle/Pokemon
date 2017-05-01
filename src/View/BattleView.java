@@ -71,16 +71,51 @@ public class BattleView extends JPanel implements Observer {
 	public void update(Observable o, Object arg) {
 		int anInt = (int) arg;
 		if (theTrainer == null && anInt > 0) {
-			theTrainer = (Trainer)o;
+			theTrainer = (Trainer) o;
 		}
 	}
 	
 	
 	private class ButtonListener implements ActionListener {
 		
-//		Timer timer = new Timer(flags, null);
-		int count = 0;
+
 		
+//		Timer timer = new Timer(flags, null);
+		int count = 0; //counter for player sprite
+		int count2 = 0; //counter for aerial object sprite
+		
+		private Timer makeTimer(String str){
+			return new Timer(275, new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					count++;
+					battlePanel.throwObject(str);
+					repaint();
+					{
+						if(count == 5) {
+							((Timer) e.getSource()).stop();
+							count = 0;
+							battlePanel.doneThrowing();
+						}
+					}
+				}
+			});
+		}
+		
+		Timer aerialTimer = new Timer(275, new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				count2++;
+				battlePanel.throwAerial();
+				repaint();
+				{
+					if(count == 5){
+						((Timer) e.getSource()).stop();
+						count = 0;
+						battlePanel.doneThrowingAerial();
+					}
+				}
+			}
+		});
+
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -88,66 +123,23 @@ public class BattleView extends JPanel implements Observer {
 			
 			
 			if (buttonClicked.getText().equals("Rock")) {
-				//throwing(g, "Rock");
-				new Timer(275, new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						count++;
-						battlePanel.throwObject("Rock");
-						repaint();
-						{
-							if(count == 5) {
-								((Timer) e.getSource()).stop();
-								count = 0;
-								battlePanel.doneThrowing();
-							}
-						}
-					}
-				}).start();
-			
+				Timer rockTimer = makeTimer("Rock");
+				rockTimer.start();
+				
 			} 
 			if (buttonClicked.getText().equals("Bait")) {
-				//throwing(g, "Bait");
-				new Timer(275, new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						count++;
-						battlePanel.throwObject("Bait");
-						repaint();
-						{
-							if(count == 5) {
-								((Timer) e.getSource()).stop();
-								count = 0;
-								battlePanel.doneThrowing();
-							}
-						}
-					}
-				}).start();
-			
+				Timer baitTimer = makeTimer("Bait");
+				baitTimer.start();
 			}
 			if (buttonClicked.getText().equals("Pokeball")) {
-				//throwing(g, "Pokeball");
-				new Timer(275, new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						count++;
-						battlePanel.throwObject("Pokeball");
-						repaint();
-						{
-							if(count == 5) {
-								((Timer) e.getSource()).stop();
-								count = 0;
-								battlePanel.doneThrowing();
-							}
-						}
-					}
-				}).start();
-			
+				Timer ballTimer = makeTimer("Pokeball");
+				ballTimer.start();
 			}
 			if (buttonClicked.getText().equals("Run")) {
-				//animate run
 				theTrainer.ran();
 			}
 			
-		}
-		
+		}		
 	}
 
 }

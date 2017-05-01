@@ -79,6 +79,9 @@ public class PokemonAndItemTest {
 		testAbra.useItem(rock);
 		testAbra.useItem(rock);
 		testAbra.useItem(rock);
+		
+		System.out.println("Will Abra run 1? " + testAbra.pokemonRun());
+		
 		testAbra.useItem(rock);
 		testAbra.useItem(rock);
 		testAbra.useItem(rock);
@@ -95,9 +98,8 @@ public class PokemonAndItemTest {
 		testAbra.useItem(rock);
 		assertEquals(1, testAbra.getHP());
 		
-		testAbra.useItem(potion);
-		testAbra.useItem(potion);
-		assertEquals(25, testAbra.getHP());
+		testAbra.useItem(bait);
+		System.out.println("Will Abra run 2? " + testAbra.pokemonRun());
 		
 		System.out.println(testAbra.toString());
 		System.out.println("Catch Probability: " + testAbra.getCatchProbability());

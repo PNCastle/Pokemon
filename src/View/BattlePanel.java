@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Timer;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -31,6 +33,7 @@ public class BattlePanel extends JPanel {
 	private BufferedImage[] ballAnimation;
 	
 	private Animation animation;
+	private Animation aerial;
 
 	public BattlePanel() {
 		
@@ -85,15 +88,32 @@ public class BattlePanel extends JPanel {
 		}
 		
 		animation = new Animation();
+		//aerial = new Animation();
+		
 		animation.setFrames(standingStill);
 		animation.setDelay(-1);
 		animation.update();
 		
 	}
+	
 
 	public void throwObject(String string) {
 		animation.setFrames(throwingObj);
 		animation.setDelay(200);
+		/*
+		switch(string){
+		case "Rock":
+			aerial.setFrames(rockImages);
+			break;
+		case "Pokeball":
+			aerial.setFrames(ballImages);
+			break;
+		case "Bait":
+			aerial.setFrames(baitImages);
+			break;
+		}
+		*/
+		//aerial.setDelay(300);
 		animation.update();
 				
 	}
