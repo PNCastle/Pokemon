@@ -34,6 +34,8 @@ public class BattlePanel extends JPanel {
 	private BufferedImage[] standingStill;
 
 	private BufferedImage[] ballImages;
+	private BufferedImage[] baitImages;
+	private BufferedImage[] rockImages;
 	private BufferedImage[] nullSpace;
 
 	private BufferedImage[] abra;
@@ -95,7 +97,7 @@ public class BattlePanel extends JPanel {
 			// null pointer on toSpawn, need to debug. hard code
 			// abra spawn for now
 			
-			pokemonAni.setFrames(abra);
+			pokemonAni.setFrames(pikachu);
 /*
 			if (toSpawn.getPokemonID() == 63) {
 				pokemonAni.setFrames(abra);
@@ -154,15 +156,24 @@ public class BattlePanel extends JPanel {
 	private void makeThrowAnimations() {
 		try {
 			ballImages = new BufferedImage[5];
+			baitImages = new BufferedImage[5];
+			rockImages = new BufferedImage[5];
 			nullSpace = new BufferedImage[1];
 
-			BufferedImage image = ImageIO.read(new File("ballAnimation.png"));
-
-			nullSpace[0] = image.getSubimage(0, 550, 750, 550);
-
+			BufferedImage imageBall = ImageIO.read(new File("ballAnimation.png"));
+			nullSpace[0] = imageBall.getSubimage(0, 1100, 750, 550);
 			for (int i = 0; i < 5; i++) {
-				ballImages[i] = image.getSubimage(i * 750, 0, 750, 550);
+				ballImages[i] = imageBall.getSubimage(i * 750, 0, 750, 550);
 			}
+			BufferedImage imageBait = ImageIO.read(new File("baitAnimation.png"));
+			for (int i = 0; i < 5; i++) {
+				baitImages[i] = imageBait.getSubimage(i * 750, 0, 750, 550);
+			}
+			BufferedImage imageRock = ImageIO.read(new File("rockAnimation.png"));
+			for (int i = 0; i < 5; i++) {
+				rockImages[i] = imageRock.getSubimage(i * 750, 0, 750, 550);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -209,13 +220,13 @@ public class BattlePanel extends JPanel {
 		animation.setDelay(200);
 		switch (string) {
 		case "Rock":
-			// aerial.setFrames(rockImages);
+			aerial.setFrames(rockImages);
 			break;
 		case "Pokeball":
 			aerial.setFrames(ballImages);
 			break;
 		case "Bait":
-			// aerial.setFrames(baitImages);
+			aerial.setFrames(baitImages);
 			break;
 		}
 		aerial.setDelay(300);

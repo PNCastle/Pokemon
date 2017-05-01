@@ -126,11 +126,12 @@ public class BattleView extends JPanel implements Observer {
 			if (buttonClicked.getText().equals("Rock")) {
 				Timer rockTimer = makeTimer("Rock");
 				rockTimer.start();
-				
+				aerialTimer.start();
 			} 
 			if (buttonClicked.getText().equals("Bait")) {
 				Timer baitTimer = makeTimer("Bait");
 				baitTimer.start();
+				aerialTimer.start();
 			}
 			if (buttonClicked.getText().equals("Pokeball")) {
 				Timer ballTimer = makeTimer("Pokeball");
