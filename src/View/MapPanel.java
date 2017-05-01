@@ -86,7 +86,6 @@ public class MapPanel extends JPanel implements Runnable {
 			thread = new Thread(this);
 			thread.start();
 		}
-		// this.addKeyListener(this);
 	}
 
 	public void battleMode() {

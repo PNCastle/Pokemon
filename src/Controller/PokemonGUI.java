@@ -35,6 +35,7 @@ import Model.Trainer;
 import View.BattleView;
 //import View.BattleView;
 import View.MapView;
+import songplayer.*;
 
 //pokemon class that extends JFrame
 public class PokemonGUI extends JFrame implements Observer, KeyListener {
@@ -46,6 +47,10 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 	private BattleView battleView;
 	private JPanel currentView;
 	private Trainer theTrainer;
+	private Thread mapMusic;
+	private Thread battleMusic;
+	private EndOfSongListener mapMusicListener;
+	private EndOfSongListener battleMusicListener;
 
 	// simple main method
 	public static void main(String args[]) {
@@ -113,6 +118,7 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		setViewTo(mapView); // set default view to map view
 		setUpMenus(); // build menu system
 
+		music();
 	}
 
 	// additional constructor used in load game
@@ -129,6 +135,33 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		setViewTo(mapView); // set default view to map view
 		setUpMenus();
 
+		music();
+	}
+
+	private void music() {
+		mapMusicListener = new EndOfSongListener() {
+
+			@Override
+			public void songFinishedPlaying(
+					EndOfSongEvent eventWithFileNameAndDateFinished) {
+				mapMusic = new AudioFilePlayer("music/map.wav");
+				mapMusic.start();
+			}
+		};
+
+		battleMusicListener = new EndOfSongListener() {
+
+			@Override
+			public void songFinishedPlaying(
+					EndOfSongEvent eventWithFileNameAndDateFinished) {
+				mapMusic = new AudioFilePlayer("music/battle.wav");
+				mapMusic.start();
+			}
+		};
+		
+		mapMusic = new AudioFilePlayer("music/map.wav");
+		((AudioFilePlayer) mapMusic).addEndOfSongListener(mapMusicListener);
+		mapMusic.start();
 	}
 
 	// private helper method whose purpose is to build the menu system
@@ -159,15 +192,10 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 				"Step Count: " + mapView.getTrainer().getStepCount());
 		stepCount.setEnabled(false);
 
-		JMenuItem battleTest1 = new JMenuItem("Battle Start");
-		JMenuItem battleTest2 = new JMenuItem("Battle End");
-
 		// set up menu bar
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(menu);
-		menuBar.add(battleTest1);
-		menuBar.add(battleTest2);
 		menuBar.add(Box.createHorizontalGlue());
 		menuBar.add(stepCount);
 
@@ -183,9 +211,6 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		hideTrainer.addActionListener(menuListener);
 		viewPokedex.addActionListener(menuListener);
 		hidePokedex.addActionListener(menuListener);
-
-		battleTest1.addActionListener(menuListener);
-		battleTest2.addActionListener(menuListener);
 
 		Runnable updateSteps = new Runnable() {
 
@@ -306,9 +331,18 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 	@Override
 	public void update(Observable o, Object arg) {
 		if ((int) arg == -1) {
+			mapMusic.stop();
 			mapView.animateOut(this, battleView);
+			
+			battleMusic = new AudioFilePlayer("music/battle.wav");
+			((AudioFilePlayer) battleMusic).addEndOfSongListener(battleMusicListener);
+			battleMusic.start();
 		}
 		if ((int) arg == -2) {
+			battleMusic.stop();
+			mapMusic = new AudioFilePlayer("music/map.wav");
+			((AudioFilePlayer) mapMusic).addEndOfSongListener(mapMusicListener);
+			mapMusic.start();
 			mapView.enableMapPanel();
 			setViewTo(mapView);
 		}
