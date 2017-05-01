@@ -71,7 +71,7 @@ public class BattleView extends JPanel implements Observer {
 	public void update(Observable o, Object arg) {
 		int anInt = (int) arg;
 		if (theTrainer == null && anInt > 0) {
-			theTrainer = (Trainer)o;
+			theTrainer = (Trainer) o;
 		}
 	}
 	

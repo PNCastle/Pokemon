@@ -370,6 +370,7 @@ public class Trainer extends Observable {
 				System.out.println(prob);
 				if(prob >= .85){
 					this.setCurrentPokemon(prob);
+					System.out.println(currentPokemon.getName());
 					setChanged();
 					notifyObservers(-1);
 				}
@@ -384,6 +385,7 @@ public class Trainer extends Observable {
 				System.out.println(prob);
 				if(prob >= .85){
 					this.setCurrentPokemon(prob);
+					System.out.println(currentPokemon.getName());
 					setChanged();
 					notifyObservers(-1);
 				}
