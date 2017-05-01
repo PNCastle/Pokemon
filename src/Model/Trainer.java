@@ -566,5 +566,10 @@ public class Trainer extends Observable {
 		
 	}
 
+	public Pokemon getCurrentPokemon() {
+		return this.currentPokemon;
+		
+	}
+
 }
 
