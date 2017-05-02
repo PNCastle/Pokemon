@@ -49,7 +49,7 @@ public class MapPanel extends JPanel implements Runnable {
 	private Trainer theTrainer;
 
 	// ctor
-	public MapPanel() {
+	public MapPanel(String map) {
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -57,7 +57,7 @@ public class MapPanel extends JPanel implements Runnable {
 		this.setVisible(true);
 		this.setFocusable(true);
 		this.requestFocus();
-		theMap = new Map("mapTwo.txt", 50);
+		theMap = new Map(map, 50);
 		theTrainer = new Trainer(theMap);
 
 		inBattle = false;

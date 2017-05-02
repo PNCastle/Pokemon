@@ -561,6 +561,10 @@ public class Trainer extends Observable {
 		return pokeDex;
 	}
 	
+	public ArrayList<Item> getItemsList() {
+		return items;
+	}
+	
 	//setter for dy for testing
 	public void setDy(double vel) {
 		this.dy = vel;		

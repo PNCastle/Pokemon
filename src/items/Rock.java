@@ -12,11 +12,11 @@ import Model.Item;
 
 public class Rock extends Item {
 
-	private String name = "Rock";
+	private static String name = "Rock";
 	
 	// Placeholder values, to determine later
 	public Rock() {
-		super(true, -1, -2, 5);
+		super(true, -1, -2, 5, name);
 	}
 
 	@Override

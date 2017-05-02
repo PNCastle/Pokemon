@@ -12,11 +12,11 @@ import Model.Item;
 
 public class Bait extends Item {
 
-	private String name = "Bait";
+	private static String name = "Bait";
 	
 	// Placeholder values, to determine later
 	public Bait() {
-		super(true, -1, 3, -4);
+		super(true, -1, 3, -4, name);
 	}
 	
 	@Override
