@@ -587,8 +587,12 @@ public class Trainer extends Observable {
 		notifyObservers(-2);
 		
 	}
+	
+	public Pokemon getCurrentPokemon() {
+		return this.currentPokemon;
+	}
 
-	public int getCurrentPokemon() {
+	public int getCurrentPokemonID() {
 		return this.currentPokemon.getPokemonID();
 		
 	}

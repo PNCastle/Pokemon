@@ -74,12 +74,12 @@ public abstract class Pokemon {
 		catchRate += catchRateModifier;
 	}
 	
-	public double getCatchProbability() {
+	public int getCatchProbability() {
 		return catchProbability;
 	}
 	
 	public boolean willRun() {
-		return willRun();
+		return willRun;
 	}
 	
 	// Uses an item and runs the methods to determine the state of the Pokemon

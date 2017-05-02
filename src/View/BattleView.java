@@ -5,12 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Model.Map;
+import Model.Pokemon;
 import Model.Trainer;
 import songplayer.AudioFilePlayer;
 
@@ -77,7 +79,7 @@ public class BattleView extends JPanel implements Observer {
 			theTrainer = (Trainer) o;
 		}
 		if (anInt == -1) {
-			battlePanel.setToSpawn(theTrainer.getCurrentPokemon());
+			battlePanel.setToSpawn(theTrainer.getCurrentPokemonID());
 			battlePanel.makePokemon();
 		}
 		
@@ -109,8 +111,11 @@ public class BattleView extends JPanel implements Observer {
 			});
 		}
 		
+		private boolean aerialAniDone = true;
+		
 		Timer aerialTimer = new Timer(350, new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				aerialAniDone = false;
 				count2++;
 				battlePanel.throwAerial();
 				repaint();
@@ -119,17 +124,17 @@ public class BattleView extends JPanel implements Observer {
 						((Timer) e.getSource()).stop();
 						count2 = 0;
 						battlePanel.doneThrowingAerial();
+						aerialAniDone = true;
 						// if (action.compareTo("Rock") == 0) {
 						// 		useItem(rock or bait)
 						
 						// }
 						// if(pokeball)
-						// 		useItem(pokeball)
-						//		double random = new random;
-						//		if (random > pokemon.getCatchProb)
+						// 		
 						//
 						// if (theTrainer.getCurrentPokemon.willRun)
 						//		battleEnd
+						
 						
 						
 					}
@@ -147,6 +152,7 @@ public class BattleView extends JPanel implements Observer {
 				Timer rockTimer = makeTimer("Rock");
 				rockTimer.start();
 				aerialTimer.start();
+//				aerialTimer.is
 			} 
 			if (buttonClicked.getText().equals("Bait")) {
 				Timer baitTimer = makeTimer("Bait");
@@ -157,6 +163,29 @@ public class BattleView extends JPanel implements Observer {
 				Timer ballTimer = makeTimer("Pokeball");
 				ballTimer.start();
 				aerialTimer.start();
+				
+				while(!aerialAniDone) {
+					System.out.println("foreverrrrrrrrr");
+				}
+				
+				Pokemon currentPokemon = theTrainer.getCurrentPokemon();
+				
+				theTrainer.getCurrentPokemon().useItem(theTrainer.getItemsList().get(0));
+				
+				//int pokemonCatchRate = (int)
+				Random random = new Random();
+				int theRand = random.nextInt(450);
+				int catchProb = currentPokemon.getCatchProbability();
+				System.out.println("RNG = " + theRand + " CatchProb = " + catchProb);
+				if (theRand <= 500) {
+					theTrainer.getPokedex().add(currentPokemon);
+					System.out.println(theTrainer.getPokedex().get(1));
+				}
+
+				//useItem(pokeball)
+				//		double random = new random;
+				//		if (random > pokemon.getCatchProb)
+				
 				theTrainer.throwSafariBall();
 			}
 			if (buttonClicked.getText().equals("Run")) {
