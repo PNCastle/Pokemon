@@ -256,6 +256,9 @@ public class BattlePanel extends JPanel {
 		aerial.setFrames(nullSpace);
 		aerial.setDelay(-1);
 		aerial.update();
+		
+		
+		
 	}
 
 	private void pokemonInit() {
