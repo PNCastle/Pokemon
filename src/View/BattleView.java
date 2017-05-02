@@ -143,6 +143,7 @@ public class BattleView extends JPanel implements Observer {
 				Timer ballTimer = makeTimer("Pokeball");
 				ballTimer.start();
 				aerialTimer.start();
+				theTrainer.throwSafariBall();
 			}
 			if (buttonClicked.getText().equals("Run")) {
 				theTrainer.ran();

@@ -328,6 +328,7 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void update(Observable o, Object arg) {
 		if ((int) arg == -1) {
