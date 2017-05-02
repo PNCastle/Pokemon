@@ -47,11 +47,11 @@ public class MapView extends JPanel implements Observer {
 		mapPanel = new MapPanel();
 		mapPanel.setLocation(125, 50);
 		
-		trainerPanel = new TrainerPanel();
+		trainerPanel = new TrainerPanel(getTrainer());
 		trainerPanel.setLocation(125, 700);
 		trainerPanel.setVisible(false);
 		
-		pokedexPanel = new PokedexPanel();
+		pokedexPanel = new PokedexPanel(getTrainer());
 		pokedexPanel.setLocation(125, 700);
 		pokedexPanel.setVisible(false);
 		
@@ -75,10 +75,10 @@ public class MapView extends JPanel implements Observer {
 		mapPanel = new MapPanel(toLoad);
 		mapPanel.setLocation(125, 50);
 		
-		trainerPanel = new TrainerPanel();
+		trainerPanel = new TrainerPanel(getTrainer());
 		trainerPanel.setLocation(125, 700);
 		trainerPanel.setVisible(false);
-		pokedexPanel = new PokedexPanel();
+		pokedexPanel = new PokedexPanel(getTrainer());
 		pokedexPanel.setLocation(125, 700);
 		pokedexPanel.setVisible(false);
 		
@@ -123,6 +123,9 @@ public class MapView extends JPanel implements Observer {
 	// 0 is show trainer, 1 is hide trainer
 	// 2 is show pokedex, 3 is hide pokedex
 	public void setSecondaryView(int type){
+		trainerPanel.updateTrainer(getTrainer());
+		pokedexPanel.updateTrainer(getTrainer());
+		
 		if (type == 0){
 			if (!trainerPanel.isVisible() && !pokedexPanel.isVisible()){
 				trainerPanel.repaint();

@@ -12,6 +12,7 @@ import javax.swing.Timer;
 
 import Model.Map;
 import Model.Trainer;
+import songplayer.AudioFilePlayer;
 
 public class BattleView extends JPanel implements Observer {
 	
@@ -118,6 +119,17 @@ public class BattleView extends JPanel implements Observer {
 						((Timer) e.getSource()).stop();
 						count2 = 0;
 						battlePanel.doneThrowingAerial();
+						// if (rock or bait)
+						// 		useItem(rock or bait)
+						//		if (willRun)
+						//			battleEnd
+						// if(pokeball)
+						// 		useItem(pokeball)
+						//		double random = new random;
+						//		if (random > pokemon.getCatchProb)
+						//
+						
+						
 					}
 				}
 			}
@@ -143,6 +155,7 @@ public class BattleView extends JPanel implements Observer {
 				Timer ballTimer = makeTimer("Pokeball");
 				ballTimer.start();
 				aerialTimer.start();
+				theTrainer.throwSafariBall();
 			}
 			if (buttonClicked.getText().equals("Run")) {
 				theTrainer.ran();

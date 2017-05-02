@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import Model.Trainer;
+
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -30,7 +32,11 @@ public class TrainerPanel extends JPanel {
 	JLabel name;
 	JLabel pokedex;
 	
-	public TrainerPanel() {
+	private Trainer theTrainer;
+	
+	public TrainerPanel(Trainer theTrainer) {
+		this.theTrainer = theTrainer;
+		
 		setLayout(null);
 		setPreferredSize(new Dimension(750, 300));
 		setBackground(Color.WHITE);
@@ -52,6 +58,10 @@ public class TrainerPanel extends JPanel {
 		name.setSize(new Dimension(600, 30));
 		name.setLocation(300, 60);
 		this.add(name);
+	}
+	
+	public void updateTrainer(Trainer newTrainer) {
+		theTrainer = newTrainer;
 	}
 	
 	@Override

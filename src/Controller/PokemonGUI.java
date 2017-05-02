@@ -328,6 +328,7 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void update(Observable o, Object arg) {
 		if ((int) arg == -1) {
@@ -339,6 +340,9 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 			battleMusic.start();
 		}
 		if ((int) arg == -2) {
+			AudioFilePlayer runSound = new AudioFilePlayer("music/run.wav");
+			runSound.play();
+			
 			battleMusic.stop();
 			mapMusic = new AudioFilePlayer("music/map.wav");
 			((AudioFilePlayer) mapMusic).addEndOfSongListener(mapMusicListener);

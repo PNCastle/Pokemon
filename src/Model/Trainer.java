@@ -267,6 +267,14 @@ public class Trainer extends Observable {
 		rareCollection.add(new Dragonair(148));
 	}
 
+	public void throwSafariBall() {
+		items.get(0).useOne();
+	}
+	
+	public int safariBallCount() {
+		return items.get(0).amount();
+	}
+	
 	//The following setters allow the key listener on mapPanel,
 	// to tell the player to move
 	public void setLeft(boolean b) 	{ this.left = b;}

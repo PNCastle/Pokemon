@@ -43,9 +43,11 @@ public class PokedexPanel extends JPanel {
 	JLabel info;
 	
 	Pokemon currentPokemon;
+	private Trainer theTrainer;
 	
-	public PokedexPanel() {
-		currentPokemon = new Dragonair(148);
+	public PokedexPanel(Trainer theTrainer) {
+		this.theTrainer = theTrainer;
+		currentPokemon = theTrainer.getPokedex().get(0);
 		
 		setLayout(new GridLayout(1, 0, 0, 0));
 		setPreferredSize(new Dimension(750, 300));
@@ -61,7 +63,7 @@ public class PokedexPanel extends JPanel {
 		pokesList.setSize(300, 300);
 		
 		// Pic of Pokemons
-		image = Toolkit.getDefaultToolkit().createImage("./pokePic/Abra.gif");
+		image = Toolkit.getDefaultToolkit().createImage(currentPokemon.getPicFileName());
 		
 		// set up the pokemon Card
 		PokemonCard = new JLabel("PokeDex");
@@ -106,6 +108,10 @@ public class PokedexPanel extends JPanel {
 		this.add(info);
 		
 		setVisible(true);
+	}
+	
+	public void updateTrainer(Trainer newTrainer) {
+		theTrainer = newTrainer;
 	}
 	
 	// Pokemons Pic location and size

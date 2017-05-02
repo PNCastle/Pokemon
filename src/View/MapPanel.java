@@ -165,6 +165,11 @@ public class MapPanel extends JPanel implements Runnable {
 						"Game Over! 500 steps taken.");
 				break;
 			}
+			if (theTrainer.safariBallCount() == 0){
+				JOptionPane.showMessageDialog(null,
+						"Game Over! All 30 Safari Balls used.");
+				break;
+			}
 		}
 	}
 
