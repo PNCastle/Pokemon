@@ -35,6 +35,7 @@ public class Map {
 	private int x;
 	private int y;
 	private int[][] currentMap;
+	private int[][] tempMap;
 	private int mapWidth; 	//tile#
 	private int mapHeight; 	//tile#
 	
@@ -76,6 +77,7 @@ public class Map {
 		}
 		catch(Exception e) {	
 		}
+		tempMap = currentMap.clone();
 		initCollections();
 
 	}
@@ -93,8 +95,12 @@ public class Map {
 			BufferedImage subImage;
 			boolean blocked = false;
 			boolean spawnable = false;
+			boolean hasItem = false;
 			for(int col = 0; col <= numTilesAcross; col++) {
 				subImage = tileSet.getSubimage(col*tileSize, 0, tileSize, tileSize);
+				if(col == 4){
+					hasItem = true;
+				}
 				if (col == 3) {
 					blocked = true;
 				}
@@ -105,7 +111,7 @@ public class Map {
 				}
 				else 
 					spawnable = false;
-				tiles[col] = new Tile(subImage, blocked, spawnable);
+				tiles[col] = new Tile(subImage, blocked, spawnable, hasItem);
 			}
 		}
 		catch (Exception e) {
@@ -131,7 +137,7 @@ public class Map {
 		for(int row = 0; row < mapHeight; row++) {
 			for(int col = 0; col < mapWidth; col++) {
 				
-				int rc = currentMap[row][col];
+				int rc = tempMap[row][col];
 								
 				g.drawImage(tiles[rc].getImage(), x+col*tileSize,
 							y+row*tileSize, null);
@@ -141,13 +147,18 @@ public class Map {
 	
 	// getter for whether the tile at (col,row) is blocked
 	public boolean isBlocked(int col, int row) {
-		int rc = currentMap[row][col];
+		int rc = tempMap[row][col];
 		return tiles[rc].isBlocked();
 	}
 	
 	public boolean isSpawnable(int col, int row){
-		int rc = currentMap[row][col];
+		int rc = tempMap[row][col];
 		return tiles[rc].isSpawnable();
+	}
+	
+	public boolean hasItem(int col, int row){
+		int rc = tempMap[row][col];
+		return tiles[rc].hasItem();
 	}
 	
 	// getter for tileSize
@@ -186,7 +197,7 @@ public class Map {
 	
 	// getter for tile at (x,y)
 	public int getTile(int x, int y){
-		return currentMap[y][x];
+		return tempMap[y][x];
 	}
 	
 	//initializes all lists currently stored in the trainer
@@ -208,6 +219,13 @@ public class Map {
 		uncommonCollection.add(new Rapidash(78));
 
 		rareCollection.add(new Dragonair(148));
+	}
+
+	public void removeItem(int currRow, int currCol) {
+		int rc = tempMap[currRow][currCol];
+		if(rc == 4){
+			tempMap[currRow][currCol] = 1;
+		}
 	}
 
 }
