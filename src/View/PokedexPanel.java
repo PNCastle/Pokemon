@@ -64,6 +64,7 @@ public class PokedexPanel extends JPanel {
 		setPreferredSize(new Dimension(750, 300));
 		setBackground(Color.WHITE);
 		// poke info layout
+		this.setLayout(null);
 		
 		try {
 			image = ImageIO.read(new File("trainerLarge.png"));
@@ -177,14 +178,14 @@ public class PokedexPanel extends JPanel {
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			if (columnIndex == 0) {
-				return "1";
+				return rowIndex + 1;
 			}
 			if (columnIndex == 1) {
-				return "pikatu";
+				return pokemonList.get(rowIndex).getName();
 							
 			}
 			if (columnIndex == 2) {
-				return "63";
+				return pokemonList.get(rowIndex).getPokemonID();
 			}
 
 			return "";
