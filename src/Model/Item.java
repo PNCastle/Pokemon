@@ -42,6 +42,10 @@ public abstract class Item {
 		return true;
 	}
 	
+	public void addOne(){
+		amount++;
+	}
+	
 	public int amount() {
 		return amount;
 	}

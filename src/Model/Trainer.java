@@ -54,7 +54,7 @@ public class Trainer extends Observable {
 	private double friction;
 
 	//these booleans are used in collsion detection
-	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight, center, spawning;
+	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight, center, spawning, hasItem;
 
 	//trainer stores a reference to the map
 	private Map map;
@@ -403,6 +403,8 @@ public class Trainer extends Observable {
 			}
 		}
 		
+
+		
 		//check these booleans and if collision is occurring the adjust trainer's position so he is stopped by the un-walkable tile
 		//if no collision is going to occur then set trainers position to (x + dx, y + dy).
 		//Note dx is scaled by 1.36 because our map is 1.36 times wider than tall.
@@ -448,6 +450,15 @@ public class Trainer extends Observable {
 		x = temp_x;
 		y = temp_y;
 
+		currCol = map.getColTileIndex((int) x);
+		currRow = map.getRowTileIndex((int) y);
+		
+		if(hasItem){
+			Item item = this.items.get(0); //this corresponds to pokeball location of item list
+			item.addOne();
+			map.removeItem(currRow, currCol);
+		}
+		
 		// hard-coded dimensions of MapPanel
 		// this keeps player centered at all times
 		map.setX(750 / 2 - x);
@@ -542,6 +553,7 @@ public class Trainer extends Observable {
 		bottomRight = (map.isBlocked(bottomIndex, rightIndex));
 		
 		spawning = map.isSpawnable(rowIndex, colIndex);
+		hasItem = map.hasItem(rowIndex, colIndex);
 	}
 
 	//draw method which draws trainer in the center of the mapPanel
