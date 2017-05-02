@@ -1,17 +1,24 @@
 package View;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.JTable;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
 import Model.*;
 import pokemon.Abra;
@@ -42,25 +49,39 @@ public class PokedexPanel extends JPanel {
 	JLabel hp;
 	JLabel info;
 	
+	JTable itemTable;
+	JScrollPane scrollPane;
+	TableModel model;
+	
 	Pokemon currentPokemon;
 	private Trainer theTrainer;
 	
-	public PokedexPanel(Trainer theTrainer) {
-		this.theTrainer = theTrainer;
-		currentPokemon = theTrainer.getPokedex().get(0);
+	public PokedexPanel(Trainer thePokedex) {
+		this.theTrainer = thePokedex;
+		currentPokemon = thePokedex.getPokedex().get(0);
 		
-		setLayout(new GridLayout(1, 0, 0, 0));
+		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(750, 300));
 		setBackground(Color.WHITE);
-		this.setLayout(null);
+		// poke info layout
 		
-		JTextArea pokeListArea = new JTextArea();
-		JScrollPane pokesList = new JScrollPane(pokeListArea);
+		try {
+			image = ImageIO.read(new File("trainerLarge.png"));
+		} catch (IOException e) {
+			System.err.println("Could not read image file");
+		}
+		
+		model = new ItemTableModel();
+		itemTable = new JTable(model);
+		scrollPane = new JScrollPane(itemTable);
+		scrollPane.setPreferredSize(new Dimension(550, 100));
+		scrollPane.setLocation(200, 200);
 		
 		// List of Pokemons
-		add(pokesList);
-		pokesList.setLocation(0, 0);
-		pokesList.setSize(300, 300);
+		add(scrollPane);
+		scrollPane.setEnabled(false);
+		scrollPane.setLocation(0, 0);
+		scrollPane.setSize(300, 300);
 		
 		// Pic of Pokemons
 		image = Toolkit.getDefaultToolkit().createImage(currentPokemon.getPicFileName());
@@ -108,6 +129,78 @@ public class PokedexPanel extends JPanel {
 		this.add(info);
 		
 		setVisible(true);
+	}
+	
+	private class ItemTableModel implements TableModel {
+
+		ArrayList<Pokemon> pokemonList;
+
+		public ItemTableModel() {
+			pokemonList = theTrainer.getPokedex();
+		}
+		
+		@Override
+		public int getRowCount() {
+			return pokemonList.size();
+		}
+
+		@Override
+		public int getColumnCount() {
+			return 3;
+		}
+
+		@Override
+		public String getColumnName(int columnIndex) {
+			if (columnIndex == 0) {
+				return "No";
+			}
+			if (columnIndex == 1) {
+				return "Pokemon";
+			}
+			if (columnIndex == 2) {
+				return "Pokemon ID";
+			}
+
+			return "";
+		}
+
+		@Override
+		public Class<?> getColumnClass(int columnIndex) {
+			return Object.class;
+		}
+
+		@Override
+		public boolean isCellEditable(int rowIndex, int columnIndex) {
+			return false;
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			if (columnIndex == 0) {
+				return "1";
+			}
+			if (columnIndex == 1) {
+				return "pikatu";
+							
+			}
+			if (columnIndex == 2) {
+				return "63";
+			}
+
+			return "";
+		}
+
+		@Override
+		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+		}
+
+		@Override
+		public void addTableModelListener(TableModelListener l) {
+		}
+
+		@Override
+		public void removeTableModelListener(TableModelListener l) {
+		}
 	}
 	
 	public void updateTrainer(Trainer newTrainer) {
