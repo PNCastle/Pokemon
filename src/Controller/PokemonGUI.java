@@ -4,6 +4,7 @@
 
 package Controller;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -37,10 +38,12 @@ import Model.Trainer;
 import View.BattleView;
 //import View.BattleView;
 import View.MapView;
+import View.PokedexPanel;
+import View.TrainerPanel;
 import songplayer.*;
 
 //pokemon class that extends JFrame
-public class PokemonGUI extends JFrame implements Observer, KeyListener {
+public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyListener {
 
 	// instance variables
 	private static final int HEIGHT = 1000;
@@ -77,8 +80,7 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 			int ret = JOptionPane.showOptionDialog(null,
 					"Start with previous game?\n"
 							+ "No means start with a new game.\nIf no, previous game can be loaded from menu.",
-					"Select an Option", JOptionPane.YES_NO_OPTION,
-					JOptionPane.PLAIN_MESSAGE, null, null, null);
+					"Select an Option", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
 
 			// try to read the file
 			if (ret == JOptionPane.YES_OPTION) {
@@ -90,8 +92,7 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 							Object[] toLoad = (Object[]) ois.readObject();
 							mapView = new MapView(WIDTH, HEIGHT, toLoad);
 						} catch (ClassNotFoundException e) {
-							System.err
-									.println("Could not read persistence file");
+							System.err.println("Could not read persistence file");
 						}
 						ois.close();
 					} catch (IOException e) {
@@ -101,33 +102,28 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 					System.err.println("Could not read persistence file");
 				}
 			} else {
-				Object[] mapChoice = {"Map 2", "Map 1"};
-				
-				int retMap = JOptionPane.showOptionDialog(null,
-						"Which map would you like to start with?",
-						"Select an Option", JOptionPane.YES_NO_OPTION,
-						JOptionPane.PLAIN_MESSAGE, null, mapChoice, null);
-				
-				if (retMap == JOptionPane.YES_OPTION){
+				Object[] mapChoice = { "Map 2", "Map 1" };
+
+				int retMap = JOptionPane.showOptionDialog(null, "Which map would you like to start with?",
+						"Select an Option", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, mapChoice,
+						null);
+
+				if (retMap == JOptionPane.YES_OPTION) {
 					mapView = new MapView(WIDTH, HEIGHT, "mapTwo.txt");
-				}
-				else {
+				} else {
 					mapView = new MapView(WIDTH, HEIGHT, "mapOne.txt");
 				}
 				battleView = new BattleView(WIDTH, HEIGHT);
 			}
 		} else {
-			Object[] mapChoice = {"Map 2", "Map 1"};
-			
-			int retMap = JOptionPane.showOptionDialog(null,
-					"Which map would you like to start with?",
-					"Select an Option", JOptionPane.YES_NO_OPTION,
-					JOptionPane.PLAIN_MESSAGE, null, mapChoice, null);
-			
-			if (retMap == JOptionPane.YES_OPTION){
+			Object[] mapChoice = { "Map 2", "Map 1" };
+
+			int retMap = JOptionPane.showOptionDialog(null, "Which map would you like to start with?",
+					"Select an Option", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, mapChoice, null);
+
+			if (retMap == JOptionPane.YES_OPTION) {
 				mapView = new MapView(WIDTH, HEIGHT, "mapTwo.txt");
-			}
-			else {
+			} else {
 				mapView = new MapView(WIDTH, HEIGHT, "mapOne.txt");
 			}
 			battleView = new BattleView(WIDTH, HEIGHT);
@@ -144,7 +140,7 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		setViewTo(mapView); // set default view to map view
 		setUpMenus(); // build menu system
 		music();
-		
+
 		WindowListener exit = new WindowListener();
 		this.addWindowListener(exit);
 	}
@@ -163,7 +159,7 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		setViewTo(mapView); // set default view to map view
 		setUpMenus();
 		music();
-		
+
 		WindowListener exit = new WindowListener();
 		this.addWindowListener(exit);
 	}
@@ -172,8 +168,7 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		mapMusicListener = new EndOfSongListener() {
 
 			@Override
-			public void songFinishedPlaying(
-					EndOfSongEvent eventWithFileNameAndDateFinished) {
+			public void songFinishedPlaying(EndOfSongEvent eventWithFileNameAndDateFinished) {
 				mapMusic = new AudioFilePlayer("music/map.wav");
 				mapMusic.start();
 			}
@@ -182,13 +177,12 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		battleMusicListener = new EndOfSongListener() {
 
 			@Override
-			public void songFinishedPlaying(
-					EndOfSongEvent eventWithFileNameAndDateFinished) {
+			public void songFinishedPlaying(EndOfSongEvent eventWithFileNameAndDateFinished) {
 				mapMusic = new AudioFilePlayer("music/battle.wav");
 				mapMusic.start();
 			}
 		};
-		
+
 		mapMusic = new AudioFilePlayer("music/map.wav");
 		((AudioFilePlayer) mapMusic).addEndOfSongListener(mapMusicListener);
 		mapMusic.start();
@@ -220,8 +214,7 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		pokedex.add(viewPokedex);
 		pokedex.add(hidePokedex);
 
-		JMenuItem stepCount = new JMenu(
-				"Step Count: " + mapView.getTrainer().getStepCount());
+		JMenuItem stepCount = new JMenu("Step Count: " + mapView.getTrainer().getStepCount());
 		stepCount.setEnabled(false);
 
 		// set up menu bar
@@ -232,18 +225,17 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		menuBar.add(stepCount);
 
 		// add listeners
-		MenuItemListener menuListener = new MenuItemListener();
-		menu.addActionListener(menuListener);
-		newGame.addActionListener(menuListener);
-		saveGame.addActionListener(menuListener);
-		loadGame.addActionListener(menuListener);
-		forfeit.addActionListener(menuListener);
-		trainer.addActionListener(menuListener);
-		pokedex.addActionListener(menuListener);
-		viewTrainer.addActionListener(menuListener);
-		hideTrainer.addActionListener(menuListener);
-		viewPokedex.addActionListener(menuListener);
-		hidePokedex.addActionListener(menuListener);
+		menu.addActionListener(this);
+		newGame.addActionListener(this);
+		saveGame.addActionListener(this);
+		loadGame.addActionListener(this);
+		forfeit.addActionListener(this);
+		trainer.addActionListener(this);
+		pokedex.addActionListener(this);
+		viewTrainer.addActionListener(this);
+		hideTrainer.addActionListener(this);
+		viewPokedex.addActionListener(this);
+		hidePokedex.addActionListener(this);
 
 		Runnable updateSteps = new Runnable() {
 
@@ -251,8 +243,7 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 			public void run() {
 
 				while (true) {
-					stepCount.setText("Step Count: "
-							+ mapView.getTrainer().getStepCount());
+					stepCount.setText("Step Count: " + mapView.getTrainer().getStepCount());
 				}
 
 			}
@@ -273,94 +264,98 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 	}
 
 	// //// MENU ITEM LISTENER ////////////////
-	private class MenuItemListener implements ActionListener {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String text = ((JMenuItem) e.getSource()).getText();
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String text = ((JMenuItem) e.getSource()).getText();
 
-			// if new game is selected build a new instance of the GUI and
-			// dispose of the old one
-			if (text.equals("New Game")) {
-				PokemonGUI g = new PokemonGUI();
-				g.setVisible(true);
-				setVisible(false);
-				dispose();
-			}
+		// if new game is selected build a new instance of the GUI and
+		// dispose of the old one
+		if (text.equals("New Game")) {
+			PokemonGUI g = new PokemonGUI();
+			g.setVisible(true);
+			setVisible(false);
+			dispose();
+		}
 
-			// if save game is selected then write the current state of the
-			// system to file
-			if (text.equals("Save Game")) {
+		// if save game is selected then write the current state of the
+		// system to file
+		if (text.equals("Save Game")) {
+			try {
+				FileOutputStream fos = new FileOutputStream("persistence");
 				try {
-					FileOutputStream fos = new FileOutputStream("persistence");
-					try {
-						ObjectOutputStream oos = new ObjectOutputStream(fos);
-						oos.writeObject(mapView.getTrainer().toSerialize());
-						oos.close();
-					} catch (IOException e1) {
-						System.err.println("Can't write to file");
-						e1.printStackTrace();
-					}
-				} catch (FileNotFoundException e1) {
+					ObjectOutputStream oos = new ObjectOutputStream(fos);
+					oos.writeObject(mapView.getTrainer().toSerialize());
+					oos.close();
+				} catch (IOException e1) {
 					System.err.println("Can't write to file");
 					e1.printStackTrace();
 				}
+			} catch (FileNotFoundException e1) {
+				System.err.println("Can't write to file");
+				e1.printStackTrace();
 			}
+		}
 
-			// if load game is selected the construct a new GUI object from the
-			// system information that was saved
-			if (text.equals("Load Game")) {
+		// if load game is selected the construct a new GUI object from the
+		// system information that was saved
+		if (text.equals("Load Game")) {
+			try {
+				FileInputStream fis = new FileInputStream("persistence");
 				try {
-					FileInputStream fis = new FileInputStream("persistence");
+					ObjectInputStream ois = new ObjectInputStream(fis);
 					try {
-						ObjectInputStream ois = new ObjectInputStream(fis);
-						try {
-							Object[] toLoad = (Object[]) ois.readObject();
-							PokemonGUI g = new PokemonGUI(toLoad);
-							g.setVisible(true);
-							setVisible(false);
-							dispose();
-						} catch (ClassNotFoundException cnfe) {
-							System.err
-									.println("Could not read persistence file");
-						}
-						ois.close();
-					} catch (IOException ioe) {
+						Object[] toLoad = (Object[]) ois.readObject();
+						PokemonGUI g = new PokemonGUI(toLoad);
+						g.setVisible(true);
+						setVisible(false);
+						dispose();
+					} catch (ClassNotFoundException cnfe) {
 						System.err.println("Could not read persistence file");
 					}
-				} catch (FileNotFoundException e1) {
+					ois.close();
+				} catch (IOException ioe) {
 					System.err.println("Could not read persistence file");
 				}
+			} catch (FileNotFoundException e1) {
+				System.err.println("Could not read persistence file");
 			}
+		}
 
-			if (text.equals("Forfeit")) {
-				mapView.setSecondaryView(0);
-			}
+		if (text.equals("Forfeit")) {
+			JOptionPane.showMessageDialog(null, "Game Over!");
+			this.setViewTo(new PokedexPanel(mapView.getTrainer()));
+			this.add(new TrainerPanel(mapView.getTrainer()), BorderLayout.CENTER);
 			
-			if (text.equals("View Trainer")) {
-				mapView.setSecondaryView(0);
-			}
+			repaint();
+		}
 
-			if (text.equals("Hide Trainer")) {
-				mapView.setSecondaryView(1);
-			}
+		if (text.equals("View Trainer")) {
+			mapView.setSecondaryView(0);
+			this.requestFocus();
+		}
 
-			if (text.equals("Battle Start")) {
-				// mapView.animateOut(this, battleView);
-			}
+		if (text.equals("Hide Trainer")) {
+			mapView.setSecondaryView(1);
+			this.requestFocus();
+		}
 
-			if (text.equals("Battle End")) {
-				mapView.enableMapPanel();
-			}
+		if (text.equals("Battle Start")) {
+			// mapView.animateOut(this, battleView);
+		}
 
-			if (text.equals("View Pokedex")) {
-				mapView.setSecondaryView(2);
-			}
+		if (text.equals("Battle End")) {
+			mapView.enableMapPanel();
+		}
 
-			if (text.equals("Hide Pokedex")) {
-				mapView.setSecondaryView(3);
-			}
+		if (text.equals("View Pokedex")) {
+			mapView.setSecondaryView(2);
+			this.requestFocus();
+		}
 
+		if (text.equals("Hide Pokedex")) {
+			mapView.setSecondaryView(3);
+			this.requestFocus();
 		}
 
 	}
@@ -371,7 +366,7 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		if ((int) arg == -1) {
 			mapMusic.stop();
 			mapView.animateOut(this, battleView);
-			
+
 			battleMusic = new AudioFilePlayer("music/battle.wav");
 			((AudioFilePlayer) battleMusic).addEndOfSongListener(battleMusicListener);
 			battleMusic.start();
@@ -379,7 +374,7 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		if ((int) arg == -2) {
 			AudioFilePlayer runSound = new AudioFilePlayer("music/run.wav");
 			runSound.play();
-			
+
 			battleMusic.stop();
 			mapMusic = new AudioFilePlayer("music/map.wav");
 			((AudioFilePlayer) mapMusic).addEndOfSongListener(mapMusicListener);
@@ -454,15 +449,16 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 	}
 
 	/**
-	 * A listener for when the user closes the application. Offers a save option before the application is closed.
+	 * A listener for when the user closes the application. Offers a save option
+	 * before the application is closed.
 	 */
 	private class WindowListener extends WindowAdapter {
 		@Override
 		public void windowClosing(WindowEvent e) {
-			int ret = JOptionPane.showOptionDialog(null, "Would you like to save the game?", "Select an Option", JOptionPane.YES_NO_OPTION, 
-					JOptionPane.PLAIN_MESSAGE, null, null, null);
+			int ret = JOptionPane.showOptionDialog(null, "Would you like to save the game?", "Select an Option",
+					JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
 
-			if (ret == JOptionPane.YES_OPTION){
+			if (ret == JOptionPane.YES_OPTION) {
 				try {
 					FileOutputStream fos = new FileOutputStream("persistence");
 					try {
@@ -481,5 +477,5 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 			}
 		}
 	}
-	
+
 }

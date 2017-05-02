@@ -52,7 +52,7 @@ public class TrainerPanel extends JPanel {
 	public TrainerPanel(Trainer theTrainer) {
 		this.theTrainer = theTrainer;
 
-		setLayout(new BorderLayout());
+		setLayout(null);
 		setPreferredSize(new Dimension(750, 300));
 		setBackground(Color.WHITE);
 
@@ -65,28 +65,38 @@ public class TrainerPanel extends JPanel {
 		trainerCard = new JLabel("Trainer Card");
 		trainerCard.setFont(new Font("Helvetica", Font.BOLD, 30));
 		trainerCard.setSize(new Dimension(600, 30));
-		trainerCard.setLocation(415, 20);
+		trainerCard.setLocation(515, 20);
 		this.add(trainerCard);
  
+		model = new ItemTableModel();
+		itemTable = new JTable(model);
+		scrollPane = new JScrollPane(itemTable);
+		scrollPane.setPreferredSize(new Dimension(550, 100));
+		scrollPane.setLocation(200, 200);
 		
+		// List of Pokemons
+		add(scrollPane);
+		scrollPane.setEnabled(false);
+		scrollPane.setLocation(0, 0);
+		scrollPane.setSize(300, 300);
 		
-		name = new JLabel("                      Name                                 Ash");
+		name = new JLabel("Name            Ash");
 		name.setFont(new Font("Herculanum", Font.BOLD, 28));
 		name.setSize(new Dimension(600, 30));
-		name.setLocation(300, 60);
+		name.setLocation(490, 60);
 		this.add(name);
 
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(550, 100));
 		panel.setLocation(200, 200);
 		
-		model = new ItemTableModel();
-		itemTable = new JTable(model);
-		scrollPane = new JScrollPane(itemTable);
-		scrollPane.setPreferredSize(new Dimension(550, 100));
-		scrollPane.setLocation(200, 200);
-		panel.add(scrollPane);
-		this.add(panel, BorderLayout.SOUTH);
+//		model = new ItemTableModel();
+//		itemTable = new JTable(model);
+//		scrollPane = new JScrollPane(itemTable);
+//		scrollPane.setPreferredSize(new Dimension(550, 100));
+//		scrollPane.setLocation(200, 200);
+//		panel.add(scrollPane);
+//		this.add(panel, BorderLayout.SOUTH);
 	}
 
 	private class ItemTableModel implements TableModel {
@@ -178,7 +188,7 @@ public class TrainerPanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(image, 0, 6, 200, 287, this);
+		g.drawImage(image, 300, 0, 209, 300, this);
 	}
 
 }
