@@ -12,10 +12,10 @@ import Model.Item;
 
 public class Potion extends Item {
 
-	private String name = "Potion";
+	private static String name = "Potion";
 	
 	public Potion() {
-		super(false, 2, 15, 0);
+		super(false, 2, 15, 0, name);
 	}
 	
 	@Override

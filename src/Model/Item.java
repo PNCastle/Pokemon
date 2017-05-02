@@ -11,11 +11,19 @@ public abstract class Item {
 	private boolean isThrowable;
 	private int amount, hpModifier, catchModifier;
 	
-	public Item(boolean isThrowable, int amount, int hpModifier, int catchModifier) {
+	private String name;
+	
+	public Item(boolean isThrowable, int amount, int hpModifier, int catchModifier, String name) {
 		this.amount = amount;
 		this.isThrowable = isThrowable;
 		this.hpModifier = hpModifier;
 		this.catchModifier = catchModifier;
+		
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	// Determines if item can be thrown (like potions can't, but rocks can)
