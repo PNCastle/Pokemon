@@ -38,7 +38,7 @@ public class MapPanel extends JPanel implements Runnable {
 	private BufferedImage image;
 	private Graphics2D g;
 
-	private int FPS = 15;
+	private int FPS = 4;
 	private int targetTime = 1000 / FPS;
 
 	int red = 255;
@@ -178,7 +178,7 @@ public class MapPanel extends JPanel implements Runnable {
 		running = true;
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D) image.getGraphics();
-		theMap.loadTiles("resizedTiles.png");
+		theMap.loadTiles("resizedTiles2.png");
 	}
 
 	// update theMap and theTrainer objects

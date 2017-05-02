@@ -119,15 +119,17 @@ public class BattleView extends JPanel implements Observer {
 						((Timer) e.getSource()).stop();
 						count2 = 0;
 						battlePanel.doneThrowingAerial();
-						// if (rock or bait)
+						// if (action.compareTo("Rock") == 0) {
 						// 		useItem(rock or bait)
-						//		if (willRun)
-						//			battleEnd
+						
+						// }
 						// if(pokeball)
 						// 		useItem(pokeball)
 						//		double random = new random;
 						//		if (random > pokemon.getCatchProb)
 						//
+						// if (theTrainer.getCurrentPokemon.willRun)
+						//		battleEnd
 						
 						
 					}

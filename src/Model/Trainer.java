@@ -54,7 +54,8 @@ public class Trainer extends Observable {
 	private double friction;
 
 	//these booleans are used in collsion detection
-	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, bottomRight, center, spawning;
+	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, 
+					bottomRight, center, spawning, hasItem;
 
 	//trainer stores a reference to the map
 	private Map map;
@@ -448,6 +449,15 @@ public class Trainer extends Observable {
 		x = temp_x;
 		y = temp_y;
 
+	//	currCol = map.getColTileIndex((int) x);
+	//	currRow = map.getRowTileIndex((int) y);
+		
+		if (hasItem) {
+			this.items.get(0).addOne();
+			map.removeItem(map.getRowTileIndex((int) y), 
+						   map.getColTileIndex((int) x));
+		}
+		
 		// hard-coded dimensions of MapPanel
 		// this keeps player centered at all times
 		map.setX(750 / 2 - x);
@@ -542,6 +552,7 @@ public class Trainer extends Observable {
 		bottomRight = (map.isBlocked(bottomIndex, rightIndex));
 		
 		spawning = map.isSpawnable(rowIndex, colIndex);
+		hasItem = map.hasItem(rowIndex, colIndex);
 	}
 
 	//draw method which draws trainer in the center of the mapPanel
@@ -559,10 +570,6 @@ public class Trainer extends Observable {
 	//getter for Pokedex 
 	public ArrayList<Pokemon> getPokedex() {
 		return pokeDex;
-	}
-	
-	public ArrayList<Item> getItemsList() {
-		return items;
 	}
 	
 	//setter for dy for testing
@@ -584,6 +591,10 @@ public class Trainer extends Observable {
 	public int getCurrentPokemon() {
 		return this.currentPokemon.getPokemonID();
 		
+	}
+
+	public ArrayList<Item> getItemsList() {
+		return items;
 	}
 
 	
