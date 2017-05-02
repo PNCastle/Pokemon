@@ -89,8 +89,8 @@ public class Map {
 		
 		try {
 			tileSet = ImageIO.read(new File(fileName));
-			int numTilesAcross = 3;
-			tiles = new Tile[4];
+			int numTilesAcross = 4;
+			tiles = new Tile[5];
 			
 			BufferedImage subImage;
 			boolean blocked = false;

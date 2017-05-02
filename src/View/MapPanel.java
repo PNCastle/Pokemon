@@ -178,7 +178,7 @@ public class MapPanel extends JPanel implements Runnable {
 		running = true;
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D) image.getGraphics();
-		theMap.loadTiles("resizedTiles.png");
+		theMap.loadTiles("resizedTiles2.png");
 	}
 
 	// update theMap and theTrainer objects
