@@ -12,6 +12,7 @@ import javax.swing.Timer;
 
 import Model.Map;
 import Model.Trainer;
+import songplayer.AudioFilePlayer;
 
 public class BattleView extends JPanel implements Observer {
 	
