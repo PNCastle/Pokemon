@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -99,11 +101,35 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 					System.err.println("Could not read persistence file");
 				}
 			} else {
-				mapView = new MapView(WIDTH, HEIGHT);
+				Object[] mapChoice = {"Map 2", "Map 1"};
+				
+				int retMap = JOptionPane.showOptionDialog(null,
+						"Which map would you like to start with?",
+						"Select an Option", JOptionPane.YES_NO_OPTION,
+						JOptionPane.PLAIN_MESSAGE, null, mapChoice, null);
+				
+				if (retMap == JOptionPane.YES_OPTION){
+					mapView = new MapView(WIDTH, HEIGHT, "mapTwo.txt");
+				}
+				else {
+					mapView = new MapView(WIDTH, HEIGHT, "mapOne.txt");
+				}
 				battleView = new BattleView(WIDTH, HEIGHT);
 			}
 		} else {
-			mapView = new MapView(WIDTH, HEIGHT);
+			Object[] mapChoice = {"Map 2", "Map 1"};
+			
+			int retMap = JOptionPane.showOptionDialog(null,
+					"Which map would you like to start with?",
+					"Select an Option", JOptionPane.YES_NO_OPTION,
+					JOptionPane.PLAIN_MESSAGE, null, mapChoice, null);
+			
+			if (retMap == JOptionPane.YES_OPTION){
+				mapView = new MapView(WIDTH, HEIGHT, "mapTwo.txt");
+			}
+			else {
+				mapView = new MapView(WIDTH, HEIGHT, "mapOne.txt");
+			}
 			battleView = new BattleView(WIDTH, HEIGHT);
 		}
 
@@ -117,8 +143,10 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		this.requestFocus();
 		setViewTo(mapView); // set default view to map view
 		setUpMenus(); // build menu system
-
 		music();
+		
+		WindowListener exit = new WindowListener();
+		this.addWindowListener(exit);
 	}
 
 	// additional constructor used in load game
@@ -134,8 +162,10 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		theTrainer.addObserver(mapView);
 		setViewTo(mapView); // set default view to map view
 		setUpMenus();
-
 		music();
+		
+		WindowListener exit = new WindowListener();
+		this.addWindowListener(exit);
 	}
 
 	private void music() {
@@ -175,6 +205,8 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		menu.add(saveGame);
 		JMenuItem loadGame = new JMenuItem("Load Game");
 		menu.add(loadGame);
+		JMenuItem forfeit = new JMenuItem("Forfeit");
+		menu.add(forfeit);
 		JMenuItem trainer = new JMenu("Trainer");
 		menu.add(trainer);
 		JMenuItem pokedex = new JMenu("Pokedex");
@@ -205,6 +237,7 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		newGame.addActionListener(menuListener);
 		saveGame.addActionListener(menuListener);
 		loadGame.addActionListener(menuListener);
+		forfeit.addActionListener(menuListener);
 		trainer.addActionListener(menuListener);
 		pokedex.addActionListener(menuListener);
 		viewTrainer.addActionListener(menuListener);
@@ -300,6 +333,10 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 				}
 			}
 
+			if (text.equals("Forfeit")) {
+				mapView.setSecondaryView(0);
+			}
+			
 			if (text.equals("View Trainer")) {
 				mapView.setSecondaryView(0);
 			}
@@ -416,4 +453,33 @@ public class PokemonGUI extends JFrame implements Observer, KeyListener {
 		}
 	}
 
+	/**
+	 * A listener for when the user closes the application. Offers a save option before the application is closed.
+	 */
+	private class WindowListener extends WindowAdapter {
+		@Override
+		public void windowClosing(WindowEvent e) {
+			int ret = JOptionPane.showOptionDialog(null, "Would you like to save the game?", "Select an Option", JOptionPane.YES_NO_OPTION, 
+					JOptionPane.PLAIN_MESSAGE, null, null, null);
+
+			if (ret == JOptionPane.YES_OPTION){
+				try {
+					FileOutputStream fos = new FileOutputStream("persistence");
+					try {
+						ObjectOutputStream oos = new ObjectOutputStream(fos);
+						oos.writeObject(mapView.getTrainer().toSerialize());
+						oos.close();
+					} catch (IOException e1) {
+						System.err.println("Can't write to file");
+						e1.printStackTrace();
+					}
+				} catch (FileNotFoundException e1) {
+					System.err.println("Can't write to file");
+					e1.printStackTrace();
+				}
+
+			}
+		}
+	}
+	
 }

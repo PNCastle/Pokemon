@@ -35,7 +35,7 @@ public class MapView extends JPanel implements Observer {
 	
 	//ctor
 	//initializes stepCount and mapPanel
-	public MapView(int width, int height){
+	public MapView(int width, int height, String map){
 		stepCount = new JLabel("Steps Taken: " + 0);
 		stepCount.setSize(200, 50);
 		stepCount.setBackground(Color.BLACK);
@@ -44,7 +44,7 @@ public class MapView extends JPanel implements Observer {
 		this.setSize(width, height);
 		this.setLocation(0, 0);
 		this.setBackground(Color.DARK_GRAY);
-		mapPanel = new MapPanel();
+		mapPanel = new MapPanel(map);
 		mapPanel.setLocation(125, 50);
 		
 		trainerPanel = new TrainerPanel(getTrainer());
