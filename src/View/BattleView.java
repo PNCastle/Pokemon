@@ -128,7 +128,7 @@ public class BattleView extends JPanel implements Observer {
 						//		double random = new random;
 						//		if (random > pokemon.getCatchProb)
 						//
-						// if (theTrainer.getCurrentPokemon.willRun())
+						// if (theTrainer.getCurrentPokemon.willRun)
 						//		battleEnd
 						
 						
