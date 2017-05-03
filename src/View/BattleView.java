@@ -83,6 +83,8 @@ public class BattleView extends JPanel implements Observer {
 		if (anInt == -1) {
 			battlePanel.setToSpawn(theTrainer.getCurrentPokemonID());
 			battlePanel.makePokemon();
+			System.out.println("A wild " + theTrainer.getCurrentPokemon().getName() 
+								+ " appeared!");
 		}
 		
 	}
@@ -161,6 +163,10 @@ public class BattleView extends JPanel implements Observer {
 				rockTimer.start();
 				aerialTimer.start();
  				theTrainer.getCurrentPokemon().useItem(theTrainer.getItemsList().get(1));
+ 				if (currentPokemon.pokemonRun()) {
+					animWaiter.start();
+					System.out.println(currentPokemon.getName() + " ran away!");
+				}
 			} 
 			
 			if (buttonClicked.getText().equals("Bait")) {
@@ -169,6 +175,10 @@ public class BattleView extends JPanel implements Observer {
 				baitTimer.start();
 				aerialTimer.start();
  				theTrainer.getCurrentPokemon().useItem(theTrainer.getItemsList().get(2));
+ 				if (currentPokemon.pokemonRun()) {
+					animWaiter.start();
+					System.out.println(currentPokemon.getName() + " ran away!");
+				}
 			}
 			
 			if (buttonClicked.getText().equals("Pokeball")) {
@@ -176,7 +186,7 @@ public class BattleView extends JPanel implements Observer {
 				Timer ballTimer = makeTimer("Pokeball");
 				ballTimer.start();
 				aerialTimer.start();
-				
+				theTrainer.throwSafariBall();
 				while(!aerialAniDone) {
 				}
 								
@@ -188,16 +198,17 @@ public class BattleView extends JPanel implements Observer {
 				double maybeCatch = theRand / 1000.0;
 				double catchProb = currentPokemon.getCatchProbability();
 				System.out.println("RNG = " + maybeCatch + " CatchProb = " + catchProb);
-				if (maybeCatch <= catchProb) {
-					theTrainer.getPokedex().add(currentPokemon);
-				//	
+				if (maybeCatch <= catchProb) {	
 					//pokemon into pokeball animation
-					//theTrainer.ran();
-					System.out.println(theTrainer.getPokedex().get(1));
 					animWaiter.start();
+					theTrainer.getPokedex().add(currentPokemon);
+					System.out.println("You caught " + currentPokemon.getName() + "!");
+					
+				} else
+				if (currentPokemon.pokemonRun()) {
+					animWaiter.start();
+					System.out.println(currentPokemon.getName() + " ran away!");
 				}
-				//setButtonsClickable(aerialAniDone);
-				theTrainer.throwSafariBall();
 			}
 			
 			if (buttonClicked.getText().equals("Run")) {
@@ -219,6 +230,7 @@ public class BattleView extends JPanel implements Observer {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			// probably should do something else here but this works for now
 			theTrainer.ran();
 		}
 	}
@@ -234,7 +246,6 @@ public class BattleView extends JPanel implements Observer {
 				 }
 	
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			setButtonsClickable(true);

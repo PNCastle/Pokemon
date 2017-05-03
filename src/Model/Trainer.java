@@ -397,7 +397,7 @@ public class Trainer extends Observable {
 				if(prob >= .85){
 					this.setCurrentPokemon(prob);
 					//send currentPokemon to battlePanel
-					System.out.println(currentPokemon.getName());
+					//System.out.println(currentPokemon.getName());
 					setChanged();
 					notifyObservers(-1);
 				}
