@@ -89,8 +89,8 @@ public class Map {
 		
 		try {
 			tileSet = ImageIO.read(new File(fileName));
-			int numTilesAcross = 4;
-			tiles = new Tile[5];
+			int numTilesAcross = 5;
+			tiles = new Tile[6];
 			
 			BufferedImage subImage;
 			boolean blocked = false;
@@ -98,6 +98,9 @@ public class Map {
 			boolean hasItem = false;
 			for(int col = 0; col <= numTilesAcross; col++) {
 				subImage = tileSet.getSubimage(col*tileSize, 0, tileSize, tileSize);
+				if(col == 5){
+					hasItem = true;
+				}
 				if(col == 4){
 					hasItem = true;
 				}
@@ -223,7 +226,7 @@ public class Map {
 
 	public void removeItem(int currRow, int currCol) {
 		int rc = tempMap[currRow][currCol];
-		if(rc == 4){
+		if(rc == 4 || rc == 5){
 			tempMap[currRow][currCol] = 1;
 		}
 	}
