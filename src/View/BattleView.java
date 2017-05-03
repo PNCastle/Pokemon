@@ -92,6 +92,7 @@ public class BattleView extends JPanel implements Observer {
 			theTrainer = (Trainer) o;
 		}
 		if (anInt == -1) {
+			setButtonsClickable(true);
 			battlePanel.setToSpawn(theTrainer.getCurrentPokemonID());
 			battlePanel.makePokemon();
 			battleInfo.setText("\n  A wild " + theTrainer.getCurrentPokemon().getName() 
@@ -164,8 +165,11 @@ public class BattleView extends JPanel implements Observer {
 			ButtonsOffThread buttonsRunner = new ButtonsOffThread();
 			Thread buttonWaiter = new Thread(buttonsRunner);
 			
-			CatchAnimThread animThread = new CatchAnimThread();
-			Thread animWaiter = new Thread(animThread);
+			RunAnimThread runAnimThread = new RunAnimThread();
+			Thread runAnimWaiter = new Thread(runAnimThread);
+			
+			CatchAnimThread catchAnimThread = new CatchAnimThread();
+			Thread catchAnimWaiter = new Thread(catchAnimThread);
 			
 			
 			if (buttonClicked.getText().equals("Rock")) {
@@ -175,9 +179,11 @@ public class BattleView extends JPanel implements Observer {
 				aerialTimer.start();
  				theTrainer.getCurrentPokemon().useItem(theTrainer.getItemsList().get(1));
  				if (currentPokemon.pokemonRun()) {
-					animWaiter.start();
-					battleInfo.setText("\n  "+currentPokemon.getName() + " ran away!");
-				}
+ 					buttonWaiter.stop();
+ 					setButtonsClickable(false);
+					runAnimWaiter.start();					
+				} else
+					battleInfo.setText("\n  "+currentPokemon.getName() + " glares at you...");
 			} 
 			
 			if (buttonClicked.getText().equals("Bait")) {
@@ -187,9 +193,11 @@ public class BattleView extends JPanel implements Observer {
 				aerialTimer.start();
  				theTrainer.getCurrentPokemon().useItem(theTrainer.getItemsList().get(2));
  				if (currentPokemon.pokemonRun()) {
-					animWaiter.start();
-					battleInfo.setText("\n  "+currentPokemon.getName() + " ran away!");
-				}
+ 					buttonWaiter.stop();
+ 					setButtonsClickable(false);
+					runAnimWaiter.start();
+				} else
+					battleInfo.setText("\n  "+currentPokemon.getName() + " glares at you...");
 			}
 			
 			if (buttonClicked.getText().equals("Pokeball")) {
@@ -211,15 +219,18 @@ public class BattleView extends JPanel implements Observer {
 				System.out.println("RNG = " + maybeCatch + " CatchProb = " + catchProb);
 				if (maybeCatch <= catchProb) {	
 					//pokemon into pokeball animation
-					animWaiter.start();
-					theTrainer.getPokedex().add(currentPokemon);
-					battleInfo.setText("\n  "+"You caught " + currentPokemon.getName() + "!");
+					buttonWaiter.stop();
+					setButtonsClickable(false);
+					catchAnimWaiter.start();
+					
 					
 				} else
 				if (currentPokemon.pokemonRun()) {
-					animWaiter.start();
-					battleInfo.setText("\n  "+currentPokemon.getName() + " ran away!");
-				}
+					buttonWaiter.stop();
+ 					setButtonsClickable(false);
+					runAnimWaiter.start();
+				} else
+					battleInfo.setText("\n  "+currentPokemon.getName() + " glares at you...");
 			}
 			
 			if (buttonClicked.getText().equals("Run")) {
@@ -230,7 +241,34 @@ public class BattleView extends JPanel implements Observer {
 	}
 	
 	private class CatchAnimThread implements Runnable {
+		Pokemon currentPokemon = theTrainer.getCurrentPokemon();
+
+		@Override
+		public void run() {
+			try {
+				 synchronized(this) {
+					 this.wait(2000);
+				 }
+	
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			theTrainer.getPokedex().add(currentPokemon);
+			battleInfo.setText("\n  "+"You caught " + currentPokemon.getName() + "!");try {
+			synchronized(this) {
+					 this.wait(1000);
+				 }
+	
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			theTrainer.ran();
+		}
 		
+	}
+	
+	private class RunAnimThread implements Runnable {
+		Pokemon currentPokemon = theTrainer.getCurrentPokemon();
 		@Override
 		public void run() {
 			try {
@@ -242,6 +280,7 @@ public class BattleView extends JPanel implements Observer {
 				e.printStackTrace();
 			}
 			// probably should do something else here but this works for now
+			battleInfo.setText("\n  "+currentPokemon.getName() + " ran away!");
 			theTrainer.ran();
 		}
 	}
