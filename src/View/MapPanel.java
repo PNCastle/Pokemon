@@ -17,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Model.Map;
+import Model.Pokemon;
 import Model.Trainer;
 
 public class MapPanel extends JPanel implements Runnable {
@@ -47,6 +50,8 @@ public class MapPanel extends JPanel implements Runnable {
 
 	private Map theMap;
 	private Trainer theTrainer;
+	private String winCondition;
+
 
 	// ctor
 	public MapPanel(String map) {
@@ -159,7 +164,7 @@ public class MapPanel extends JPanel implements Runnable {
 				e.printStackTrace();
 			}
 
-			// check for win conditions
+			// check for lose conditions
 			if (theTrainer.getStepCount() == 500) {
 				JOptionPane.showMessageDialog(null,
 						"Game Over! 500 steps taken.");
@@ -170,8 +175,14 @@ public class MapPanel extends JPanel implements Runnable {
 						"Game Over! All 30 Safari Balls used.");
 				break;
 			}
+			if(didWin()){
+				JOptionPane.showMessageDialog(null, "Game Over, you win!");
+				break;
+			}
 		}
 	}
+	
+	
 
 	// init, set variables running, image, g, and load the tiles
 	private void init() {
@@ -205,6 +216,35 @@ public class MapPanel extends JPanel implements Runnable {
 	// retrieve theTrainer for this mapPanel
 	public Trainer getTrainer() {
 		return theTrainer;
+	}
+
+	public void setWinCondition(String string) {
+		this.winCondition = string;
+	}
+	
+	public boolean didWin(){
+		switch(winCondition){
+		case "catchEmAll":
+			return caughtEmAll();
+		default:
+			return caughtTwenty();
+		}
+	}
+	
+	private boolean caughtEmAll(){
+		int howMany = 1;
+		ArrayList<Pokemon> pokedex = theTrainer.getPokedex();
+		Collections.sort(pokedex);
+		for(int i = 0; i < pokedex.size() - 1; i++){
+			if(pokedex.get(i+1).getPokemonID() != pokedex.get(i).getPokemonID()){
+				howMany++;
+			}
+		}
+		return (howMany == 10);
+	}
+	
+	private boolean caughtTwenty(){
+		return (theTrainer.getPokedex().size() >= 20);
 	}
 
 }

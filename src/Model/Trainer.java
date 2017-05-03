@@ -498,7 +498,7 @@ public class Trainer extends Observable {
 			}
 		}
 		animation.update();
-		checkWinConditions();
+		//checkWinConditions();
 	}
 
 	private void setCurrentPokemon(double prob) {
@@ -518,6 +518,7 @@ public class Trainer extends Observable {
 
 	//the win condition for this iteration is going over 500 steps
 	//this method checks steps taken and sets the boolean gameOver accordingly
+	/*
 	private void checkWinConditions() {
 		if (stepsTaken >= 500) {
 			gameOver = true;
@@ -525,6 +526,7 @@ public class Trainer extends Observable {
 			gameOver = true;
 		}
 	}
+	*/
 
 	//this method is used to check for collision
 	//the method is passed the x and y coordinates of the trainer's would be position

@@ -11,7 +11,7 @@ package Model;
 
 import java.util.Random;
 
-public abstract class Pokemon {
+public abstract class Pokemon implements Comparable<Pokemon> {
 	private int catchRate, hp, runProbability, maxHP, speed;
 	private double catchProbability, encounterRate;
 	private String name, type, pokePicName, info;
@@ -179,4 +179,9 @@ public abstract class Pokemon {
 	}
 	
 	public abstract int getPokemonID();
+	
+	@Override
+	public int compareTo(Pokemon other){
+		return this.getPokemonID() - other.getPokemonID();
+	}
 }
