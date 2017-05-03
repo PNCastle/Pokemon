@@ -148,8 +148,11 @@ public class BattleView extends JPanel implements Observer {
 			
 			Pokemon currentPokemon = theTrainer.getCurrentPokemon();
 			
-			RunThreads runner = new RunThreads();
-			Thread buttonWaiter = new Thread(runner);
+			ButtonsOffThread buttonsRunner = new ButtonsOffThread();
+			Thread buttonWaiter = new Thread(buttonsRunner);
+			
+			CatchAnimThread animThread = new CatchAnimThread();
+			Thread animWaiter = new Thread(animThread);
 			
 			
 			if (buttonClicked.getText().equals("Rock")) {
@@ -187,9 +190,11 @@ public class BattleView extends JPanel implements Observer {
 				System.out.println("RNG = " + maybeCatch + " CatchProb = " + catchProb);
 				if (maybeCatch <= catchProb) {
 					theTrainer.getPokedex().add(currentPokemon);
+				//	
 					//pokemon into pokeball animation
 					//theTrainer.ran();
 					System.out.println(theTrainer.getPokedex().get(1));
+					animWaiter.start();
 				}
 				//setButtonsClickable(aerialAniDone);
 				theTrainer.throwSafariBall();
@@ -202,7 +207,23 @@ public class BattleView extends JPanel implements Observer {
 		}		
 	}
 	
-	private class RunThreads implements Runnable {
+	private class CatchAnimThread implements Runnable {
+		
+		@Override
+		public void run() {
+			try {
+				 synchronized(this) {
+					 this.wait(2000);
+				 }
+	
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			theTrainer.ran();
+		}
+	}
+	
+	private class ButtonsOffThread implements Runnable {
 
 		@Override
 		public void run() {
