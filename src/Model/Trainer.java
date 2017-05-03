@@ -147,7 +147,7 @@ public class Trainer extends Observable {
 			walkingDown = new BufferedImage[3];
 			walkingUp = new BufferedImage[3];
 
-			BufferedImage image = ImageIO.read(new File("trainerOneTrans.png"));
+			BufferedImage image = ImageIO.read(new File("trainerOnBike.png"));
 			//BufferedImage image = ImageIO.read(new File("trainerOneTrans.png"));
 
 			standingLeft = new BufferedImage[1];
