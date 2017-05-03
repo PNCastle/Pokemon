@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -134,6 +135,7 @@ public class BattleView extends JPanel implements Observer {
 					}
 				}
 			}
+			
 		});
 
 		
@@ -182,7 +184,7 @@ public class BattleView extends JPanel implements Observer {
 				int theRand = random.nextInt(450);
 				int catchProb = currentPokemon.getCatchProbability();
 				System.out.println("RNG = " + theRand + " CatchProb = " + catchProb);
-				if (theRand <= 500) {
+				if (theRand <= catchProb) {
 					theTrainer.getPokedex().add(currentPokemon);
 					//pokemon into pokeball animation
 					//theTrainer.ran();
