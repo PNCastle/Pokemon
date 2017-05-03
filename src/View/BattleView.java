@@ -206,9 +206,7 @@ public class BattleView extends JPanel implements Observer {
 				ballTimer.start();
 				aerialTimer.start();
 				theTrainer.throwSafariBall();
-				while(!aerialAniDone) {
-				}
-								
+							
 				theTrainer.getCurrentPokemon().useItem(theTrainer.getItemsList().get(0));
 				
 				//int pokemonCatchRate = (int)
