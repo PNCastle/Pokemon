@@ -156,19 +156,19 @@ public class Trainer extends Observable {
 			standingRight = new BufferedImage[1];
 			standingDown = new BufferedImage[1];
 			standingUp = new BufferedImage[1];
-			standingLeft[0] = image.getSubimage(148, 48, width, height);
-			standingRight[0] = image.getSubimage(0, 48, width, height);
-			standingDown[0] = image.getSubimage(0, 0, width, height);
-			standingUp[0] = image.getSubimage(148, 0, width, height);
+			standingRight[0] = image.getSubimage(200, 50, width, height);
+			standingLeft[0] = image.getSubimage(50, 50, width, height);
+			standingDown[0] = image.getSubimage(50, 0, width, height);
+			standingUp[0] = image.getSubimage(200, 0, width, height);
 
 			for (int i = 0; i < 3; i++) {
-				walkingLeft[i] = image.getSubimage(i * (width) + 148, 48, width, height);
+				walkingRight[i] = image.getSubimage(i * (width) + 150, 50, width, height);
 
-				walkingRight[i] = image.getSubimage(i * (width), 48, width, height);
+				walkingLeft[i] = image.getSubimage(i * (width), 50, width, height);
 
 				walkingDown[i] = image.getSubimage(i * (width), 0, width, height);
 
-				walkingUp[i] = image.getSubimage(i * (width) + 148, 0, width, height);
+				walkingUp[i] = image.getSubimage(i * (width) + 150, 0, width, height);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
