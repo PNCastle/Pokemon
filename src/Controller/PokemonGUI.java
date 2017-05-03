@@ -408,6 +408,14 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 	@Override
 	public void keyPressed(KeyEvent key) {
 		int code = key.getKeyCode();
+		if(code == KeyEvent.VK_B){
+			if(theTrainer.isOnBike()){
+				theTrainer.dismountBike();
+			}
+			else{
+				theTrainer.mountBike();
+			}
+		}
 		if (code == KeyEvent.VK_LEFT) {
 			theTrainer.setLeft(true);
 			// set other directions to false

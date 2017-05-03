@@ -16,13 +16,14 @@ public class Tile {
 	private boolean blocked;
 	private boolean spawnable;
 	private boolean hasItem;
-	
+	private boolean hasBike;
 	//ctor
-	public Tile (BufferedImage image, boolean blocked, boolean spawnable, boolean hasItem) {
+	public Tile (BufferedImage image, boolean blocked, boolean spawnable, boolean hasItem, boolean hasBike) {
 		this.image = image;
 		this.blocked = blocked;
 		this.spawnable = spawnable;
 		this.hasItem = hasItem;
+		this.hasBike = hasBike;
 	}
 	
 	// a getter for the image of this tile
@@ -41,6 +42,10 @@ public class Tile {
 
 	public boolean hasItem() {
 		return this.hasItem;
+	}
+
+	public boolean hasBike() {
+		return this.hasBike;
 	}
 
 }

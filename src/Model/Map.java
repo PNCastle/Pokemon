@@ -96,10 +96,11 @@ public class Map {
 			boolean blocked = false;
 			boolean spawnable = false;
 			boolean hasItem = false;
+			boolean hasBike = false;
 			for(int col = 0; col <= numTilesAcross; col++) {
 				subImage = tileSet.getSubimage(col*tileSize, 0, tileSize, tileSize);
 				if(col == 5){
-					hasItem = true;
+					hasBike = true;
 				}
 				if(col == 4){
 					hasItem = true;
@@ -114,7 +115,7 @@ public class Map {
 				}
 				else 
 					spawnable = false;
-				tiles[col] = new Tile(subImage, blocked, spawnable, hasItem);
+				tiles[col] = new Tile(subImage, blocked, spawnable, hasItem, hasBike);
 			}
 		}
 		catch (Exception e) {
@@ -162,6 +163,11 @@ public class Map {
 	public boolean hasItem(int col, int row){
 		int rc = tempMap[row][col];
 		return tiles[rc].hasItem();
+	}
+	
+	public boolean hasBike(int col, int row){
+		int rc = tempMap[row][col];
+		return tiles[rc].hasBike();
 	}
 	
 	// getter for tileSize

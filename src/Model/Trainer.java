@@ -45,6 +45,7 @@ public class Trainer extends Observable {
 	private boolean right;
 	private boolean up;
 	private boolean down;
+	private boolean isOnBike;
 
 	//variables used to calculate trainer's position
 	//the trainers has a constant acceleration and maximum speed.
@@ -55,7 +56,7 @@ public class Trainer extends Observable {
 
 	//these booleans are used in collsion detection
 	private boolean top, bottom, midLeft, midRight, topLeft, topRight, bottomLeft, 
-					bottomRight, center, spawning, hasItem;
+					bottomRight, center, spawning, hasItem, hasBike;
 
 	//trainer stores a reference to the map
 	private Map map;
@@ -130,6 +131,7 @@ public class Trainer extends Observable {
 		this.dx = 0;
 		this.dy = 0;
 		
+		isOnBike = false;
 		acceleration = 1;
 		maxVelocity = 7;
 		friction = .55;
@@ -249,6 +251,7 @@ public class Trainer extends Observable {
 		items.add(new SafariBall());
 		items.add(new Rock());
 		items.add(new Bait());
+		items.add(new Bike());
 
 		// Testing purposes?
 		pokeDex.add(new Pikachu(25));
@@ -458,6 +461,11 @@ public class Trainer extends Observable {
 						   map.getColTileIndex((int) x));
 		}
 		
+		if(hasBike){
+			this.items.get(3).addOne();
+			map.removeItem(map.getRowTileIndex((int) y), map.getColTileIndex((int) x));
+		}
+		
 		// hard-coded dimensions of MapPanel
 		// this keeps player centered at all times
 		map.setX(750 / 2 - x);
@@ -555,6 +563,7 @@ public class Trainer extends Observable {
 		
 		spawning = map.isSpawnable(rowIndex, colIndex);
 		hasItem = map.hasItem(rowIndex, colIndex);
+		hasBike = map.hasBike(rowIndex, colIndex);
 	}
 
 	//draw method which draws trainer in the center of the mapPanel
@@ -601,6 +610,26 @@ public class Trainer extends Observable {
 
 	public ArrayList<Item> getItemsList() {
 		return items;
+	}
+	
+	public boolean isOnBike(){
+		return this.isOnBike;
+	}
+
+	public void dismountBike() {
+		this.isOnBike = false;
+		this.acceleration = 1;
+		this.maxVelocity = 10;
+		this.friction = .5;
+		//change images
+	}
+
+	public void mountBike() {
+		this.isOnBike = true;
+		this.acceleration = 2;
+		this.maxVelocity = 20;
+		this.friction = .1;
+		//change images
 	}
 
 	
