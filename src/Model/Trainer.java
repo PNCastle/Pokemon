@@ -625,11 +625,13 @@ public class Trainer extends Observable {
 	}
 
 	public void mountBike() {
-		this.isOnBike = true;
-		this.acceleration = 2;
-		this.maxVelocity = 20;
-		this.friction = .1;
-		//change images
+		if(this.items.get(3).amount() != 0){
+			this.isOnBike = true;
+			this.acceleration = 2;
+			this.maxVelocity = 20;
+			this.friction = .1;
+			//change images
+		}
 	}
 
 	
