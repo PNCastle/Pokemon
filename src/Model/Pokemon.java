@@ -12,8 +12,8 @@ package Model;
 import java.util.Random;
 
 public abstract class Pokemon {
-	private int catchProbability, catchRate, hp, runProbability, maxHP, speed;
-	private double encounterRate;
+	private int catchRate, hp, runProbability, maxHP, speed;
+	private double catchProbability, encounterRate;
 	private String name, type, pokePicName, info;
 	
 	private boolean isEating, isAngry, willRun;
@@ -74,7 +74,7 @@ public abstract class Pokemon {
 		catchRate += catchRateModifier;
 	}
 	
-	public int getCatchProbability() {
+	public double getCatchProbability() {
 		return catchProbability;
 	}
 	
@@ -140,8 +140,7 @@ public abstract class Pokemon {
 	 * Formula from https://www.dragonflycave.com/mechanics/gen-i-safari-zone
 	 */
 	public void calcCatchProbability() {
-		catchProbability = (Math.min(catchRate + 1, 151) * Math.min(255, 
-				((hp * 255) / 12) / Math.max(1, hp / 4) + 1) / 256) / 151; 
+		catchProbability = Math.min(catchRate + hp, 151) / 449.5; 
 	}
 	
 	/**
