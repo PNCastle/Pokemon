@@ -10,9 +10,11 @@
 
 package pokemon;
 
+import java.io.Serializable;
+
 import Model.UncommonPokemon;
 
-public class Haunter extends UncommonPokemon {
+public class Haunter extends UncommonPokemon implements Serializable {
 	private static String name = "Haunter";
 	private static String type = "Ghost&Poison";
 	private static String info = "<html>Its tongue is made of gas.<br>If licked, \nits victim starts shaking constantly until<br>death eventually comes.</html>";

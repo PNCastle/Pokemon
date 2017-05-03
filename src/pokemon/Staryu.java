@@ -10,9 +10,11 @@
 
 package pokemon;
 
+import java.io.Serializable;
+
 import Model.CommonPokemon;
 
-public class Staryu extends CommonPokemon{
+public class Staryu extends CommonPokemon implements Serializable {
 	private static String name = "Staryu";
 	private static String type = "Water";
 	private static String info = "<html>Even if its body is torn, it can regenerate as long<br>as the glowing central core remains intact.</html>";

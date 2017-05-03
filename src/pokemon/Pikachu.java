@@ -10,9 +10,11 @@
 
 package pokemon;
 
+import java.io.Serializable;
+
 import Model.CommonPokemon;
 
-public class Pikachu extends CommonPokemon {
+public class Pikachu extends CommonPokemon implements Serializable {
 	private static String name = "Pikachu";
 	private static String type = "Electric";
 	private static String info = "<html>It raises its tail to check its surroundings.<br>The tail is sometimes struck by lightning in this<br>pose.</html>";

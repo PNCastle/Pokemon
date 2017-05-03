@@ -10,9 +10,11 @@
 
 package pokemon;
 
+import java.io.Serializable;
+
 import Model.UncommonPokemon;
 
-public class Rapidash extends UncommonPokemon {
+public class Rapidash extends UncommonPokemon implements Serializable {
 	private static String name = "Rapidash";
 	private static String type = "Fire";
 	private static String info = "<html>With incredible acceleration, it reaches its top<br>speed of 150 mph after running just ten steps.</html>";

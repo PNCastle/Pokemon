@@ -8,9 +8,11 @@
 
 package items;
 
+import java.io.Serializable;
+
 import Model.Item;
 
-public class SafariBall extends Item {
+public class SafariBall extends Item implements Serializable {
 
 	private static String name = "Safari Ball";
 	

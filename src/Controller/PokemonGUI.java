@@ -91,14 +91,18 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 						try {
 							Object[] toLoad = (Object[]) ois.readObject();
 							mapView = new MapView(WIDTH, HEIGHT, toLoad);
+							battleView = new BattleView(WIDTH, HEIGHT);
 						} catch (ClassNotFoundException e) {
+							e.printStackTrace();
 							System.err.println("Could not read persistence file");
 						}
 						ois.close();
 					} catch (IOException e) {
+						e.printStackTrace();
 						System.err.println("Could not read persistence file");
 					}
 				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
 					System.err.println("Could not read persistence file");
 				}
 			} else {
@@ -154,8 +158,16 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 		this.setLocation(0, 0);
 		// initialize mapView and add as an observer of trainer
 		mapView = new MapView(WIDTH, HEIGHT, toLoad);
+		battleView = new BattleView(WIDTH, HEIGHT);
 		theTrainer = mapView.getTrainer();
 		theTrainer.addObserver(mapView);
+		theTrainer.addObserver(battleView);
+		theTrainer.addObserver(this);
+		
+		this.addKeyListener(this);
+		this.setFocusable(true);
+		this.requestFocus();
+		
 		setViewTo(mapView); // set default view to map view
 		setUpMenus();
 		music();

@@ -10,9 +10,11 @@
 
 package pokemon;
 
+import java.io.Serializable;
+
 import Model.CommonPokemon;
 
-public class Drowzee extends CommonPokemon {
+public class Drowzee extends CommonPokemon implements Serializable {
 	private static String name = "Drowzee";
 	private static String type = "Psychic";
 	private static String info = "<html>It remembers every dream it eats.<br>It rarely eats the dreams of adults because<br>children's are much tastier.</html>";

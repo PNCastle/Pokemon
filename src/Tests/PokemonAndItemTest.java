@@ -73,6 +73,8 @@ public class PokemonAndItemTest {
 		assertEquals(testAbra.getName(), "Abra");
 		assertEquals(testAbra.getCatchRate(), 200);
 		
+		System.out.println("Abra ID: " + testAbra.getPokemonID());
+		
 		testAbra.useItem(rock);
 		assertEquals(23, testAbra.getHP());
 		

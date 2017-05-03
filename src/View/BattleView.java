@@ -245,7 +245,7 @@ public class BattleView extends JPanel implements Observer {
 		public void run() {
 			try {
 				 synchronized(this) {
-					 this.wait(2000);
+					 this.wait(2500);
 				 }
 	
 			} catch (InterruptedException e) {
@@ -254,7 +254,7 @@ public class BattleView extends JPanel implements Observer {
 			theTrainer.getPokedex().add(currentPokemon);
 			battleInfo.setText("\n  "+"You caught " + currentPokemon.getName() + "!");try {
 			synchronized(this) {
-					 this.wait(1000);
+					 this.wait(1500);
 				 }
 	
 			} catch (InterruptedException e) {
@@ -271,7 +271,7 @@ public class BattleView extends JPanel implements Observer {
 		public void run() {
 			try {
 				 synchronized(this) {
-					 this.wait(2000);
+					 this.wait(2500);
 				 }
 	
 			} catch (InterruptedException e) {

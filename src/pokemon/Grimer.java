@@ -10,9 +10,11 @@
 
 package pokemon;
 
+import java.io.Serializable;
+
 import Model.CommonPokemon;
 
-public class Grimer extends CommonPokemon {
+public class Grimer extends CommonPokemon implements Serializable {
 	private static String name = "Grimer";
 	private static String type = "Poison";
 	private static String info = "<html>Wherever GRIMER has passed,<br>so many germs are left behind that no plants<br>will ever grow again.</html>";

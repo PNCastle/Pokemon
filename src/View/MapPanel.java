@@ -38,7 +38,7 @@ public class MapPanel extends JPanel implements Runnable {
 	private BufferedImage image;
 	private Graphics2D g;
 
-	private int FPS = 15;
+	private int FPS = 50;
 	private int targetTime = 1000 / FPS;
 
 	int red = 255;
@@ -64,7 +64,7 @@ public class MapPanel extends JPanel implements Runnable {
 	}
 
 	// additional constructor for saving and loading games
-	public MapPanel(Object[] toLoad) {
+	public MapPanel(String map, Object[] toLoad) {
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -72,7 +72,7 @@ public class MapPanel extends JPanel implements Runnable {
 		this.setVisible(true);
 		this.setFocusable(true);
 		this.requestFocus();
-		theMap = new Map("mapTwo.txt", 50);
+		theMap = new Map(map, 50);
 		theTrainer = new Trainer(theMap, toLoad);
 
 		inBattle = false;

@@ -10,9 +10,11 @@
 
 package pokemon;
 
+import java.io.Serializable;
+
 import Model.CommonPokemon;
 
-public class Pidgey extends CommonPokemon{
+public class Pidgey extends CommonPokemon implements Serializable {
 	private static String name = "Pidgey";
 	private static String type = "Normal&Flying";
 	private static String info = "<html>Common in grassy areas and forests,<br>it is very docile and will chase off enemies by<br>flapping up sand.</html>";

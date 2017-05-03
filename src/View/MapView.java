@@ -72,7 +72,7 @@ public class MapView extends JPanel implements Observer {
 		this.setSize(width, height);
 		this.setLocation(0, 0);
 		this.setBackground(Color.DARK_GRAY);
-		mapPanel = new MapPanel(toLoad);
+		mapPanel = new MapPanel("mapTwo.txt", toLoad);
 		mapPanel.setLocation(125, 50);
 		
 		trainerPanel = new TrainerPanel(getTrainer());

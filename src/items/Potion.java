@@ -8,9 +8,11 @@
 
 package items;
 
+import java.io.Serializable;
+
 import Model.Item;
 
-public class Potion extends Item {
+public class Potion extends Item implements Serializable {
 
 	private static String name = "Potion";
 	

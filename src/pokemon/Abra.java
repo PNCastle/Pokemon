@@ -10,9 +10,11 @@
 
 package pokemon;
 
+import java.io.Serializable;
+
 import Model.CommonPokemon;
 
-public class Abra extends CommonPokemon{
+public class Abra extends CommonPokemon implements Serializable {
 	private static String name = "Abra";
 	private static String type = "Psychic";
 	private static String info = "<html>If it decides to TELEPORT randomly, <br> it creates the illusion that it has created copies <br> of itself.</html>";

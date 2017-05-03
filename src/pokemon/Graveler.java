@@ -10,9 +10,11 @@
 
 package pokemon;
 
+import java.io.Serializable;
+
 import Model.UncommonPokemon;
 
-public class Graveler extends UncommonPokemon {
+public class Graveler extends UncommonPokemon implements Serializable {
 	private static String name = "Graveler";
 	private static String type = "Rock&Ground";
 	private static String info = "<html>A slow walker, it rolls to move.<br>It pays no attention to any object that happens<br>to be in its path.</html>";

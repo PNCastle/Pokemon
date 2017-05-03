@@ -8,7 +8,9 @@
 
 package Model;
 
-public abstract class CommonPokemon extends Pokemon {
+import java.io.Serializable;
+
+public abstract class CommonPokemon extends Pokemon implements Serializable {
 
 	public CommonPokemon(String name, int hp, int catchRate, int speed, 
 			String type, String pokePicName, String info) {

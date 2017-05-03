@@ -83,7 +83,7 @@ public class Trainer extends Observable {
 	 */
 
 	public Object[] toSerialize() {
-	    Object[] toSerialize = new Object[9];
+	    Object[] toSerialize = new Object[12];
 	    toSerialize[0] = x;
 	    toSerialize[1] = y;
 	    toSerialize[2] = dx;
@@ -93,6 +93,9 @@ public class Trainer extends Observable {
 	    toSerialize[6] = facingRight;
 	    toSerialize[7] = facingUp;
 	    toSerialize[8] = facingDown;
+	    toSerialize[9] = items;
+	    toSerialize[10] = pokeDex;
+	    toSerialize[11] = map.getMap();
 	    
 	    return toSerialize;
 	}
@@ -180,6 +183,7 @@ public class Trainer extends Observable {
 	//additional constructor used an existing state of the model is loaded
 	public Trainer(Map map, Object[] toLoad){
 		this.map = map;
+		map.setMap((int[][]) toLoad[11]); 
 
 		this.width = 50;
 		this.height = 50;
@@ -203,6 +207,9 @@ public class Trainer extends Observable {
 		facingDown = (boolean) toLoad[8];
 		
 		initCollections();
+		
+		items = (ArrayList<Item>) toLoad[9];
+		pokeDex = (ArrayList<Pokemon>) toLoad[10];
 
 		try {
 			walkingLeft = new BufferedImage[3];

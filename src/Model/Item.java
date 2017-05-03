@@ -7,7 +7,9 @@
 
 package Model;
 
-public abstract class Item {
+import java.io.Serializable;
+
+public abstract class Item implements Serializable {
 	private boolean isThrowable;
 	private int amount, hpModifier, catchModifier;
 	

@@ -10,9 +10,11 @@
 
 package pokemon;
 
+import java.io.Serializable;
+
 import Model.RarePokemon;
 
-public class Dragonair extends RarePokemon{
+public class Dragonair extends RarePokemon implements Serializable {
 	private static String name = "Dragonair";
 	private static String type = "Dragon";
 	private static String info = "<html>Its crystalline orbs appear to give this POKéMON<br>the power to freely control the weather.</html>";

@@ -9,9 +9,10 @@
 
 package Model;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public abstract class Pokemon {
+public abstract class Pokemon implements Serializable {
 	private int catchRate, hp, runProbability, maxHP, speed;
 	private double catchProbability, encounterRate;
 	private String name, type, pokePicName, info;
@@ -140,7 +141,7 @@ public abstract class Pokemon {
 	 * Formula from https://www.dragonflycave.com/mechanics/gen-i-safari-zone
 	 */
 	public void calcCatchProbability() {
-		catchProbability = Math.min(catchRate + hp, 151) / 449.5; 
+		catchProbability = Math.min(catchRate - hp, 151) / 449.5; 
 	}
 	
 	/**

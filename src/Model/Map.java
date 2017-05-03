@@ -200,6 +200,15 @@ public class Map {
 		return tempMap[y][x];
 	}
 	
+	public int[][] getMap() {
+		return tempMap;
+	}
+	
+	public void setMap(int[][] newMap) {
+		this.currentMap = newMap;
+		this.tempMap = newMap;
+	}
+	
 	//initializes all lists currently stored in the trainer
 	public void initCollections() {
 		commonCollection = new ArrayList<CommonPokemon>();
