@@ -15,6 +15,7 @@ import javax.swing.Timer;
 import Model.Map;
 import Model.Pokemon;
 import Model.Trainer;
+import javafx.application.Platform;
 import songplayer.AudioFilePlayer;
 
 public class BattleView extends JPanel implements Observer {
@@ -89,8 +90,8 @@ public class BattleView extends JPanel implements Observer {
 	private void setButtonsClickable(boolean canClick) {
 		this.ballButton.setEnabled(canClick);
 		this.baitButton.setEnabled(canClick);
-		this.ballButton.setEnabled(canClick);
-		this.ballButton.setEnabled(canClick);
+		this.rockButton.setEnabled(canClick);
+		this.runButton.setEnabled(canClick);
 	}
 		
 	private class ButtonListener implements ActionListener {
@@ -100,6 +101,8 @@ public class BattleView extends JPanel implements Observer {
 //		Timer timer = new Timer(flags, null);
 		int count = 0; //counter for player sprite
 		int count2 = 0; //counter for aerial object sprite
+		
+		
 		
 		private Timer makeTimer(String str){
 			return new Timer(275, new ActionListener() {
@@ -145,31 +148,28 @@ public class BattleView extends JPanel implements Observer {
 			
 			Pokemon currentPokemon = theTrainer.getCurrentPokemon();
 			
+			RunThreads runner = new RunThreads();
+			Thread buttonWaiter = new Thread(runner);
+			
+			
 			if (buttonClicked.getText().equals("Rock")) {
-				setButtonsClickable(aerialAniDone);
+				buttonWaiter.start();
 				Timer rockTimer = makeTimer("Rock");
 				rockTimer.start();
 				aerialTimer.start();
  				theTrainer.getCurrentPokemon().useItem(theTrainer.getItemsList().get(1));
- 				while(!aerialAniDone) {
-				}
- 				setButtonsClickable(aerialAniDone);
- 				
-				
 			} 
+			
 			if (buttonClicked.getText().equals("Bait")) {
-				setButtonsClickable(aerialAniDone);
+				buttonWaiter.start();
 				Timer baitTimer = makeTimer("Bait");
 				baitTimer.start();
 				aerialTimer.start();
  				theTrainer.getCurrentPokemon().useItem(theTrainer.getItemsList().get(2));
- 				while(!aerialAniDone) {
-				}
- 				setButtonsClickable(aerialAniDone);
-				
 			}
+			
 			if (buttonClicked.getText().equals("Pokeball")) {
-				setButtonsClickable(aerialAniDone);
+				buttonWaiter.start();
 				Timer ballTimer = makeTimer("Pokeball");
 				ballTimer.start();
 				aerialTimer.start();
@@ -182,22 +182,43 @@ public class BattleView extends JPanel implements Observer {
 				//int pokemonCatchRate = (int)
 				Random random = new Random();
 				int theRand = random.nextInt(450);
+				double maybeCatch = theRand / 1000.0;
 				double catchProb = currentPokemon.getCatchProbability();
-				System.out.println("RNG = " + theRand + " CatchProb = " + catchProb);
-				if (theRand <= catchProb) {
+				System.out.println("RNG = " + maybeCatch + " CatchProb = " + catchProb);
+				if (maybeCatch <= catchProb) {
 					theTrainer.getPokedex().add(currentPokemon);
 					//pokemon into pokeball animation
 					//theTrainer.ran();
 					System.out.println(theTrainer.getPokedex().get(1));
 				}
-				setButtonsClickable(aerialAniDone);
+				//setButtonsClickable(aerialAniDone);
 				theTrainer.throwSafariBall();
 			}
+			
 			if (buttonClicked.getText().equals("Run")) {
 				theTrainer.ran();
 			}
 			
 		}		
+	}
+	
+	private class RunThreads implements Runnable {
+
+		@Override
+		public void run() {
+			setButtonsClickable(false);
+			try {
+				 synchronized(this) {
+					 this.wait(2000);
+				 }
+	
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			setButtonsClickable(true);
+		}
+		
 	}
 
 }
