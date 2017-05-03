@@ -89,14 +89,6 @@ public class TrainerPanel extends JPanel {
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(550, 100));
 		panel.setLocation(200, 200);
-		
-//		model = new ItemTableModel();
-//		itemTable = new JTable(model);
-//		scrollPane = new JScrollPane(itemTable);
-//		scrollPane.setPreferredSize(new Dimension(550, 100));
-//		scrollPane.setLocation(200, 200);
-//		panel.add(scrollPane);
-//		this.add(panel, BorderLayout.SOUTH);
 	}
 
 	private class ItemTableModel implements TableModel {
