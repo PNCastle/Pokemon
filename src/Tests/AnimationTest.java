@@ -76,7 +76,7 @@ public class AnimationTest {
 		}
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		theMap.draw(g);
-		Tile testTile = new Tile(image, false, false, false);
+		Tile testTile = new Tile(image, false, false, false, false);
 		testTile.getImage();
 		
 		//theMap.toString(); 

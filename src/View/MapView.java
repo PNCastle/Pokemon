@@ -168,4 +168,8 @@ public class MapView extends JPanel implements Observer {
 	public Trainer getTrainer() {
 		return mapPanel.getTrainer();
 	}
+
+	public void setWinCondition(String string) {
+		mapPanel.setWinCondition(string);
+	}
 }
