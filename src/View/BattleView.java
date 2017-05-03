@@ -85,7 +85,13 @@ public class BattleView extends JPanel implements Observer {
 		
 	}
 	
-	
+	private void setButtonsClickable(boolean canClick) {
+		this.ballButton.setEnabled(canClick);
+		this.baitButton.setEnabled(canClick);
+		this.ballButton.setEnabled(canClick);
+		this.ballButton.setEnabled(canClick);
+	}
+		
 	private class ButtonListener implements ActionListener {
 		
 
@@ -124,19 +130,7 @@ public class BattleView extends JPanel implements Observer {
 						((Timer) e.getSource()).stop();
 						count2 = 0;
 						battlePanel.doneThrowingAerial();
-						aerialAniDone = true;
-						// if (action.compareTo("Rock") == 0) {
-						// 		useItem(rock or bait)
-						
-						// }
-						// if(pokeball)
-						// 		
-						//
-						// if (theTrainer.getCurrentPokemon.willRun)
-						//		battleEnd
-						
-						
-						
+						aerialAniDone = true;						
 					}
 				}
 			}
@@ -147,29 +141,40 @@ public class BattleView extends JPanel implements Observer {
 		public void actionPerformed(ActionEvent arg0) {
 			JButton buttonClicked = (JButton) arg0.getSource();
 			
+			Pokemon currentPokemon = theTrainer.getCurrentPokemon();
 			
 			if (buttonClicked.getText().equals("Rock")) {
+				setButtonsClickable(aerialAniDone);
 				Timer rockTimer = makeTimer("Rock");
 				rockTimer.start();
 				aerialTimer.start();
-//				aerialTimer.is
+ 				theTrainer.getCurrentPokemon().useItem(theTrainer.getItemsList().get(1));
+ 				while(!aerialAniDone) {
+				}
+ 				setButtonsClickable(aerialAniDone);
+ 				
+				
 			} 
 			if (buttonClicked.getText().equals("Bait")) {
+				setButtonsClickable(aerialAniDone);
 				Timer baitTimer = makeTimer("Bait");
 				baitTimer.start();
 				aerialTimer.start();
+ 				theTrainer.getCurrentPokemon().useItem(theTrainer.getItemsList().get(2));
+ 				while(!aerialAniDone) {
+				}
+ 				setButtonsClickable(aerialAniDone);
+				
 			}
 			if (buttonClicked.getText().equals("Pokeball")) {
+				setButtonsClickable(aerialAniDone);
 				Timer ballTimer = makeTimer("Pokeball");
 				ballTimer.start();
 				aerialTimer.start();
 				
 				while(!aerialAniDone) {
-					System.out.println("foreverrrrrrrrr");
 				}
-				
-				Pokemon currentPokemon = theTrainer.getCurrentPokemon();
-				
+								
 				theTrainer.getCurrentPokemon().useItem(theTrainer.getItemsList().get(0));
 				
 				//int pokemonCatchRate = (int)
@@ -179,13 +184,11 @@ public class BattleView extends JPanel implements Observer {
 				System.out.println("RNG = " + theRand + " CatchProb = " + catchProb);
 				if (theRand <= 500) {
 					theTrainer.getPokedex().add(currentPokemon);
+					//pokemon into pokeball animation
+					//theTrainer.ran();
 					System.out.println(theTrainer.getPokedex().get(1));
 				}
-
-				//useItem(pokeball)
-				//		double random = new random;
-				//		if (random > pokemon.getCatchProb)
-				
+				setButtonsClickable(aerialAniDone);
 				theTrainer.throwSafariBall();
 			}
 			if (buttonClicked.getText().equals("Run")) {
