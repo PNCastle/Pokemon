@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -10,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.Timer;
 
 import Model.Map;
@@ -23,6 +25,7 @@ public class BattleView extends JPanel implements Observer {
 	private Trainer theTrainer;
 	
 	private BattlePanel battlePanel;
+	private JTextArea battleInfo;
 	private JButton ballButton;
 	private JButton rockButton;
 	private JButton baitButton;
@@ -43,16 +46,23 @@ public class BattleView extends JPanel implements Observer {
 		rockButton = new JButton("Rock");
 		baitButton = new JButton("Bait");
 		runButton = new JButton("Run");
+		battleInfo = new JTextArea();
+		
+		battleInfo.setSize(550, 100);
+		battleInfo.setLocation(325, 600);
+		battleInfo.setText("temp");
+		battleInfo.setVisible(true);
+		battleInfo.setFont(new Font("Consolas", Font.BOLD, 32));
 		
 		ballButton.setSize(100, 50);
 		rockButton.setSize(100, 50);
 		baitButton.setSize(100, 50);
 		runButton.setSize(100, 50);
 		
-		baitButton.setLocation(325, 600);
-		ballButton.setLocation(425, 600);
-		rockButton.setLocation(325, 650);
-		runButton.setLocation(425, 650);
+		baitButton.setLocation(125, 600);
+		ballButton.setLocation(225, 600);
+		rockButton.setLocation(125, 650);
+		runButton.setLocation(225, 650);
 		
 		baitButton.setVisible(true);
 		rockButton.setVisible(true);
@@ -69,6 +79,7 @@ public class BattleView extends JPanel implements Observer {
 		this.add(ballButton);
 		this.add(rockButton);
 		this.add(runButton);
+		this.add(battleInfo);
 		
 	//	update(theTrainer, 0);
 		
@@ -83,7 +94,7 @@ public class BattleView extends JPanel implements Observer {
 		if (anInt == -1) {
 			battlePanel.setToSpawn(theTrainer.getCurrentPokemonID());
 			battlePanel.makePokemon();
-			System.out.println("A wild " + theTrainer.getCurrentPokemon().getName() 
+			battleInfo.setText("\n  A wild " + theTrainer.getCurrentPokemon().getName() 
 								+ " appeared!");
 		}
 		
@@ -165,7 +176,7 @@ public class BattleView extends JPanel implements Observer {
  				theTrainer.getCurrentPokemon().useItem(theTrainer.getItemsList().get(1));
  				if (currentPokemon.pokemonRun()) {
 					animWaiter.start();
-					System.out.println(currentPokemon.getName() + " ran away!");
+					battleInfo.setText("\n  "+currentPokemon.getName() + " ran away!");
 				}
 			} 
 			
@@ -177,7 +188,7 @@ public class BattleView extends JPanel implements Observer {
  				theTrainer.getCurrentPokemon().useItem(theTrainer.getItemsList().get(2));
  				if (currentPokemon.pokemonRun()) {
 					animWaiter.start();
-					System.out.println(currentPokemon.getName() + " ran away!");
+					battleInfo.setText("\n  "+currentPokemon.getName() + " ran away!");
 				}
 			}
 			
@@ -202,12 +213,12 @@ public class BattleView extends JPanel implements Observer {
 					//pokemon into pokeball animation
 					animWaiter.start();
 					theTrainer.getPokedex().add(currentPokemon);
-					System.out.println("You caught " + currentPokemon.getName() + "!");
+					battleInfo.setText("\n  "+"You caught " + currentPokemon.getName() + "!");
 					
 				} else
 				if (currentPokemon.pokemonRun()) {
 					animWaiter.start();
-					System.out.println(currentPokemon.getName() + " ran away!");
+					battleInfo.setText("\n  "+currentPokemon.getName() + " ran away!");
 				}
 			}
 			
