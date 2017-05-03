@@ -180,7 +180,7 @@ public class BattleView extends JPanel implements Observer {
 				//int pokemonCatchRate = (int)
 				Random random = new Random();
 				int theRand = random.nextInt(450);
-				int catchProb = currentPokemon.getCatchProbability();
+				double catchProb = currentPokemon.getCatchProbability();
 				System.out.println("RNG = " + theRand + " CatchProb = " + catchProb);
 				if (theRand <= 500) {
 					theTrainer.getPokedex().add(currentPokemon);

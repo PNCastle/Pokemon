@@ -60,6 +60,8 @@ public class PokedexPanel extends JPanel {
 		this.theTrainer = thePokedex;
 		currentPokemon = thePokedex.getPokedex().get(0);
 		
+		System.out.println(currentPokemon.getCatchProbability());
+		
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(750, 300));
 		setBackground(Color.WHITE);
