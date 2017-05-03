@@ -636,7 +636,7 @@ public class Trainer extends Observable {
 			this.isOnBike = true;
 			this.acceleration = 2;
 			this.maxVelocity = 20;
-			this.friction = .1;
+			this.friction = .5;
 			//change images
 		}
 	}
