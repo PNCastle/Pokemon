@@ -7,13 +7,16 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import org.junit.Test;
 
 import Model.Animation;
+import Model.Item;
 import Model.Map;
+import Model.Pokemon;
 import Model.Tile;
 import Model.Trainer;
 
@@ -21,7 +24,7 @@ public class AnimationAndTrainerTest {
 	
 	private String mapFile = "mapTwo.txt";
 	private String imageFile = "resizedTiles2.png";
-	private Object[] toLoad = new Object[9];
+	private Object[] toLoad = new Object[12];
 
 	@Test
 	public void test() {
@@ -38,6 +41,9 @@ public class AnimationAndTrainerTest {
 		toLoad[6] = false;
 		toLoad[7] = false;
 		toLoad[8] = true;
+		toLoad[9] = new ArrayList<Item>();
+		toLoad[10] = new ArrayList<Pokemon>();
+		toLoad[11] = theMap.getMap();
 	
 		ashe.getCurrentPokemon();
 		ashe.getItemsList();
@@ -53,6 +59,11 @@ public class AnimationAndTrainerTest {
 		ashe.dismountBike();
 		ashe.mountBike();
 		
+		ashe.getItemsList().get(3).addOne();
+		ashe.mountBike();
+		ashe.dismountBike();
+		
+		ashe.getCurrentPokemonID();
 		
 		ashe.setUp(true);
 		ashe.update();

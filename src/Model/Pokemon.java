@@ -38,18 +38,6 @@ public abstract class Pokemon implements Comparable<Pokemon>, Serializable {
 	public String getName() {
 		return name;
 	}
-	
-	public String getInfo() {
-		return info;
-	}
-	
-	public String getType() {
-		return type;
-	}
-	
-	public String getPicFileName() {
-		return pokePicName;
-	}
 
 	public int getHP() {
 		return hp;
@@ -181,6 +169,9 @@ public abstract class Pokemon implements Comparable<Pokemon>, Serializable {
 	}
 	
 	public abstract int getPokemonID();
+	public abstract String getPicFileName();
+	public abstract String getInfo();
+	public abstract String getType();
 	
 	@Override
 	public int compareTo(Pokemon other){

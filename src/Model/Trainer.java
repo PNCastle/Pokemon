@@ -145,6 +145,9 @@ public class Trainer extends Observable {
 		gameOver = false;
 		currentPokemon = null;
 		initCollections();
+		
+		Collections.shuffle(commonCollection);
+		currentPokemon = commonCollection.get(0);
 
 		try {
 			walkingLeft = new BufferedImage[3];
@@ -212,6 +215,9 @@ public class Trainer extends Observable {
 		
 		items = (ArrayList<Item>) toLoad[9];
 		pokeDex = (ArrayList<Pokemon>) toLoad[10];
+		
+		Collections.shuffle(commonCollection);
+		currentPokemon = commonCollection.get(0);
 
 		try {
 			walkingLeft = new BufferedImage[3];
@@ -636,7 +642,7 @@ public class Trainer extends Observable {
 			this.isOnBike = true;
 			this.acceleration = 2;
 			this.maxVelocity = 20;
-			this.friction = .5;
+			this.friction = .1;
 			//change images
 		}
 	}

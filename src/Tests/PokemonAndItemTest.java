@@ -39,6 +39,8 @@ public class PokemonAndItemTest {
 		assertEquals("Potion", potion.toString());
 		assertEquals("Rock", rock.toString());
 
+		assertEquals("Rock", rock.getName());
+		
 		assertFalse(potion.isThrowable());
 		assertTrue(rock.isThrowable());
 		assertTrue(bait.isThrowable());
@@ -51,6 +53,10 @@ public class PokemonAndItemTest {
 		}
 
 		assertEquals(0, safariBall.amount());
+		
+		safariBall.addOne();
+		assertEquals(1, safariBall.amount());
+		safariBall.useOne();
 
 		assertFalse(safariBall.useOne());
 		assertTrue(rock.useOne());
