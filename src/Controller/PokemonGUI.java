@@ -216,6 +216,9 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 	// game, and others
 	private void setUpMenus() {
 		JMenuItem menu = new JMenu("Options");
+		JMenuItem controls = new JMenu("Controls");
+		JMenuItem theControls = new JMenuItem("Arrow keys to move -- \'B\' to use bike");
+		controls.add(theControls);
 		JMenuItem newGame = new JMenuItem("New Game");
 		menu.add(newGame);
 		JMenuItem saveGame = new JMenuItem("Save Game");
@@ -236,6 +239,7 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 		JMenuItem hidePokedex = new JMenuItem("Hide Pokedex");
 		pokedex.add(viewPokedex);
 		pokedex.add(hidePokedex);
+		menu.add(controls);
 
 		JMenuItem stepCount = new JMenu("Step Count: " + mapView.getTrainer().getStepCount());
 		stepCount.setEnabled(false);
@@ -248,6 +252,7 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 		menuBar.add(stepCount);
 
 		// add listeners
+		//controls.addActionListener(this);
 		menu.addActionListener(this);
 		newGame.addActionListener(this);
 		saveGame.addActionListener(this);

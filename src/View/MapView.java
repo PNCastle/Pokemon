@@ -31,7 +31,7 @@ public class MapView extends JPanel implements Observer {
 	private TrainerPanel trainerPanel;
 	private PokedexPanel pokedexPanel;
 	
-	private boolean inBattle;
+	private boolean inBattle; //lets us know if currently in battle
 	
 	//ctor
 	//initializes stepCount and mapPanel
@@ -54,6 +54,7 @@ public class MapView extends JPanel implements Observer {
 		pokedexPanel = new PokedexPanel(getTrainer());
 		pokedexPanel.setLocation(125, 700);
 		pokedexPanel.setVisible(false);
+		
 		
 		this.add(mapPanel, BorderLayout.NORTH);
 		this.add(trainerPanel, BorderLayout.PAGE_END);
@@ -89,6 +90,7 @@ public class MapView extends JPanel implements Observer {
 		inBattle = false;
 	}
 	
+	//transition animation that runs when we go from mapView to battleView
 	public void animateOut(PokemonGUI gui, BattleView battleView) {
 		mapPanel.setLocation(125, 0);
 		
@@ -110,12 +112,14 @@ public class MapView extends JPanel implements Observer {
 		}
 	}
 	
+	//enables the map panel
 	public void enableMapPanel() {
 		mapPanel.mapMode();
 		mapPanel.setEnabled(true);
 		inBattle = false;
 	}
 	
+	//getter for inBattle boolean
 	public boolean inBattle() {
 		return inBattle;
 	}
@@ -169,6 +173,7 @@ public class MapView extends JPanel implements Observer {
 		return mapPanel.getTrainer();
 	}
 
+	//sets the win condition variable in map panel when the player selects from JOption Pane
 	public void setWinCondition(String string) {
 		mapPanel.setWinCondition(string);
 	}
