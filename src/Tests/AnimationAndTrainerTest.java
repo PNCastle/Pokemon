@@ -127,7 +127,7 @@ public class AnimationAndTrainerTest {
 		Map theMap = new Map(mapFile, 50);
 		theMap.loadTiles(imageFile);
 		Trainer ashe = new Trainer(theMap);
-		ashe.getMap().removeItem(38, 23);
+		ashe.getMap().removeItem(48, 23);
 		BufferedImage image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		ashe.draw(g);
