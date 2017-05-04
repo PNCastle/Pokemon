@@ -1,6 +1,8 @@
 package songplayer;
 
 /**
+ * Taken from the Jukebox project
+ * 
  * This one method interface allows any new type to become 
  * registered as a listener to end of song event.  
  * 
