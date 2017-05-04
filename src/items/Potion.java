@@ -17,7 +17,7 @@ public class Potion extends Item implements Serializable {
 	private static String name = "Potion";
 	
 	public Potion() {
-		super(false, 2, 15, 0, name);
+		super(false, 1000, 15, 0, name);
 	}
 	
 	@Override

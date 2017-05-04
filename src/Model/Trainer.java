@@ -87,6 +87,8 @@ public class Trainer extends Observable {
 	 * End movement variables
 	 */
 
+	//This object is created to store necessary game features,
+	//So that our system is persistent
 	public Object[] toSerialize() {
 	    Object[] toSerialize = new Object[12];
 	    toSerialize[0] = x;
@@ -112,47 +114,51 @@ public class Trainer extends Observable {
 	private int stepsTaken; // number of steps the trainer has taken
 	private boolean gameOver; // true when game is over
 
-	// the trainer stores a
-	// MOVE SOME LISTS TO MAP LATER
-	private ArrayList<Pokemon> pokeDex;
-	private ArrayList<CommonPokemon> commonCollection;
-	private ArrayList<UncommonPokemon> uncommonCollection;
-	private ArrayList<RarePokemon> rareCollection;
-	private ArrayList<Item> items;
+	private ArrayList<Pokemon> pokeDex; //list of pokemon that trainer has caught
+	private ArrayList<CommonPokemon> commonCollection; //list of common pokemon that exist in the game
+	private ArrayList<UncommonPokemon> uncommonCollection; //list of uncommon pokemon that exist in the game
+	private ArrayList<RarePokemon> rareCollection; //list of rare pokemon that exist in the game
+	private ArrayList<Item> items; //list of items that trainer currently has
 
-	// move this variable to map later
+	// this is set to pokemon that trainer encounters
+	//i.e. the pokemon that trainer will battle
 	private Pokemon currentPokemon;
 	/*
 	 * End hierarchy variables
 	 */
 
+	//ctor for trainer
+	//The trainer is passed a map as parameter and stored as an instance variable to trainer
+	//The trainers movement variables are set here such as:
+	//starting position, speed, acceleration, friction, and other booleans
 	public Trainer(Map map) {
 
-		this.map = map;
+		this.map = map; //store instance of map
 
-		this.width = 50;
-		this.height = 50;
+		this.width = 50; //trainers width
+		this.height = 50; //trainers height
 
-		this.x = 78 / 2 * width;
-		this.y = 110 / 2 * height;
-		this.dx = 0;
-		this.dy = 0;
+		this.x = 78 / 2 * width; //trainers starting x position
+		this.y = 110 / 2 * height;//trainers starting y position
+		this.dx = 0; //set to zero since on construction no movement in x direction
+		this.dy = 0; //set to zero since on construction no movement in y direction
 
-		isOnBike = false;
-		acceleration = 1;
+		isOnBike = false; //trainer starts off bike
+		acceleration = 1; //set acceleration, velocity, and friction
 		maxVelocity = 7;
 		friction = .55;
 
-		currRow = map.getRowTileIndex((int) y);
+		currRow = map.getRowTileIndex((int) y); //initialize currRow & currCol
 		currCol = map.getColTileIndex((int) x);
-		stepsTaken = 0;
+		stepsTaken = 0; //trainers begins with 0 steps taken
 		gameOver = false;
-		currentPokemon = null;
+		currentPokemon = null; //there is no currentPokemon upon construction
 		initCollections();
 		
 		Collections.shuffle(commonCollection);
 		currentPokemon = commonCollection.get(0);
 
+		//load running and biking sprites and set current images to running
 		try {
 			walkingLeft = new BufferedImage[3];
 			walkingRight = new BufferedImage[3];
@@ -184,6 +190,8 @@ public class Trainer extends Observable {
 			e.printStackTrace();
 		}
 
+		//instantiate an instance of animation class
+		//set trainer facing down upon construction
 		animation = new Animation();
 		animation.setFrames(standingDown);
 
@@ -257,6 +265,8 @@ public class Trainer extends Observable {
 		animation.setFrames(standingDown);
 	}
 
+	//this method is used to change the sprites of the trainer
+	//this method is used to have trainer mount and dismount bike
 	public void switchImages(BufferedImage toSwitch) {
 		try {
 			standingRight[0] = toSwitch.getSubimage(200, 50, width, height);
@@ -295,6 +305,7 @@ public class Trainer extends Observable {
 		items.add(new Rock());
 		items.add(new Bait());
 		items.add(new Bike());
+		items.add(new Potion());
 
 		// Testing purposes?
 		pokeDex.add(new Pikachu(25));
@@ -314,10 +325,13 @@ public class Trainer extends Observable {
 		rareCollection.add(new Dragonair(148));
 	}
 
+	//throws a pokeball
+	//decrements number of pokeballs by 1
 	public void throwSafariBall() {
 		items.get(0).useOne();
 	}
 
+	//return number of pokeballs trainer currently has
 	public int safariBallCount() {
 		return items.get(0).amount();
 	}
@@ -437,6 +451,8 @@ public class Trainer extends Observable {
 		// position are blocked
 		calculateNeighbors(to_x, to_y);
 
+		//when a new cell of map is reached update steps taken
+		//and check if the trainer encountered a pokemon
 		if (prevRow != currRow) {
 			stepsTaken++;
 			setChanged();
@@ -453,6 +469,8 @@ public class Trainer extends Observable {
 				}
 			}
 		}
+		//when a new cell of map is reached update steps taken
+		//and check if the trainer encountered a pokemon
 		if (prevCol != currCol) {
 			stepsTaken++;
 			setChanged();
@@ -522,11 +540,14 @@ public class Trainer extends Observable {
 		// currCol = map.getColTileIndex((int) x);
 		// currRow = map.getRowTileIndex((int) y);
 
+		//if the trainer encounters a cell with a pokeball then,
+		//add one pokeball to the trainers item list and remove the item from the map
 		if (hasItem) {
 			this.items.get(0).addOne();
 			map.removeItem(map.getRowTileIndex((int) y), map.getColTileIndex((int) x));
 		}
-
+		//if the trainer encounters a cell with a bike then,
+		//add one bike to the trainers item list and remove the item from the map
 		if (hasBike) {
 			this.items.get(3).addOne();
 			map.removeItem(map.getRowTileIndex((int) y), map.getColTileIndex((int) x));
@@ -575,6 +596,7 @@ public class Trainer extends Observable {
 		// checkWinConditions();
 	}
 
+	//this method is used to set currentPokemon when our spawn probability is high enough
 	public void setCurrentPokemon(double prob) {
 		if (prob >= .975) {
 			Collections.shuffle(rareCollection);
@@ -655,29 +677,38 @@ public class Trainer extends Observable {
 		this.dx = vel;
 	}
 
+	//trainer ran from battle
 	public void ran() {
 		setChanged();
+		//-2 is passed so that appropriate observer knows we are transitioning
+		//from battleView to mapView
 		notifyObservers(-2);
-
 	}
 
+	//getter for currentPokemon
 	public Pokemon getCurrentPokemon() {
 		return this.currentPokemon;
 	}
 
+	//getter for currentPokemon's ID
 	public int getCurrentPokemonID() {
 		return this.currentPokemon.getPokemonID();
 
 	}
 
+	//getter for item list
 	public ArrayList<Item> getItemsList() {
 		return items;
 	}
 
+	//getter that returns if trainer is currently on bike
 	public boolean isOnBike() {
 		return this.isOnBike;
 	}
 
+	//method to dismount bike
+	//sets speed variables back to walking rates
+	//changes sprite to walking sprite
 	public void dismountBike() {
 		this.isOnBike = false;
 		this.acceleration = 1;
@@ -686,6 +717,9 @@ public class Trainer extends Observable {
 		switchImages(trainerRunning);
 	}
 
+	//method to mount bike
+	//sets speed variables to bike rates
+	//sets sprite to bike sprites
 	public void mountBike() {
 		if (this.items.get(3).amount() != 0) {
 			this.isOnBike = true;
@@ -697,6 +731,8 @@ public class Trainer extends Observable {
 		}
 	}
 	
+	//getter for map instance variable
+	//used for testing purposes
 	public Map getMap(){
 		return this.map;
 	}
