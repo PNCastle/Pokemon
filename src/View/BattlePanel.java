@@ -232,13 +232,10 @@ public class BattlePanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		// if(aerial != null){
 		g.drawImage(backDrop.getImage(), 0, 0, null);
 		g.drawImage(aerial.getImage(), 0, 0, null);
-		// }
 		g.drawImage(animation.getImage(), 0, 355, null);
 		g.drawImage(pokemonAni.getImage(), 435, 200, null);
-
 	}
 
 	public void throwAerial() {

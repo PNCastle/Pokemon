@@ -123,7 +123,7 @@ public class BattleView extends JPanel implements Observer {
 				public void actionPerformed(ActionEvent e) {
 					count++;
 					battlePanel.throwObject(str);
-					repaint();
+					battlePanel.repaint();
 					{
 						if(count == 5) {
 							((Timer) e.getSource()).stop();
@@ -142,7 +142,7 @@ public class BattleView extends JPanel implements Observer {
 				aerialAniDone = false;
 				count2++;
 				battlePanel.throwAerial();
-				repaint();
+				battlePanel.repaint();
 				{
 					if(count2 == 5){
 						((Timer) e.getSource()).stop();
