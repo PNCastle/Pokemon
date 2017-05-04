@@ -39,6 +39,9 @@ public class TrainerPanel extends JPanel {
 
 	JLabel trainerCard;
 	JLabel name;
+	JLabel pokemonNum;
+	JLabel pokemonMeet;
+	JLabel info;
 	JLabel pokedex;
 
 	JPanel scroll;
@@ -63,7 +66,7 @@ public class TrainerPanel extends JPanel {
 		}
 
 		trainerCard = new JLabel("Trainer Card");
-		trainerCard.setFont(new Font("Helvetica", Font.BOLD, 30));
+		trainerCard.setFont(new Font("Helvetica", Font.BOLD, 25));
 		trainerCard.setSize(new Dimension(600, 30));
 		trainerCard.setLocation(515, 20);
 		this.add(trainerCard);
@@ -80,23 +83,28 @@ public class TrainerPanel extends JPanel {
 		scrollPane.setLocation(0, 0);
 		scrollPane.setSize(300, 300);
 		
-		name = new JLabel("Name            Ash");
-		name.setFont(new Font("Herculanum", Font.BOLD, 28));
-		name.setSize(new Dimension(600, 30));
-		name.setLocation(490, 60);
+		name = new JLabel("Name : Ash");
+		name.setFont(new Font("Herculanum", Font.BOLD, 20));
+		name.setSize(new Dimension(600, 25));
+		name.setLocation(490, 50);
 		this.add(name);
 
+		pokemonNum = new JLabel("Pokemon Num : " + (theTrainer.getPokedex().size() + 1));
+		pokemonNum.setFont(new Font("Herculanum", Font.BOLD, 20));
+		pokemonNum.setSize(new Dimension(600, 30));
+		pokemonNum.setLocation(490, 70);
+		this.add(pokemonNum);
+		
+		info = new JLabel("<html>Trainer INFO : <br> Ash was a U of A student,<br>majored in Pokemon training.<br>After graduation, he travels<br>all of the world to become<br>the greatest Pokemon<br>trainer.</html>");
+		info.setFont(new Font("Herculanum", Font.BOLD, 18));
+		info.setSize(new Dimension(600, 190));
+		info.setLocation(495, 95);
+		this.add(info);
+		
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(550, 100));
 		panel.setLocation(200, 200);
 		
-//		model = new ItemTableModel();
-//		itemTable = new JTable(model);
-//		scrollPane = new JScrollPane(itemTable);
-//		scrollPane.setPreferredSize(new Dimension(550, 100));
-//		scrollPane.setLocation(200, 200);
-//		panel.add(scrollPane);
-//		this.add(panel, BorderLayout.SOUTH);
 	}
 
 	private class ItemTableModel implements TableModel {
