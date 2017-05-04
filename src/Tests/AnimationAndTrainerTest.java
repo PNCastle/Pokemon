@@ -17,10 +17,10 @@ import Model.Map;
 import Model.Tile;
 import Model.Trainer;
 
-public class AnimationTest {
+public class AnimationAndTrainerTest {
 	
 	private String mapFile = "mapTwo.txt";
-	private String imageFile = "resizedTiles.png";
+	private String imageFile = "resizedTiles2.png";
 	private Object[] toLoad = new Object[9];
 
 	@Test
@@ -39,6 +39,20 @@ public class AnimationTest {
 		toLoad[7] = false;
 		toLoad[8] = true;
 	
+		ashe.getCurrentPokemon();
+		ashe.getItemsList();
+		ashe.getPokedex();
+		ashe.ran();
+		assertEquals(0, ashe.getStepCount());
+		assertEquals(30, ashe.safariBallCount());
+		
+		ashe.throwSafariBall();
+		assertEquals(29, ashe.safariBallCount());
+		
+		assertFalse(ashe.isOnBike());
+		ashe.dismountBike();
+		ashe.mountBike();
+		
 		
 		ashe.setUp(true);
 		ashe.update();
@@ -76,8 +90,6 @@ public class AnimationTest {
 		}
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		theMap.draw(g);
-		Tile testTile = new Tile(image, false, false, false, false);
-		testTile.getImage();
 		
 		//theMap.toString(); 
 		theMap.getColTileIndex(5);
