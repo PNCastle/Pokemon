@@ -56,6 +56,7 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 	private Thread battleMusic;
 	private EndOfSongListener mapMusicListener;
 	private EndOfSongListener battleMusicListener;
+	private String winCondition;
 
 	// simple main method
 	public static void main(String args[]) {
@@ -92,6 +93,7 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 							Object[] toLoad = (Object[]) ois.readObject();
 							mapView = new MapView(WIDTH, HEIGHT, toLoad);
 							battleView = new BattleView(WIDTH, HEIGHT);
+							mapView.setWinCondition((String) toLoad[12]);
 						} catch (ClassNotFoundException e) {
 							e.printStackTrace();
 							System.err.println("Could not read persistence file");
@@ -119,6 +121,20 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 					mapView = new MapView(WIDTH, HEIGHT, "mapOne.txt");
 				}
 				battleView = new BattleView(WIDTH, HEIGHT);
+				
+				// choose your win condition
+				Object[] winConditionChoice = { "Catch one of each Pokemon", "Catch 20 total Pokemon"};
+				int retWinCond = JOptionPane.showOptionDialog(null, "Choose win condition.",
+						"Select an Option", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, winConditionChoice,
+						null);
+				if(retWinCond == JOptionPane.YES_OPTION){
+					winCondition = "catchEmAll";
+					mapView.setWinCondition("catchEmAll");
+				}
+				else{
+					winCondition = "catchTwenty";
+					mapView.setWinCondition("catchTwenty");
+				}
 			}
 		} else {
 			// else choose other map
@@ -133,17 +149,20 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 				mapView = new MapView(WIDTH, HEIGHT, "mapOne.txt");
 			}
 			battleView = new BattleView(WIDTH, HEIGHT);
-		}
-		// choose your win condition
-		Object[] winConditionChoice = { "Catch one of each Pokemon", "Catch 20 total Pokemon"};
-		int retWinCond = JOptionPane.showOptionDialog(null, "Choose win condition.",
-				"Select an Option", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, winConditionChoice,
-				null);
-		if(retWinCond == JOptionPane.YES_OPTION){
-			mapView.setWinCondition("catchEmAll");
-		}
-		else{
-			mapView.setWinCondition("catchTwenty");
+			
+			// choose your win condition
+			Object[] winConditionChoice = { "Catch one of each Pokemon", "Catch 20 total Pokemon"};
+			int retWinCond = JOptionPane.showOptionDialog(null, "Choose win condition.",
+					"Select an Option", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, winConditionChoice,
+					null);
+			if(retWinCond == JOptionPane.YES_OPTION){
+				winCondition = "catchEmAll";
+				mapView.setWinCondition("catchEmAll");
+			}
+			else{
+				winCondition = "catchTwenty";
+				mapView.setWinCondition("catchTwenty");
+			}
 		}
 
 		// add mapView as an observer of the trainer
@@ -317,7 +336,9 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 				FileOutputStream fos = new FileOutputStream("persistence");
 				try {
 					ObjectOutputStream oos = new ObjectOutputStream(fos);
-					oos.writeObject(mapView.getTrainer().toSerialize());
+					Object[] toSerialize = mapView.getTrainer().toSerialize();
+					toSerialize[12] = winCondition;
+					oos.writeObject(toSerialize);
 					oos.close();
 				} catch (IOException e1) {
 					System.err.println("Can't write to file");
@@ -500,7 +521,9 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 					FileOutputStream fos = new FileOutputStream("persistence");
 					try {
 						ObjectOutputStream oos = new ObjectOutputStream(fos);
-						oos.writeObject(mapView.getTrainer().toSerialize());
+						Object[] toSerialize = mapView.getTrainer().toSerialize();
+						toSerialize[12] = winCondition;
+						oos.writeObject(toSerialize);
 						oos.close();
 					} catch (IOException e1) {
 						System.err.println("Can't write to file");

@@ -90,7 +90,7 @@ public class Trainer extends Observable {
 	//This object is created to store necessary game features,
 	//So that our system is persistent
 	public Object[] toSerialize() {
-	    Object[] toSerialize = new Object[12];
+	    Object[] toSerialize = new Object[13];
 	    toSerialize[0] = x;
 	    toSerialize[1] = y;
 	    toSerialize[2] = dx;
@@ -459,11 +459,11 @@ public class Trainer extends Observable {
 			notifyObservers(stepsTaken);
 			if (spawning && (dx != 0 || dy != 0) && !isOnBike) {
 				double prob = Math.random();
-				System.out.println(prob);
+//				System.out.println(prob);
 				if (prob >= .85) {
 					this.setCurrentPokemon(prob);
 					// send currentPokemon to battlePanel
-					System.out.println(currentPokemon.getName());
+//					System.out.println(currentPokemon.getName());
 					setChanged();
 					notifyObservers(-1);
 				}
