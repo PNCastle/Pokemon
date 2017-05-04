@@ -141,6 +141,7 @@ public class AnimationAndTrainerTest {
 		ashe.getPokedex().addAll(ashe.getRare());
 		ashe.getPokedex().addAll(ashe.getCommon());
 		ashe.getPokedex().addAll(ashe.getUncommon());
+		
 	}
 
 }
