@@ -43,7 +43,7 @@ public class MapPanel extends JPanel implements Runnable {
 	private BufferedImage image;
 	private Graphics2D g;
 
-	private int FPS = 15; //frames per second
+	private int FPS = 50;
 	private int targetTime = 1000 / FPS;
 
 	//used in transition animation
