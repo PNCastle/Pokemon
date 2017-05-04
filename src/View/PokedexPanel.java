@@ -8,6 +8,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.InputMap;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -25,16 +28,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 import Model.*;
-import pokemon.Abra;
-import pokemon.Dragonair;
-import pokemon.Drowzee;
-import pokemon.Graveler;
-import pokemon.Grimer;
-import pokemon.Haunter;
-import pokemon.Pidgey;
-import pokemon.Pikachu;
-import pokemon.Rapidash;
-import pokemon.Staryu;
+import items.*;
 
 /**
  * Authors: Angel Burr, Paul Castleberry, Issac Kim, Sohyun Kim File:
@@ -53,6 +47,8 @@ public class PokedexPanel extends JPanel {
 	JLabel hp;
 	JLabel info;
 
+	JButton usePotion;
+	
 	JTable itemTable;
 	JScrollPane scrollPane;
 	TableModel model;
@@ -186,10 +182,28 @@ public class PokedexPanel extends JPanel {
 		info.setLocation(310, 190);
 		this.add(info);
 
+		usePotion = new JButton("Use Potion");
+		usePotion.setSize(new Dimension(110, 25));
+		usePotion.setLocation(625, 15);
+		usePotion.addActionListener(new PotionButtonListener());
+		this.add(usePotion);
+		
 		setVisible(true);
 		this.repaint();
 	}
 
+	private class PotionButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (theTrainer.getItemsList().get(4).useOne()){
+				currentPokemon.useItem(new Potion());
+				pokemonInfo();
+			}
+		}
+		
+	}
+	
 	private class ItemTableModel implements TableModel {
 
 		ArrayList<Pokemon> pokemonList;
