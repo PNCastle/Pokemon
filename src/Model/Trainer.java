@@ -575,7 +575,7 @@ public class Trainer extends Observable {
 		// checkWinConditions();
 	}
 
-	private void setCurrentPokemon(double prob) {
+	public void setCurrentPokemon(double prob) {
 		if (prob >= .975) {
 			Collections.shuffle(rareCollection);
 			currentPokemon = rareCollection.get(0);
@@ -695,6 +695,10 @@ public class Trainer extends Observable {
 			this.friction = .5;
 			switchImages(trainerBiking);
 		}
+	}
+	
+	public Map getMap(){
+		return this.map;
 	}
 
 }
