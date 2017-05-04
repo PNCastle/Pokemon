@@ -60,7 +60,7 @@ public class TrainerPanel extends JPanel {
 		setBackground(Color.WHITE);
 
 		try {
-			image = ImageIO.read(new File("trainerLarge.png"));
+			image = ImageIO.read(new File("asheKetchum.png"));
 		} catch (IOException e) {
 			System.err.println("Could not read image file");
 		}
@@ -196,7 +196,7 @@ public class TrainerPanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(image, 300, 0, 209, 300, this);
+		g.drawImage(image, 300, 0, 175, 300, this);
 	}
 
 }
