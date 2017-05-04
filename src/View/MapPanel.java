@@ -29,6 +29,7 @@ import Model.Map;
 import Model.Pokemon;
 import Model.Trainer;
 
+
 public class MapPanel extends JPanel implements Runnable {
 
 	// instance variables
@@ -38,18 +39,24 @@ public class MapPanel extends JPanel implements Runnable {
 	private boolean running;
 	private boolean inBattle;
 
+	//used to get graphics object that is passed to trainer and map, so they can draw themselves
 	private BufferedImage image;
 	private Graphics2D g;
 
-	private int FPS = 15;
+	private int FPS = 15; //frames per second
 	private int targetTime = 1000 / FPS;
 
+	//used in transition animation
 	int red = 255;
 	int green = 255;
 	int blue = 255;
 
+	//mapPanel stores instance of map and trainer so they can draw themselves
 	private Map theMap;
 	private Trainer theTrainer;
+	
+	//win condition set in GUI
+	//allows us to check whether user has won game
 	private String winCondition;
 
 
@@ -92,7 +99,8 @@ public class MapPanel extends JPanel implements Runnable {
 			thread.start();
 		}
 	}
-
+	 
+	//helps handle transition between battleView and mapView
 	public void battleMode() {
 		if (!inBattle) {
 			inBattle = true;
@@ -115,6 +123,7 @@ public class MapPanel extends JPanel implements Runnable {
 		}
 	}
 
+	//helps handle the transition between battleView and mapView
 	public void mapMode() {
 		theTrainer.setUp(false);
 		theTrainer.setDown(false);
@@ -164,7 +173,7 @@ public class MapPanel extends JPanel implements Runnable {
 				e.printStackTrace();
 			}
 
-			// check for lose conditions
+			// check for lose conditions, end game if true
 			if (theTrainer.getStepCount() == 500) {
 				JOptionPane.showMessageDialog(null,
 						"Game Over! 500 steps taken.");
@@ -175,6 +184,7 @@ public class MapPanel extends JPanel implements Runnable {
 						"Game Over! All 30 Safari Balls used.");
 				break;
 			}
+			//check for win condition, end game if true
 			if(didWin()){
 				JOptionPane.showMessageDialog(null, "Game Over, you win!");
 				break;
@@ -218,10 +228,13 @@ public class MapPanel extends JPanel implements Runnable {
 		return theTrainer;
 	}
 
+	//setter method for winCondition variable
 	public void setWinCondition(String string) {
 		this.winCondition = string;
 	}
 	
+	//determines whether user has won game
+	//based on win condition selected at start of game
 	public boolean didWin(){
 		switch(winCondition){
 		case "catchEmAll":
@@ -231,6 +244,8 @@ public class MapPanel extends JPanel implements Runnable {
 		}
 	}
 	
+	//returns true if at least oen of each type of pokemon is caught
+	//there are 10 total types
 	private boolean caughtEmAll(){
 		int howMany = 1;
 		ArrayList<Pokemon> pokedex = theTrainer.getPokedex();
@@ -243,6 +258,7 @@ public class MapPanel extends JPanel implements Runnable {
 		return (howMany == 10);
 	}
 	
+	//returns true if pokedex is greater than or equal to 20 in size
 	private boolean caughtTwenty(){
 		return (theTrainer.getPokedex().size() >= 20);
 	}
