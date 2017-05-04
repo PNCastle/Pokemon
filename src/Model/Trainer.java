@@ -295,6 +295,7 @@ public class Trainer extends Observable {
 		items.add(new Rock());
 		items.add(new Bait());
 		items.add(new Bike());
+		items.add(new Potion());
 
 		// Testing purposes?
 		pokeDex.add(new Pikachu(25));

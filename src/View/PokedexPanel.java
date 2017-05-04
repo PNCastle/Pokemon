@@ -64,12 +64,6 @@ public class PokedexPanel extends JPanel {
 		currentPokemon = thePokedex.getPokedex().get(0);
 		currentRow = 0;
 		
-		currentPokemon.useItem(new Rock());
-		currentPokemon.useItem(new Rock());
-		currentPokemon.useItem(new Rock());
-		currentPokemon.useItem(new Rock());
-		currentPokemon.useItem(new Rock());
-		
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(750, 300));
 		setBackground(Color.WHITE);
@@ -202,7 +196,7 @@ public class PokedexPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (new Potion().useOne()){
+			if (theTrainer.getItemsList().get(4).useOne()){
 				currentPokemon.useItem(new Potion());
 				pokemonInfo();
 			}
