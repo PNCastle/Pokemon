@@ -70,12 +70,14 @@ public class PokedexPanel extends JPanel {
 		// poke info layout
 		this.setLayout(null);
 
+		// set up the trainer pictures
 		try {
 			image = ImageIO.read(new File("trainerLarge.png"));
 		} catch (IOException e) {
 			System.err.println("Could not read image file");
 		}
 
+		// set up the Pokemon List 
 		model = new ItemTableModel();
 		itemTable = new JTable(model);
 		scrollPane = new JScrollPane(itemTable);
@@ -116,6 +118,7 @@ public class PokedexPanel extends JPanel {
 		scrollPane.setLocation(0, 0);
 		scrollPane.setSize(300, 300);
 
+		// movement of trainer
 		InputMap im = itemTable.getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 		im.put(KeyStroke.getKeyStroke("DOWN"), "none");
 		im.put(KeyStroke.getKeyStroke("UP"), "none");
@@ -182,6 +185,7 @@ public class PokedexPanel extends JPanel {
 		info.setLocation(310, 190);
 		this.add(info);
 
+		// set up the using Potion
 		usePotion = new JButton("Use Potion");
 		usePotion.setSize(new Dimension(110, 25));
 		usePotion.setLocation(625, 15);
@@ -217,6 +221,7 @@ public class PokedexPanel extends JPanel {
 			return pokemonList.size();
 		}
 
+		// need three column for number, pokemon name, pokemon ID
 		@Override
 		public int getColumnCount() {
 			return 3;
