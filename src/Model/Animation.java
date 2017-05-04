@@ -3,6 +3,9 @@
  * Filename: Animation.java
  * Purpose:  Animates our sprite sheet as the trainer moves around
  * 			 the map, adjust according to direction and speed.
+ * 			 Credit goes to ForeignGuyMike for his tutorials on
+ *           sprite animation.
+ *           https://www.youtube.com/channel/UC_IV37n-uBpRp64hQIwywWQ
  */
 
 package Model;

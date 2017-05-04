@@ -52,17 +52,21 @@ public abstract class Item implements Serializable {
 		return true;
 	}
 	
+	// increase item count
 	public void addOne(){
 		amount++;
 	}
 	
+	// return amount of a particular item
 	public int amount() {
 		return amount;
 	}
 	
+	// returns the amount the item adjusts the catch rate of a pokemon
 	public int getCatchModifier() {
 		return catchModifier;
 	}
 	
+	// a to string method to see the item as sting
 	public abstract String toString();
 }
