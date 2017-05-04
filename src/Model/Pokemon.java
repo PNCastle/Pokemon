@@ -39,6 +39,10 @@ public abstract class Pokemon implements Comparable<Pokemon>, Serializable {
 		return name;
 	}
 
+	public int getMaxHP() {
+		return maxHP;
+	}
+	
 	public int getHP() {
 		return hp;
 	}

@@ -10,28 +10,25 @@ package View;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.Timer;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import Model.Animation;
-import Model.Map;
 import Model.Pokemon;
-import Model.Trainer;
 
 public class BattlePanel extends JPanel {
 
 	static final int WIDTH = 750;
 	static final int HEIGHT = 550;
 
-	private BufferedImage image;
+	private Pokemon currentPokemon;
 
 	private BufferedImage[] backGround;
+	private BufferedImage hpBar;
 
 	private BufferedImage[] throwingObj;
 	private BufferedImage[] standingStill;
@@ -83,7 +80,10 @@ public class BattlePanel extends JPanel {
 	// construct the images for all the pokemon from the image file pokemonBattleSprites.png
 	public void makePokemon() {
 		try {
-			BufferedImage image = ImageIO.read(new File("pokemonBattleSprites.png"));
+			// pokemon = new BufferedImage[11];
+
+			BufferedImage image = ImageIO
+					.read(new File("pokemonBattleSprites.png"));
 			pokemonInit();
 
 			abra[0] = image.getSubimage(175 * 0, 0, 175, 175);
@@ -142,8 +142,11 @@ public class BattlePanel extends JPanel {
 		try {
 			backGround = new BufferedImage[1];
 
-			BufferedImage image = ImageIO.read(new File("battleBackground.png"));
+			BufferedImage image = ImageIO
+					.read(new File("battleBackground.png"));
 			backGround[0] = image.getSubimage(0, 0, 750, 550);
+
+			hpBar = ImageIO.read(new File("hp/hpfull.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -160,20 +163,23 @@ public class BattlePanel extends JPanel {
 			rockImages = new BufferedImage[5];
 			nullSpace = new BufferedImage[1];
 
-			BufferedImage imageBall = ImageIO.read(new File("ballAnimation.png"));
+			BufferedImage imageBall = ImageIO
+					.read(new File("ballAnimation.png"));
 			nullSpace[0] = imageBall.getSubimage(0, 1100, 750, 550);
 			for (int i = 0; i < 5; i++) {
 				ballImages[i] = imageBall.getSubimage(i * 750, 0, 750, 550);
 			}
-			BufferedImage imageBait = ImageIO.read(new File("baitAnimation.png"));
+			BufferedImage imageBait = ImageIO
+					.read(new File("baitAnimation.png"));
 			for (int i = 0; i < 5; i++) {
 				baitImages[i] = imageBait.getSubimage(i * 750, 0, 750, 550);
 			}
-			BufferedImage imageRock = ImageIO.read(new File("rockAnimation.png"));
+			BufferedImage imageRock = ImageIO
+					.read(new File("rockAnimation.png"));
 			for (int i = 0; i < 5; i++) {
 				rockImages[i] = imageRock.getSubimage(i * 750, 0, 750, 550);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -190,7 +196,8 @@ public class BattlePanel extends JPanel {
 			throwingObj = new BufferedImage[5];
 			standingStill = new BufferedImage[1];
 
-			BufferedImage image = ImageIO.read(new File("maleTrainerBattle.png"));
+			BufferedImage image = ImageIO
+					.read(new File("maleTrainerBattle.png"));
 
 			standingStill[0] = image.getSubimage(0, 0, 192, 195);
 
@@ -240,10 +247,12 @@ public class BattlePanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+
 		g.drawImage(backDrop.getImage(), 0, 0, null);
 		g.drawImage(aerial.getImage(), 0, 0, null);
 		g.drawImage(animation.getImage(), 0, 355, null);
 		g.drawImage(pokemonAni.getImage(), 435, 200, null);
+		g.drawImage(hpBar, 0, 150, 400, 81, null);
 	}
 
 	// begin throwing our aerial object
@@ -264,11 +273,58 @@ public class BattlePanel extends JPanel {
 		aerial.setFrames(nullSpace);
 		aerial.setDelay(-1);
 		aerial.update();
-		
-		
-		
+
 	}
 
+	public void updateHPBar() {
+		double hpPercent = (double) currentPokemon.getHP()
+				/ (double) currentPokemon.getMaxHP();
+		
+		if (currentPokemon != null) {
+			if (currentPokemon.getHP() == currentPokemon.getMaxHP()) {
+				try {
+					hpBar = ImageIO.read(new File("hp/hpfull.png"));
+				} catch (IOException e) {
+				}
+			}
+
+			else if (hpPercent <= 0.8 && hpPercent > 0.7) {
+				try {
+					hpBar = ImageIO.read(new File("hp/hp80.png"));
+				} catch (IOException e) {
+				}
+			}
+
+			else if (hpPercent <= 0.7 && hpPercent > 0.5) {
+				try {
+					hpBar = ImageIO.read(new File("hp/hp70.png"));
+				} catch (IOException e) {
+				}
+			}
+
+			else if (hpPercent <= 0.5 && hpPercent > 0.3) {
+				try {
+					hpBar = ImageIO.read(new File("hp/hp50.png"));
+				} catch (IOException e) {
+				}
+			}
+
+			else if (hpPercent <= 0.3 && hpPercent > 0.1) {
+				try {
+					hpBar = ImageIO.read(new File("hp/hp30.png"));
+				} catch (IOException e) {
+				}
+			}
+
+			else if (hpPercent <= 0.1) {
+				try {
+					hpBar = ImageIO.read(new File("hp/hp10.png"));
+				} catch (IOException e) {
+				}
+			}
+		}
+	}
+	
 	// initialize all pokemon image arrays
 	private void pokemonInit() {
 
@@ -290,4 +346,54 @@ public class BattlePanel extends JPanel {
 		this.toSpawn = currentPokemonID;
 	}
 
+	public void setPokemon(Pokemon currentPokemon) {
+		if (currentPokemon.getHP() == currentPokemon.getMaxHP()) {
+			try {
+				hpBar = ImageIO.read(new File("hp/hpfull.png"));
+			} catch (IOException e) {
+			}
+		}
+
+		else if ((double) (currentPokemon.getHP()
+				/ currentPokemon.getMaxHP()) <= 0.8) {
+			try {
+				hpBar = ImageIO.read(new File("hp/hp80.png"));
+			} catch (IOException e) {
+			}
+		}
+
+		else if ((double) (currentPokemon.getHP()
+				/ currentPokemon.getMaxHP()) <= 0.7) {
+			try {
+				hpBar = ImageIO.read(new File("hp/hp70.png"));
+			} catch (IOException e) {
+			}
+		}
+
+		else if ((double) (currentPokemon.getHP()
+				/ currentPokemon.getMaxHP()) <= 0.5) {
+			try {
+				hpBar = ImageIO.read(new File("hp/hp50.png"));
+			} catch (IOException e) {
+			}
+		}
+
+		else if ((double) (currentPokemon.getHP()
+				/ currentPokemon.getMaxHP()) <= 0.3) {
+			try {
+				hpBar = ImageIO.read(new File("hp/hp30.png"));
+			} catch (IOException e) {
+			}
+		}
+
+		else if ((double) (currentPokemon.getHP()
+				/ currentPokemon.getMaxHP()) <= 0.1) {
+			try {
+				hpBar = ImageIO.read(new File("hp/hp10.png"));
+			} catch (IOException e) {
+			}
+		}
+
+		this.currentPokemon = currentPokemon;
+	}
 }

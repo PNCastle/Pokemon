@@ -737,6 +737,12 @@ public class Trainer extends Observable {
 		return this.map;
 	}
 	
+	//this method is used for testing
+	public void setHasBikeNItem(boolean hasBike) {
+		this.hasBike = hasBike;
+		this.hasItem = hasBike;
+	}
+
 	//for testing purposes
 	public ArrayList<Pokemon> getCommon(){
 		return this.commonCollection;

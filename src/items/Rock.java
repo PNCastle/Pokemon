@@ -18,7 +18,7 @@ public class Rock extends Item implements Serializable {
 	
 	// Placeholder values, to determine later
 	public Rock() {
-		super(true, -1, -2, 5, name);
+		super(true, -1, -4, 5, name);
 	}
 
 	@Override

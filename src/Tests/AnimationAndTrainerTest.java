@@ -81,12 +81,18 @@ public class AnimationAndTrainerTest {
 		ashe.setRight(false);		
 		
 		Trainer ketchum = new Trainer(theMap, toLoad);
+		
 		ketchum.setDx(-1);
 		ketchum.update();
 		ketchum.setDx(1);
 		ketchum.update();
 		ketchum.setDy(-1);
 		ketchum.update();
+		ketchum.setDy(1);
+		ketchum.setHasBikeNItem(true);
+		ketchum.update();
+		
+		ketchum.setUp(true);
 		ketchum.setDy(1);
 		ketchum.update();
 		
@@ -95,6 +101,8 @@ public class AnimationAndTrainerTest {
 		ashe.setCurrentPokemon(.93);
 		ashe.setCurrentPokemon(.99);
 		ashe.setCurrentPokemon(.9);
+		ashe.setHasBikeNItem(true);
+		ashe.update();
 		
 		
 		BufferedImage image = null;
