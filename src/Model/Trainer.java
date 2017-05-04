@@ -457,7 +457,7 @@ public class Trainer extends Observable {
 			stepsTaken++;
 			setChanged();
 			notifyObservers(stepsTaken);
-			if (spawning && (dx != 0 || dy != 0)) {
+			if (spawning && (dx != 0 || dy != 0) && !isOnBike) {
 				double prob = Math.random();
 				System.out.println(prob);
 				if (prob >= .85) {
@@ -475,7 +475,7 @@ public class Trainer extends Observable {
 			stepsTaken++;
 			setChanged();
 			notifyObservers(stepsTaken);
-			if (spawning && (dx != 0 || dy != 0)) {
+			if (spawning && (dx != 0 || dy != 0) && !isOnBike) {
 				double prob = Math.random();
 				System.out.println(prob);
 				if (prob >= .85) {
@@ -723,10 +723,10 @@ public class Trainer extends Observable {
 	public void mountBike() {
 		if (this.items.get(3).amount() != 0) {
 			this.isOnBike = true;
-			this.acceleration = 2;
-			this.maxVelocity = 20;
+			this.acceleration = 5;
+			this.maxVelocity = 25;
 
-			this.friction = .5;
+			this.friction = 3;
 			switchImages(trainerBiking);
 		}
 	}
