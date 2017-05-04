@@ -1,3 +1,10 @@
+/*
+ * Authors:  Paul Castleberry, Angel Burr, Sohyun Kim, Isaac Kim
+ * Filename: BattlePanel.java
+ * Purpose:  The interior battle panel of the GUI. Contains the panel for all graphics
+ * 			 to be drawn.
+ */
+
 package View;
 
 import java.awt.Color;
@@ -23,10 +30,6 @@ public class BattlePanel extends JPanel {
 	static final int HEIGHT = 550;
 
 	private BufferedImage image;
-	// private Graphics2D g;
-
-//	private Map theMap;
-//	private Trainer theTrainer;
 
 	private BufferedImage[] backGround;
 
@@ -56,6 +59,7 @@ public class BattlePanel extends JPanel {
 
 	private int toSpawn;
 
+	//ctor
 	public BattlePanel() {
 
 		makeTrainer();
@@ -76,10 +80,9 @@ public class BattlePanel extends JPanel {
 
 	}
 
+	// construct the images for all the pokemon from the image file pokemonBattleSprites.png
 	public void makePokemon() {
 		try {
-			// pokemon = new BufferedImage[11];
-
 			BufferedImage image = ImageIO.read(new File("pokemonBattleSprites.png"));
 			pokemonInit();
 
@@ -134,6 +137,7 @@ public class BattlePanel extends JPanel {
 
 	}
 
+	// paint the background image for the battle panel
 	private void makeBackground() {
 		try {
 			backGround = new BufferedImage[1];
@@ -148,6 +152,7 @@ public class BattlePanel extends JPanel {
 		backDrop.update();
 	}
 
+	// construct the various image arrays for all of our throwing animations
 	private void makeThrowAnimations() {
 		try {
 			ballImages = new BufferedImage[5];
@@ -179,6 +184,7 @@ public class BattlePanel extends JPanel {
 		aerial.update();
 	}
 
+	// construct the image array for the trainer in battle for animation of throws
 	private void makeTrainer() {
 		try {
 			throwingObj = new BufferedImage[5];
@@ -210,6 +216,7 @@ public class BattlePanel extends JPanel {
 
 	}
 
+	// dictates which object to throw and starts the animation
 	public void throwObject(String string) {
 		animation.setFrames(throwingObj);
 		animation.setDelay(200);
@@ -229,6 +236,7 @@ public class BattlePanel extends JPanel {
 
 	}
 
+	// required painting of all images
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -238,10 +246,12 @@ public class BattlePanel extends JPanel {
 		g.drawImage(pokemonAni.getImage(), 435, 200, null);
 	}
 
+	// begin throwing our aerial object
 	public void throwAerial() {
 		aerial.update();
 	}
 
+	// reset the throwing animations to the starting frame
 	public void doneThrowing() {
 		animation.setFrames(standingStill);
 		animation.setDelay(-1);
@@ -249,6 +259,7 @@ public class BattlePanel extends JPanel {
 
 	}
 
+	// reset the thrown object to the starting frame(empty/null space)
 	public void doneThrowingAerial() {
 		aerial.setFrames(nullSpace);
 		aerial.setDelay(-1);
@@ -258,6 +269,7 @@ public class BattlePanel extends JPanel {
 		
 	}
 
+	// initialize all pokemon image arrays
 	private void pokemonInit() {
 
 		abra = new BufferedImage[1];
@@ -273,6 +285,7 @@ public class BattlePanel extends JPanel {
 
 	}
 
+	// inform the battle panel which pokemon is about to spawn
 	public void setToSpawn(int currentPokemonID) {
 		this.toSpawn = currentPokemonID;
 	}

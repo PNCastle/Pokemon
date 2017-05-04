@@ -83,8 +83,9 @@ public class Map {
 	}
 	
 	// loadTiles will accept the name of a file as a string then walk through
-	// the the image file and assign sub images and tile type (ie blocked)
-	// for each tile type. Currently 4 50x50 sub images.
+	// the the image file and assign sub images and tile type (ie blocked, spawnable
+	// is item)
+	// for each tile type. Currently 6 50x50 sub images.
 	public void loadTiles(String fileName) {
 		
 		try {
@@ -136,6 +137,8 @@ public class Map {
 	// 1 = short grass
 	// 2 = tall grass
 	// 3 = tree(blocked)
+	// 4 = item(pokeball)
+	// 5 = bike
 	public void draw(Graphics2D g) {
 		
 		for(int row = 0; row < mapHeight; row++) {
@@ -155,16 +158,19 @@ public class Map {
 		return tiles[rc].isBlocked();
 	}
 	
+	// getter for whether tile at (col,row) is spawnable
 	public boolean isSpawnable(int col, int row){
 		int rc = tempMap[row][col];
 		return tiles[rc].isSpawnable();
 	}
 	
+	// getter for whether tile at (col,row) has an item
 	public boolean hasItem(int col, int row){
 		int rc = tempMap[row][col];
 		return tiles[rc].hasItem();
 	}
 	
+	// getter for whether tile at (col,row) has a bike
 	public boolean hasBike(int col, int row){
 		int rc = tempMap[row][col];
 		return tiles[rc].hasBike();
@@ -209,10 +215,12 @@ public class Map {
 		return tempMap[y][x];
 	}
 	
+	// getter for the map
 	public int[][] getMap() {
 		return tempMap;
 	}
 	
+	// set the map instance variables
 	public void setMap(int[][] newMap) {
 		this.currentMap = newMap;
 		this.tempMap = newMap;
@@ -239,6 +247,7 @@ public class Map {
 		rareCollection.add(new Dragonair(148));
 	}
 
+	// remove an item from the list and currRow,currCol
 	public void removeItem(int currRow, int currCol) {
 		int rc = tempMap[currRow][currCol];
 		if(rc == 4 || rc == 5){
