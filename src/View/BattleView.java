@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
 
@@ -31,9 +30,6 @@ public class BattleView extends JPanel implements Observer {
 	private JButton rockButton;
 	private JButton baitButton;
 	private JButton runButton;
-	private JProgressBar hpBar;
-	
-	private int maxHP;
 	
 	public BattleView(int width, int height) {
 		//basic set up
@@ -78,15 +74,12 @@ public class BattleView extends JPanel implements Observer {
 		ballButton.addActionListener(new ButtonListener());
 		runButton.addActionListener(new ButtonListener());
 		
-		hpBar = new JProgressBar();
-		hpBar.setValue(0);
 		
 		this.add(baitButton);
 		this.add(ballButton);
 		this.add(rockButton);
 		this.add(runButton);
 		this.add(battleInfo);
-		this.add(hpBar);
 		
 	//	update(theTrainer, 0);
 		
@@ -104,8 +97,6 @@ public class BattleView extends JPanel implements Observer {
 			battlePanel.makePokemon();
 			battleInfo.setText("\n  A wild " + theTrainer.getCurrentPokemon().getName() 
 								+ " appeared!");
-			maxHP = theTrainer.getCurrentPokemon().getHP();
-			hpBar.setValue((theTrainer.getCurrentPokemon().getHP() / maxHP) * 100);
 		}
 		
 	}
