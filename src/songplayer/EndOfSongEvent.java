@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
+ * Taken from the Jukebox project
+ * 
  * An instance of this class is needed to create an EndOfSongListener to pass as
  * an argument to the listener. This provides the programmer with the ability to
  * get the name of the audio file, the date and the time when the song is done.

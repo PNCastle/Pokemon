@@ -1,4 +1,6 @@
 /**
+ * Taken from the Jukebox project
+ * 
  * This class allows songs to be played in separate threads so they can
  * play concurrently. It is also possible to register and EndOfSongListener
  * to each new instance of this class so the client code knows when the song

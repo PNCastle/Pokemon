@@ -1,6 +1,8 @@
 package songplayer;
 
 /**
+ * Taken from the Jukebox project
+ * 
  * SongPlayer has two static methods that allow an audio file to be played
  * through the output device. The first one
  * 
