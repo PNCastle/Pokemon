@@ -94,6 +94,7 @@ public class BattleView extends JPanel implements Observer {
 		if (anInt == -1) {
 			setButtonsClickable(true);
 			battlePanel.setToSpawn(theTrainer.getCurrentPokemonID());
+			battlePanel.setPokemon(theTrainer.getCurrentPokemon());
 			battlePanel.makePokemon();
 			battleInfo.setText("\n  A wild " + theTrainer.getCurrentPokemon().getName() 
 								+ " appeared!");
@@ -148,7 +149,8 @@ public class BattleView extends JPanel implements Observer {
 						((Timer) e.getSource()).stop();
 						count2 = 0;
 						battlePanel.doneThrowingAerial();
-						aerialAniDone = true;						
+						aerialAniDone = true;		
+						battlePanel.updateHPBar();
 					}
 				}
 			}
