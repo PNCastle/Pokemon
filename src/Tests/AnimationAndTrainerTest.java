@@ -92,6 +92,11 @@ public class AnimationAndTrainerTest {
 		
 		ashe.toSerialize();
 		
+		ashe.setCurrentPokemon(.93);
+		ashe.setCurrentPokemon(.99);
+		ashe.setCurrentPokemon(.9);
+		
+		
 		BufferedImage image = null;
 		try {
 			image = ImageIO.read(new File("trainerOneTrans.png"));
@@ -115,6 +120,17 @@ public class AnimationAndTrainerTest {
 		Animation animation = new Animation();
 		animation.setFrames(standingDown);
 		animation.getImage();
+	}
+	
+	@Test
+	public void test2(){
+		Map theMap = new Map(mapFile, 50);
+		theMap.loadTiles(imageFile);
+		Trainer ashe = new Trainer(theMap);
+		ashe.getMap().removeItem(38, 23);
+		BufferedImage image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g = (Graphics2D) image.getGraphics();
+		ashe.draw(g);
 	}
 
 }
