@@ -1,3 +1,11 @@
+/*
+ * Authors:  Paul Castleberry, Angel Burr, Sohyun Kim, Isaac Kim
+ * Filename: BattleView.java
+ * Purpose:  The view of battles held inside the GUI. Contains all the
+ * 			 buttons and a text area with battle updates along with the 
+ * 		     battlePanel with all the graphics 			 
+ */
+
 package View;
 
 import java.awt.Color;
@@ -31,6 +39,7 @@ public class BattleView extends JPanel implements Observer {
 	private JButton baitButton;
 	private JButton runButton;
 	
+	//ctor
 	public BattleView(int width, int height) {
 		//basic set up
 		this.setLayout(null);
@@ -74,17 +83,17 @@ public class BattleView extends JPanel implements Observer {
 		ballButton.addActionListener(new ButtonListener());
 		runButton.addActionListener(new ButtonListener());
 		
-		
 		this.add(baitButton);
 		this.add(ballButton);
 		this.add(rockButton);
 		this.add(runButton);
 		this.add(battleInfo);
 		
-	//	update(theTrainer, 0);
 		
 	}
 
+	// -1 tells this observer that its time to initiate battle view and draw the pokemon
+	// image
 	@Override
 	public void update(Observable o, Object arg) {
 		int anInt = (int) arg;
@@ -102,6 +111,7 @@ public class BattleView extends JPanel implements Observer {
 		
 	}
 	
+	// a helper method to disable all buttons at once during throw animation
 	private void setButtonsClickable(boolean canClick) {
 		this.ballButton.setEnabled(canClick);
 		this.baitButton.setEnabled(canClick);
@@ -111,14 +121,10 @@ public class BattleView extends JPanel implements Observer {
 		
 	private class ButtonListener implements ActionListener {
 		
-
-		
-//		Timer timer = new Timer(flags, null);
 		int count = 0; //counter for player sprite
 		int count2 = 0; //counter for aerial object sprite
-		
-		
-		
+			
+		// a timer for the throwing animation of the trainer
 		private Timer makeTimer(String str){
 			return new Timer(275, new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -138,6 +144,7 @@ public class BattleView extends JPanel implements Observer {
 		
 		private boolean aerialAniDone = true;
 		
+		// a timer for the movement of the object 
 		Timer aerialTimer = new Timer(350, new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				aerialAniDone = false;
@@ -157,23 +164,26 @@ public class BattleView extends JPanel implements Observer {
 			
 		});
 
-		
+		// the action events various buttons and the respective action
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			JButton buttonClicked = (JButton) arg0.getSource();
 			
 			Pokemon currentPokemon = theTrainer.getCurrentPokemon();
 			
+			// a thread for our buttons, to dictate when to toggle on and off
 			ButtonsOffThread buttonsRunner = new ButtonsOffThread();
 			Thread buttonWaiter = new Thread(buttonsRunner);
 			
+			// a thread for our animation to run before the pokemon runs
 			RunAnimThread runAnimThread = new RunAnimThread();
 			Thread runAnimWaiter = new Thread(runAnimThread);
 			
+			// a thread for the pokeball animation to occur before the pokemon is caught
 			CatchAnimThread catchAnimThread = new CatchAnimThread();
 			Thread catchAnimWaiter = new Thread(catchAnimThread);
 			
-			
+			// for rock, increase chance to catch but increase chance to run
 			if (buttonClicked.getText().equals("Rock")) {
 				buttonWaiter.start();
 				Timer rockTimer = makeTimer("Rock");
@@ -188,6 +198,7 @@ public class BattleView extends JPanel implements Observer {
 					battleInfo.setText("\n  "+currentPokemon.getName() + " glares at you...");
 			} 
 			
+			// for bait, decrease chance to run but decrease change to catch
 			if (buttonClicked.getText().equals("Bait")) {
 				buttonWaiter.start();
 				Timer baitTimer = makeTimer("Bait");
@@ -202,6 +213,7 @@ public class BattleView extends JPanel implements Observer {
 					battleInfo.setText("\n  "+currentPokemon.getName() + " glares at you...");
 			}
 			
+			// for pokeball
 			if (buttonClicked.getText().equals("Pokeball")) {
 				buttonWaiter.start();
 				Timer ballTimer = makeTimer("Pokeball");
@@ -211,19 +223,17 @@ public class BattleView extends JPanel implements Observer {
 							
 				theTrainer.getCurrentPokemon().useItem(theTrainer.getItemsList().get(0));
 				
-				//int pokemonCatchRate = (int)
+				// generate a random number to determine if we caught the pokemon
 				Random random = new Random();
 				int theRand = random.nextInt(450);
 				double maybeCatch = theRand / 1000.0;
 				double catchProb = currentPokemon.getCatchProbability();
 				System.out.println("RNG = " + maybeCatch + " CatchProb = " + catchProb);
 				if (maybeCatch <= catchProb) {	
-					//pokemon into pokeball animation
+					//pokemon into pokeball animation, no time fo rthis
 					buttonWaiter.stop();
 					setButtonsClickable(false);
 					catchAnimWaiter.start();
-					
-					
 				} else
 				if (currentPokemon.pokemonRun()) {
 					buttonWaiter.stop();
@@ -233,6 +243,7 @@ public class BattleView extends JPanel implements Observer {
 					battleInfo.setText("\n  "+currentPokemon.getName() + " glares at you...");
 			}
 			
+			// for run being clicked
 			if (buttonClicked.getText().equals("Run")) {
 				theTrainer.ran();
 			}
@@ -240,6 +251,7 @@ public class BattleView extends JPanel implements Observer {
 		}		
 	}
 	
+	// the thread class for our catch animation
 	private class CatchAnimThread implements Runnable {
 		Pokemon currentPokemon = theTrainer.getCurrentPokemon();
 
@@ -267,6 +279,7 @@ public class BattleView extends JPanel implements Observer {
 		
 	}
 	
+	// a thread for the animation before a pokemon runs
 	private class RunAnimThread implements Runnable {
 		Pokemon currentPokemon = theTrainer.getCurrentPokemon();
 		@Override
@@ -285,6 +298,8 @@ public class BattleView extends JPanel implements Observer {
 		}
 	}
 	
+	// a thread to turn off our buttons for the time it takes our animation to run
+	// whatever the animation may be
 	private class ButtonsOffThread implements Runnable {
 
 		@Override

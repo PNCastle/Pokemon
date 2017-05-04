@@ -106,6 +106,7 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 					System.err.println("Could not read persistence file");
 				}
 			} else {
+				// select between maps
 				Object[] mapChoice = { "Map 2", "Map 1" };
 
 				int retMap = JOptionPane.showOptionDialog(null, "Which map would you like to start with?",
@@ -120,6 +121,7 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 				battleView = new BattleView(WIDTH, HEIGHT);
 			}
 		} else {
+			// else choose other map
 			Object[] mapChoice = { "Map 2", "Map 1" };
 
 			int retMap = JOptionPane.showOptionDialog(null, "Which map would you like to start with?",
@@ -132,7 +134,7 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 			}
 			battleView = new BattleView(WIDTH, HEIGHT);
 		}
-		
+		// choose your win condition
 		Object[] winConditionChoice = { "Catch one of each Pokemon", "Catch 20 total Pokemon"};
 		int retWinCond = JOptionPane.showOptionDialog(null, "Choose win condition.",
 				"Select an Option", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, winConditionChoice,
@@ -187,6 +189,8 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 		this.addWindowListener(exit);
 	}
 
+	// handles the playing of music both in battle and on the map view
+	// the songs repeat if they reach their conclusion
 	private void music() {
 		mapMusicListener = new EndOfSongListener() {
 
@@ -216,6 +220,9 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 	// game, and others
 	private void setUpMenus() {
 		JMenuItem menu = new JMenu("Options");
+		JMenuItem controls = new JMenu("Controls");
+		JMenuItem theControls = new JMenuItem("Arrow keys to move -- \'B\' to use bike");
+		controls.add(theControls);
 		JMenuItem newGame = new JMenuItem("New Game");
 		menu.add(newGame);
 		JMenuItem saveGame = new JMenuItem("Save Game");
@@ -236,6 +243,7 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 		JMenuItem hidePokedex = new JMenuItem("Hide Pokedex");
 		pokedex.add(viewPokedex);
 		pokedex.add(hidePokedex);
+		menu.add(controls);
 
 		JMenuItem stepCount = new JMenu("Step Count: " + mapView.getTrainer().getStepCount());
 		stepCount.setEnabled(false);
@@ -248,6 +256,7 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 		menuBar.add(stepCount);
 
 		// add listeners
+		//controls.addActionListener(this);
 		menu.addActionListener(this);
 		newGame.addActionListener(this);
 		saveGame.addActionListener(this);
@@ -345,6 +354,7 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 			}
 		}
 
+		// the ability to forfeit the game is offered here
 		if (text.equals("Forfeit")) {
 			JOptionPane.showMessageDialog(null, "Game Over!");
 			this.setViewTo(new PokedexPanel(mapView.getTrainer()));
@@ -353,29 +363,30 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 			repaint();
 		}
 
+		// makes trainer panel visible
 		if (text.equals("View Trainer")) {
 			mapView.setSecondaryView(0);
 			this.requestFocus();
 		}
 
+		// hides the trainer panel
 		if (text.equals("Hide Trainer")) {
 			mapView.setSecondaryView(1);
 			this.requestFocus();
 		}
 
-		if (text.equals("Battle Start")) {
-			// mapView.animateOut(this, battleView);
-		}
-
+		// battle is over, switch back to map view
 		if (text.equals("Battle End")) {
 			mapView.enableMapPanel();
 		}
 
+		// makes pokedex panel visible
 		if (text.equals("View Pokedex")) {
 			mapView.setSecondaryView(2);
 			this.requestFocus();
 		}
 
+		// hides the pokedex panel
 		if (text.equals("Hide Pokedex")) {
 			mapView.setSecondaryView(3);
 			this.requestFocus();
@@ -383,6 +394,7 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 
 	}
 
+	// an update for the music player, replays music when the endOfSongListener fires
 	@SuppressWarnings("deprecation")
 	@Override
 	public void update(Observable o, Object arg) {
@@ -405,12 +417,6 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 			mapView.enableMapPanel();
 			setViewTo(mapView);
 		}
-	}
-
-	// unused, ignore for now
-	// may be used in iteration 2
-	@Override
-	public void keyTyped(KeyEvent key) {
 	}
 
 	// listen for any of the arrow keys being pressed
@@ -507,6 +513,13 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 
 			}
 		}
+	}
+
+	// unused
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

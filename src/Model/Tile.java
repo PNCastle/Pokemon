@@ -36,14 +36,17 @@ public class Tile {
 		return this.blocked;
 	}
 
+	// a getter for whether this tile is spawnable
 	public boolean isSpawnable() {
 		return this.spawnable;
 	}
 
+	// a getter for whether this item contains an item
 	public boolean hasItem() {
 		return this.hasItem;
 	}
 
+	// a getter for whether this item contains a bike
 	public boolean hasBike() {
 		return this.hasBike;
 	}

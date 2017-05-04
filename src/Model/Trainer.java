@@ -115,9 +115,9 @@ public class Trainer extends Observable {
 	private boolean gameOver; // true when game is over
 
 	private ArrayList<Pokemon> pokeDex; //list of pokemon that trainer has caught
-	private ArrayList<CommonPokemon> commonCollection; //list of common pokemon that exist in the game
-	private ArrayList<UncommonPokemon> uncommonCollection; //list of uncommon pokemon that exist in the game
-	private ArrayList<RarePokemon> rareCollection; //list of rare pokemon that exist in the game
+	private ArrayList<Pokemon> commonCollection; //list of common pokemon that exist in the game
+	private ArrayList<Pokemon> uncommonCollection; //list of uncommon pokemon that exist in the game
+	private ArrayList<Pokemon> rareCollection; //list of rare pokemon that exist in the game
 	private ArrayList<Item> items; //list of items that trainer currently has
 
 	// this is set to pokemon that trainer encounters
@@ -296,9 +296,9 @@ public class Trainer extends Observable {
 	// initializes all lists currently stored in the trainer
 	public void initCollections() {
 		pokeDex = new ArrayList<Pokemon>();
-		commonCollection = new ArrayList<CommonPokemon>();
-		uncommonCollection = new ArrayList<UncommonPokemon>();
-		rareCollection = new ArrayList<RarePokemon>();
+		commonCollection = new ArrayList<Pokemon>();
+		uncommonCollection = new ArrayList<Pokemon>();
+		rareCollection = new ArrayList<Pokemon>();
 		items = new ArrayList<Item>();
 
 		items.add(new SafariBall());
@@ -457,7 +457,7 @@ public class Trainer extends Observable {
 			stepsTaken++;
 			setChanged();
 			notifyObservers(stepsTaken);
-			if (spawning && (dx != 0 || dy != 0)) {
+			if (spawning && (dx != 0 || dy != 0) && !isOnBike) {
 				double prob = Math.random();
 				System.out.println(prob);
 				if (prob >= .85) {
@@ -475,7 +475,7 @@ public class Trainer extends Observable {
 			stepsTaken++;
 			setChanged();
 			notifyObservers(stepsTaken);
-			if (spawning && (dx != 0 || dy != 0)) {
+			if (spawning && (dx != 0 || dy != 0) && !isOnBike) {
 				double prob = Math.random();
 				System.out.println(prob);
 				if (prob >= .85) {
@@ -723,10 +723,10 @@ public class Trainer extends Observable {
 	public void mountBike() {
 		if (this.items.get(3).amount() != 0) {
 			this.isOnBike = true;
-			this.acceleration = 2;
-			this.maxVelocity = 20;
+			this.acceleration = 5;
+			this.maxVelocity = 25;
 
-			this.friction = .5;
+			this.friction = 3;
 			switchImages(trainerBiking);
 		}
 	}
@@ -735,6 +735,21 @@ public class Trainer extends Observable {
 	//used for testing purposes
 	public Map getMap(){
 		return this.map;
+	}
+	
+	//for testing purposes
+	public ArrayList<Pokemon> getCommon(){
+		return this.commonCollection;
+	}
+	
+	//for testing purposes
+	public ArrayList<Pokemon> getRare(){
+		return this.rareCollection;
+	}
+	
+	//for testing purposes
+	public ArrayList<Pokemon> getUncommon(){
+		return this.uncommonCollection;
 	}
 
 }
