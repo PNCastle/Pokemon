@@ -12,7 +12,8 @@ package Model;
 import java.io.Serializable;
 import java.util.Random;
 
-public abstract class Pokemon implements Serializable {
+public abstract class Pokemon implements Comparable<Pokemon>, Serializable {
+
 	private int catchRate, hp, runProbability, maxHP, speed;
 	private double catchProbability, encounterRate;
 	private String name, type, pokePicName, info;
@@ -180,4 +181,9 @@ public abstract class Pokemon implements Serializable {
 	}
 	
 	public abstract int getPokemonID();
+	
+	@Override
+	public int compareTo(Pokemon other){
+		return this.getPokemonID() - other.getPokemonID();
+	}
 }

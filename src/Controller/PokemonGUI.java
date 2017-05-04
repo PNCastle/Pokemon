@@ -132,6 +132,17 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 			}
 			battleView = new BattleView(WIDTH, HEIGHT);
 		}
+		
+		Object[] winConditionChoice = { "Catch one of each Pokemon", "Catch 20 total Pokemon"};
+		int retWinCond = JOptionPane.showOptionDialog(null, "Choose win condition.",
+				"Select an Option", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, winConditionChoice,
+				null);
+		if(retWinCond == JOptionPane.YES_OPTION){
+			mapView.setWinCondition("catchEmAll");
+		}
+		else{
+			mapView.setWinCondition("catchTwenty");
+		}
 
 		// add mapView as an observer of the trainer
 		theTrainer = mapView.getTrainer();
@@ -409,6 +420,14 @@ public class PokemonGUI extends JFrame implements ActionListener, Observer, KeyL
 	@Override
 	public void keyPressed(KeyEvent key) {
 		int code = key.getKeyCode();
+		if(code == KeyEvent.VK_B){
+			if(theTrainer.isOnBike()){
+				theTrainer.dismountBike();
+			}
+			else{
+				theTrainer.mountBike();
+			}
+		}
 		if (code == KeyEvent.VK_LEFT) {
 			theTrainer.setLeft(true);
 			// set other directions to false

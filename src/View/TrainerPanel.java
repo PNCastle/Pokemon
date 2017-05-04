@@ -104,7 +104,7 @@ public class TrainerPanel extends JPanel {
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(550, 100));
 		panel.setLocation(200, 200);
-		
+
 	}
 
 	private class ItemTableModel implements TableModel {

@@ -127,7 +127,10 @@ public class MapView extends JPanel implements Observer {
 		pokedexPanel.updateTrainer(getTrainer());
 		
 		if (type == 0){
-			if (!trainerPanel.isVisible() && !pokedexPanel.isVisible()){
+			if (!trainerPanel.isVisible()){
+				if (pokedexPanel.isVisible()){
+					pokedexPanel.setVisible(false);
+				}
 				trainerPanel.repaint();
 				trainerPanel.setVisible(true);
 			}
@@ -138,7 +141,10 @@ public class MapView extends JPanel implements Observer {
 			}
 		}
 		if (type == 2) {
-			if (!trainerPanel.isVisible() && !pokedexPanel.isVisible()){
+			if (!pokedexPanel.isVisible()){
+				if (trainerPanel.isVisible()){
+					trainerPanel.setVisible(false);
+				}
 				pokedexPanel.repaint();
 				pokedexPanel.setVisible(true);
 			}
@@ -161,5 +167,9 @@ public class MapView extends JPanel implements Observer {
 	//getter method for trainer
 	public Trainer getTrainer() {
 		return mapPanel.getTrainer();
+	}
+
+	public void setWinCondition(String string) {
+		mapPanel.setWinCondition(string);
 	}
 }
