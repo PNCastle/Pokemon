@@ -132,5 +132,15 @@ public class AnimationAndTrainerTest {
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		ashe.draw(g);
 	}
+	
+	@Test
+	public void test3(){
+		Map theMap = new Map(mapFile, 50);
+		theMap.loadTiles(imageFile);
+		Trainer ashe = new Trainer(theMap);
+		ashe.getPokedex().addAll(ashe.getRare());
+		ashe.getPokedex().addAll(ashe.getCommon());
+		ashe.getPokedex().addAll(ashe.getUncommon());
+	}
 
 }
