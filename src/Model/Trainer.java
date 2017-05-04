@@ -736,5 +736,11 @@ public class Trainer extends Observable {
 	public Map getMap(){
 		return this.map;
 	}
+	
+	//this method is used for testing
+	public void setHasBikeNItem(boolean hasBike) {
+		this.hasBike = hasBike;
+		this.hasItem = hasBike;
+	}
 
 }
